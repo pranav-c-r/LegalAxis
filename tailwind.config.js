@@ -1,3 +1,4 @@
+// tailwind.config.js
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -7,10 +8,24 @@ export default {
   theme: {
     extend: {
       colors: {
-        'primary': '#FFE45E',
-        'secondary': '#AAA1C8',
-        'tertiary': '#84BC9C',
-        'quaternary': '#1C7293',
+        primary: '#A9CEF4',
+        secondary: '#7EA0B7',
+        accent: '#597081',
+        background: '#36494E',
+      },
+      animation: {
+        'fadeIn': 'fadeIn 0.6s ease-out',
+        'slideIn': 'slideIn 0.4s ease-out',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        slideIn: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(0)' },
+        },
       },
     },
   },

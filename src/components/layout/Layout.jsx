@@ -1,3 +1,4 @@
+// Layout.jsx
 import { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
@@ -33,7 +34,7 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-quaternary">
+    <div className="flex flex-col min-h-screen bg-[#36494E]">
       <Navbar toggleSidebar={toggleSidebar} />
       <div className="flex flex-1 pt-16">
         <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />

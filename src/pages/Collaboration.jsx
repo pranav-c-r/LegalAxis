@@ -1,3 +1,4 @@
+// Collaboration.jsx
 import React from 'react';
 import { ActivityFeed, ApprovalWorkflow, CommentThread, SharingControls } from '../components/collaboration';
 
@@ -21,7 +22,7 @@ const Collaboration = () => {
           id: 'reply-1',
           author: { name: 'Robert Johnson', initials: 'RJ' },
           text: 'Agreed. I will draft alternative language for that section.',
-          timestamp: '1 hour ago'
+      timestamp: '1 hour ago'
         }
       ]
     },
@@ -133,23 +134,30 @@ const Collaboration = () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Document Collaboration</h1>
+      <h1 className="text-3xl font-bold bg-gradient-to-r from-[#A9CEF4] to-[#7EA0B7] bg-clip-text text-transparent mb-6">
+        Document Collaboration
+      </h1>
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">{sampleDocument.name}</h2>
-            <div className="flex items-center space-x-3 mb-6">
-              <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-quaternary/10 text-quaternary">
-                {sampleDocument.type}
-              </span>
-              <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                {sampleDocument.status}
-              </span>
+          <div className="card">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-semibold text-white">{sampleDocument.name}</h2>
+              <div className="flex items-center space-x-3">
+                <span className="px-3 py-1 rounded-full text-xs font-medium bg-[#A9CEF4]/20 text-[#A9CEF4] border border-[#A9CEF4]/30">
+                  {sampleDocument.type}
+                </span>
+                <span className="px-3 py-1 rounded-full text-xs font-medium bg-yellow-500/20 text-yellow-300 border border-yellow-500/30">
+                  {sampleDocument.status}
+                </span>
+              </div>
             </div>
             
-            <div className="border-t border-gray-200 pt-4">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Comments</h3>
+            <div className="border-t border-white/10 pt-6">
+              <h3 className="text-xl font-semibold text-white mb-6 flex items-center">
+                <div className="w-2 h-6 bg-gradient-to-b from-[#A9CEF4] to-[#7EA0B7] rounded-full mr-3"></div>
+                Comments
+              </h3>
               <CommentThread comments={sampleComments} documentId={sampleDocument.id} />
             </div>
           </div>

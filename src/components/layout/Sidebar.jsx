@@ -112,7 +112,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
             <li key={index}>
               <NavLink
                 to={item.path}
-                className={({ isActive }) => `flex items-center p-2 rounded-lg ${isActive ? 'bg-quaternary/10 text-quaternary' : 'text-gray-900 hover:bg-gray-100'} ${isOpen ? '' : 'justify-center'}`}
+                className={({ isActive }) => `nav-link ${isActive ? 'active' : ''} ${isOpen ? '' : 'justify-center'}`}
               >
                 <span className="text-gray-500">
                   {renderIcon(item.icon)}

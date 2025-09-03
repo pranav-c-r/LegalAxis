@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 @theme {
   --color-primary: #FFE45E;
@@ -8,7 +9,7 @@
 }
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Poppins', system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light;
@@ -22,7 +23,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #ffffff;
+  background-color: #f8f9fa;
   color: #213547;
 }
 
@@ -35,11 +36,67 @@ body {
     @apply bg-secondary text-white font-semibold py-2 px-4 rounded shadow-md hover:bg-secondary/90 transition-all duration-200;
   }
   
+  .btn-tertiary {
+    @apply bg-tertiary text-white font-semibold py-2 px-4 rounded shadow-md hover:bg-tertiary/90 transition-all duration-200;
+  }
+  
+  .btn-quaternary {
+    @apply bg-quaternary text-white font-semibold py-2 px-4 rounded shadow-md hover:bg-quaternary/90 transition-all duration-200;
+  }
+  
   .card {
-    @apply bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-200;
+    @apply bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-200 border-l-4 border-primary;
+  }
+  
+  .card-secondary {
+    @apply bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-200 border-l-4 border-secondary;
+  }
+  
+  .card-tertiary {
+    @apply bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-200 border-l-4 border-tertiary;
+  }
+  
+  .card-quaternary {
+    @apply bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-200 border-l-4 border-quaternary;
   }
   
   .section-title {
     @apply text-2xl font-bold text-quaternary mb-4;
+  }
+  
+  .section-title-primary {
+    @apply text-2xl font-bold text-gray-800 mb-4 border-b-2 border-primary pb-2;
+  }
+  
+  .section-title-secondary {
+    @apply text-2xl font-bold text-gray-800 mb-4 border-b-2 border-secondary pb-2;
+  }
+  
+  .section-title-tertiary {
+    @apply text-2xl font-bold text-gray-800 mb-4 border-b-2 border-tertiary pb-2;
+  }
+  
+  .badge-primary {
+    @apply bg-primary/20 text-gray-800 px-2 py-1 rounded-full text-xs font-medium;
+  }
+  
+  .badge-secondary {
+    @apply bg-secondary/20 text-gray-800 px-2 py-1 rounded-full text-xs font-medium;
+  }
+  
+  .badge-tertiary {
+    @apply bg-tertiary/20 text-gray-800 px-2 py-1 rounded-full text-xs font-medium;
+  }
+  
+  .badge-quaternary {
+    @apply bg-quaternary/20 text-gray-800 px-2 py-1 rounded-full text-xs font-medium;
+  }
+  
+  .nav-link {
+    @apply flex items-center gap-2 p-2 rounded-md hover:bg-quaternary/10 transition-colors;
+  }
+  
+  .nav-link.active {
+    @apply bg-quaternary/20 text-quaternary font-medium;
   }
 }

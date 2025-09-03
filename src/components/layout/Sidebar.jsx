@@ -97,13 +97,13 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   };
 
   return (
-    <aside className={`bg-white border-r border-gray-200 fixed h-full top-0 left-0 pt-16 transition-all duration-300 ${isOpen ? 'w-64' : 'w-20'} z-40`}>
+    <aside className={`bg-quaternary/95 border-r border-tertiary/30 fixed h-full top-0 left-0 pt-16 transition-all duration-300 ${isOpen ? 'w-64' : 'w-20'} z-40`}>
       <div className="h-full px-3 py-4 overflow-y-auto">
         <button 
           onClick={() => setIsOpen(!isOpen)}
-          className="absolute -right-3 top-20 bg-white border border-gray-200 rounded-full p-1 shadow-md"
+          className="absolute -right-3 top-20 bg-tertiary border border-primary/50 rounded-full p-1 shadow-md"
         >
-          <svg className={`w-4 h-4 text-gray-500 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <svg className={`w-4 h-4 text-primary transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
           </svg>
         </button>
@@ -114,7 +114,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                 to={item.path}
                 className={({ isActive }) => `nav-link ${isActive ? 'active' : ''} ${isOpen ? '' : 'justify-center'}`}
               >
-                <span className="text-gray-500">
+                <span>
                   {renderIcon(item.icon)}
                 </span>
                 {isOpen && <span className="ml-3">{item.name}</span>}

@@ -156,15 +156,15 @@ const Dashboard = () => {
               { action: 'Risk Analysis', item: 'Vendor Contract - SupplyChain Inc', time: '1 day ago' },
               { action: 'Deadline Added', item: 'Renewal - Office Lease', time: '2 days ago' },
             ].map((activity, index) => (
-              <div key={index} className="flex items-start pb-4 border-b border-gray-100 last:border-0">
+              <div key={index} className="flex items-start pb-4 border-b border-tertiary/20 last:border-0">
                 <div className="bg-secondary/20 p-2 rounded-full mr-3">
-                  <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-900">{activity.action}: {activity.item}</p>
-                  <p className="text-xs text-gray-500">{activity.time}</p>
+                  <p className="text-sm font-medium text-primary">{activity.action}: {activity.item}</p>
+                  <p className="text-xs text-tertiary">{activity.time}</p>
                 </div>
               </div>
             ))}
@@ -180,20 +180,20 @@ const Dashboard = () => {
               { title: 'Compliance Review', description: 'Updated Data Protection Policy', date: 'Oct 1, 2025', urgent: false },
               { title: 'Contract Expiration', description: 'Office Equipment Lease', date: 'Oct 10, 2025', urgent: false },
             ].map((deadline, index) => (
-              <div key={index} className="flex items-start pb-4 border-b border-gray-100 last:border-0">
-                <div className={`p-2 rounded-full mr-3 ${deadline.urgent ? 'bg-red-100' : 'bg-tertiary/20'}`}>
-                  <svg className={`w-5 h-5 ${deadline.urgent ? 'text-red-500' : 'text-tertiary'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <div key={index} className="flex items-start pb-4 border-b border-tertiary/20 last:border-0">
+                <div className={`p-2 rounded-full mr-3 ${deadline.urgent ? 'bg-red-900/30' : 'bg-tertiary/20'}`}>
+                  <svg className={`w-5 h-5 ${deadline.urgent ? 'text-red-400' : 'text-tertiary'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
                 </div>
                 <div className="flex-1">
                   <div className="flex justify-between">
-                    <p className="text-sm font-medium text-gray-900">{deadline.title}</p>
-                    <span className={`text-xs font-medium px-2 py-1 rounded-full ${deadline.urgent ? 'bg-red-100 text-red-800' : 'badge-tertiary'}`}>
+                    <p className="text-sm font-medium text-primary">{deadline.title}</p>
+                    <span className={`text-xs font-medium px-2 py-1 rounded-full ${deadline.urgent ? 'bg-red-900/30 text-red-300' : 'badge-tertiary'}`}>
                       {deadline.date}
                     </span>
                   </div>
-                  <p className="text-xs text-gray-500">{deadline.description}</p>
+                  <p className="text-xs text-tertiary">{deadline.description}</p>
                 </div>
               </div>
             ))}

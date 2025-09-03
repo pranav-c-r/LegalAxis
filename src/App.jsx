@@ -8,6 +8,8 @@ import Obligations from './pages/Obligations';
 import Risk from './pages/Risk';
 import Negotiation from './pages/Negotiation';
 import Scenarios from './pages/Scenarios';
+import Consistency from './pages/Consistency';
+import Research from './pages/Research';
 import Settings from './pages/Settings';
 import './index.css';
 
@@ -24,6 +26,8 @@ function App() {
           <Route path="/risk" element={<Risk />} />
           <Route path="/negotiation" element={<Negotiation />} />
           <Route path="/scenarios" element={<Scenarios />} />
+          <Route path="/consistency" element={<Consistency />} />
+          <Route path="/research" element={<Research />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
       </Layout>

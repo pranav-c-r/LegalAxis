@@ -2,17 +2,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 @theme {
-  --color-primary: #FFE45E;
-  --color-secondary: #AAA1C8;
-  --color-tertiary: #84BC9C;
-  --color-quaternary: #1C7293;
+  --color-primary: #E6F8B2;
+  --color-secondary: #CDE77F;
+  --color-tertiary: #709176;
+  --color-quaternary: #113537;
 }
 
 :root {
   font-family: 'Poppins', system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color-scheme: light;
+  color-scheme: dark;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -23,80 +23,80 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #f8f9fa;
-  color: #213547;
+  background-color: #113537;
+  color: #E6F8B2;
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-primary text-gray-800 font-semibold py-2 px-4 rounded shadow-md hover:bg-primary/90 transition-all duration-200;
+    @apply bg-primary text-quaternary font-semibold py-2 px-4 rounded shadow-md hover:bg-primary/90 transition-all duration-200;
   }
   
   .btn-secondary {
-    @apply bg-secondary text-white font-semibold py-2 px-4 rounded shadow-md hover:bg-secondary/90 transition-all duration-200;
+    @apply bg-secondary text-quaternary font-semibold py-2 px-4 rounded shadow-md hover:bg-secondary/90 transition-all duration-200;
   }
   
   .btn-tertiary {
-    @apply bg-tertiary text-white font-semibold py-2 px-4 rounded shadow-md hover:bg-tertiary/90 transition-all duration-200;
+    @apply bg-tertiary text-quaternary font-semibold py-2 px-4 rounded shadow-md hover:bg-tertiary/90 transition-all duration-200;
   }
   
   .btn-quaternary {
-    @apply bg-quaternary text-white font-semibold py-2 px-4 rounded shadow-md hover:bg-quaternary/90 transition-all duration-200;
+    @apply bg-quaternary/80 text-primary font-semibold py-2 px-4 rounded shadow-md hover:bg-quaternary transition-all duration-200 border border-primary/30;
   }
   
   .card {
-    @apply bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-200 border-l-4 border-primary;
+    @apply bg-quaternary/90 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-200 border-l-4 border-primary text-primary;
   }
   
   .card-secondary {
-    @apply bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-200 border-l-4 border-secondary;
+    @apply bg-quaternary/90 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-200 border-l-4 border-secondary text-secondary;
   }
   
   .card-tertiary {
-    @apply bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-200 border-l-4 border-tertiary;
+    @apply bg-quaternary/90 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-200 border-l-4 border-tertiary text-tertiary;
   }
   
   .card-quaternary {
-    @apply bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-200 border-l-4 border-quaternary;
+    @apply bg-quaternary/90 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-200 border-l-4 border-primary text-primary;
   }
   
   .section-title {
-    @apply text-2xl font-bold text-quaternary mb-4;
+    @apply text-2xl font-bold text-primary mb-4;
   }
   
   .section-title-primary {
-    @apply text-2xl font-bold text-gray-800 mb-4 border-b-2 border-primary pb-2;
+    @apply text-2xl font-bold text-primary mb-4 border-b-2 border-primary pb-2;
   }
   
   .section-title-secondary {
-    @apply text-2xl font-bold text-gray-800 mb-4 border-b-2 border-secondary pb-2;
+    @apply text-2xl font-bold text-secondary mb-4 border-b-2 border-secondary pb-2;
   }
   
   .section-title-tertiary {
-    @apply text-2xl font-bold text-gray-800 mb-4 border-b-2 border-tertiary pb-2;
+    @apply text-2xl font-bold text-tertiary mb-4 border-b-2 border-tertiary pb-2;
   }
   
   .badge-primary {
-    @apply bg-primary/20 text-gray-800 px-2 py-1 rounded-full text-xs font-medium;
+    @apply bg-primary/20 text-primary px-2 py-1 rounded-full text-xs font-medium;
   }
   
   .badge-secondary {
-    @apply bg-secondary/20 text-gray-800 px-2 py-1 rounded-full text-xs font-medium;
+    @apply bg-secondary/20 text-secondary px-2 py-1 rounded-full text-xs font-medium;
   }
   
   .badge-tertiary {
-    @apply bg-tertiary/20 text-gray-800 px-2 py-1 rounded-full text-xs font-medium;
+    @apply bg-tertiary/20 text-tertiary px-2 py-1 rounded-full text-xs font-medium;
   }
   
   .badge-quaternary {
-    @apply bg-quaternary/20 text-gray-800 px-2 py-1 rounded-full text-xs font-medium;
+    @apply bg-primary/20 text-primary px-2 py-1 rounded-full text-xs font-medium;
   }
   
   .nav-link {
-    @apply flex items-center gap-2 p-2 rounded-md hover:bg-quaternary/10 transition-colors;
+    @apply flex items-center gap-2 p-2 rounded-md text-tertiary hover:bg-tertiary/20 hover:text-primary transition-colors;
   }
   
   .nav-link.active {
-    @apply bg-quaternary/20 text-quaternary font-medium;
+    @apply bg-tertiary/30 text-primary font-medium;
   }
 }

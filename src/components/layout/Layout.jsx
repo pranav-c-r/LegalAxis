@@ -38,7 +38,7 @@ const Layout = ({ children }) => {
       <Navbar toggleSidebar={toggleSidebar} />
       <div className="flex flex-1 pt-16">
         <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
-        <main className={`flex-1 p-6 transition-all duration-300 ${sidebarOpen ? 'md:ml-64' : 'md:ml-20'}`}>
+        <main className={`flex-1 p-6 transition-all duration-300 ${sidebarOpen ? 'md:ml-64' : 'md:ml-20'} bg-[#36494E]`}>
           <div className="container mx-auto">
             {children}
           </div>

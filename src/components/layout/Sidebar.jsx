@@ -1,9 +1,6 @@
-// Sidebar.jsx
-import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
-  
   const menuItems = [
     { name: 'Dashboard', icon: 'home', path: '/' },
     { name: 'Compliance Guardian', icon: 'shield-check', path: '/compliance' },
@@ -11,7 +8,6 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     { name: 'Risk Analyzer', icon: 'chart-bar', path: '/risk' },
     { name: 'Negotiation Strategist', icon: 'chat', path: '/negotiation' },
     { name: 'Scenario Simulation', icon: 'play', path: '/scenarios' },
-    { name: 'Cross-Contract Consistency', icon: 'document-duplicate', path: '/consistency' },
     { name: 'Legal Research', icon: 'search', path: '/research' },
     { name: 'Documents', icon: 'document-text', path: '/documents' },
     { name: 'Collaboration', icon: 'users', path: '/collaboration' },
@@ -20,93 +16,86 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 
   const renderIcon = (iconName) => {
     const iconClasses = "w-6 h-6";
-    
     switch(iconName) {
       case 'home':
         return (
-          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10h14V10"></path>
           </svg>
         );
       case 'shield-check':
         return (
-          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.6-4A12 12 0 0112 3a12 12 0 01-8.6 3A12 12 0 003 9c0 6 4 11 9 12 5-1 9-6 9-12 0-1-.1-2-.4-3z"></path>
           </svg>
         );
       case 'calendar':
         return (
-          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14V7H5z"></path>
           </svg>
         );
       case 'chart-bar':
         return (
-          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6H5v6h4zm6 0V9h-4v10h4zm6 0V5h-4v14h4z"></path>
           </svg>
         );
       case 'chat':
         return (
-          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4-4 8-9 8a9 9 0 01-4-1L3 20l1-3c-.5-1.5-1-3-1-5 0-4 4-8 9-8s9 4 9 8z"></path>
           </svg>
         );
       case 'play':
         return (
-          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-        );
-      case 'document-duplicate':
-        return (
-          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path>
+          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.7 11.2L11.5 9.1A1 1 0 0010 10v4a1 1 0 001.5.8l3.2-2.1a1 1 0 000-1.5z"></path>
+            <circle cx="12" cy="12" r="9" strokeWidth="2" stroke="currentColor" fill="none"></circle>
           </svg>
         );
       case 'search':
         return (
-          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
           </svg>
         );
       case 'document-text':
         return (
-          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6M7 4h5l5 5v11H7z"></path>
           </svg>
         );
       case 'users':
         return (
-          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-1a6 6 0 00-9-5M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
           </svg>
         );
       case 'cog':
         return (
-          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="3" strokeWidth="2" stroke="currentColor" fill="none"></circle>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 01-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5v.3a2 2 0 01-4 0v-.3a1.7 1.7 0 00-1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 01-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H4a2 2 0 010-4h.3a1.7 1.7 0 001.5-1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 012.8-2.8l.1.1a1.7 1.7 0 001.8.3h.3a1.7 1.7 0 001-1.5V4a2 2 0 014 0v.3a1.7 1.7 0 001 1.5h.3a1.7 1.7 0 001.8-.3l.1-.1a2 2 0 012.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8v.3a1.7 1.7 0 001.5 1H20a2 2 0 010 4h-.3a1.7 1.7 0 00-1.5 1z"></path>
           </svg>
         );
       default:
         return (
-          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v12m6-6H6"></path>
           </svg>
         );
     }
   };
 
   return (
-    <aside className={`bg-white/5 backdrop-blur-sm border-r border-white/10 fixed h-full top-0 left-0 pt-16 transition-all duration-300 ${isOpen ? 'w-64' : 'w-20'} z-40`}>
+    <aside className={`bg-[#36494E] backdrop-blur-sm border-r border-[#A9CEF4]/20 fixed h-full top-0 left-0 pt-16 transition-all duration-300 ${isOpen ? 'w-64' : 'w-20'} z-40`}>
       <div className="h-full px-3 py-6 overflow-y-auto">
         <button 
           onClick={() => setIsOpen(!isOpen)}
-          className="absolute -right-3 top-20 bg-white/10 backdrop-blur-sm border border-white/10 rounded-full p-1 shadow-lg transition-transform duration-300 hover:scale-110"
+          className="absolute -right-3 top-20 bg-[#7EA0B7]/20 backdrop-blur-sm border border-[#A9CEF4]/30 rounded-full p-1 shadow-lg transition-transform duration-300 hover:scale-110"
         >
-          <svg className={`w-4 h-4 text-white transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <svg className={`w-4 h-4 text-white transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
           </svg>
         </button>
@@ -115,16 +104,22 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
             <li key={index}>
               <NavLink
                 to={item.path}
-                className={({ isActive }) => `flex items-center p-3 rounded-xl transition-all duration-300 group ${
-                  isActive 
-                    ? 'bg-gradient-to-r from-[#A9CEF4]/20 to-[#7EA0B7]/20 text-white border border-[#A9CEF4]/30' 
-                    : 'text-gray-300 hover:text-white hover:bg-white/5 border border-transparent'
-                } ${isOpen ? '' : 'justify-center'}`}
+                className={({ isActive }) =>
+                  `flex items-center p-3 rounded-xl transition-all duration-300 group ${
+                    isActive 
+                      ? 'bg-gradient-to-r from-[#A9CEF4]/30 to-[#7EA0B7]/30 text-white border border-[#A9CEF4]/40' 
+                      : 'text-[#A9CEF4]/80 hover:text-white hover:bg-[#7EA0B7]/10 border border-transparent'
+                  } ${isOpen ? '' : 'justify-center'}`
+                }
               >
-                <span className={`transition-colors duration-300 ${isActive ? 'text-[#A9CEF4]' : 'text-gray-400 group-hover:text-[#A9CEF4]'}`}>
-                  {renderIcon(item.icon)}
-                </span>
-                {isOpen && <span className="ml-3 font-medium">{item.name}</span>}
+                {({ isActive }) => (
+                  <>
+                    <span className={`transition-colors duration-300 ${isActive ? 'text-[#A9CEF4]' : 'text-[#7EA0B7] group-hover:text-[#A9CEF4]'}`}>
+                      {renderIcon(item.icon)}
+                    </span>
+                    {isOpen && <span className="ml-3 font-medium">{item.name}</span>}
+                  </>
+                )}
               </NavLink>
             </li>
           ))}

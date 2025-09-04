@@ -89,11 +89,11 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   };
 
   return (
-    <aside className={`bg-[#36494E] backdrop-blur-sm border-r border-[#A9CEF4]/20 fixed h-full top-0 left-0 pt-16 transition-all duration-300 ${isOpen ? 'w-64' : 'w-20'} z-40`}>
+    <aside className={`bg-[#1B1725]/90 backdrop-blur-md border-r border-[#A1E8AF]/10 fixed h-full top-0 left-0 pt-16 transition-all duration-500 ease-in-out ${isOpen ? 'w-64' : 'w-20'} z-40 shadow-xl shadow-black/20`}>
       <div className="h-full px-3 py-6 overflow-y-auto">
         <button 
           onClick={() => setIsOpen(!isOpen)}
-          className="absolute -right-3 top-20 bg-[#7EA0B7]/20 backdrop-blur-sm border border-[#A9CEF4]/30 rounded-full p-1 shadow-lg transition-transform duration-300 hover:scale-110"
+          className="absolute -right-3 top-20 bg-[#3A7CA5]/20 backdrop-blur-md border border-[#A1E8AF]/20 rounded-full p-1.5 shadow-lg transition-all duration-300 hover:scale-110 hover:bg-[#3A7CA5]/30 hover:shadow-[#A1E8AF]/20"
         >
           <svg className={`w-4 h-4 text-white transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
@@ -105,16 +105,12 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
               <NavLink
                 to={item.path}
                 className={({ isActive }) =>
-                  `flex items-center p-3 rounded-xl transition-all duration-300 group ${
-                    isActive 
-                      ? 'bg-gradient-to-r from-[#A9CEF4]/30 to-[#7EA0B7]/30 text-white border border-[#A9CEF4]/40' 
-                      : 'text-[#A9CEF4]/80 hover:text-white hover:bg-[#7EA0B7]/10 border border-transparent'
-                  } ${isOpen ? '' : 'justify-center'}`
+                  `flex items-center p-3 rounded-xl transition-all duration-300 group ${isActive ? 'bg-gradient-to-r from-[#A1E8AF]/20 to-[#3A7CA5]/20 text-white border border-[#A1E8AF]/30 shadow-lg shadow-[#A1E8AF]/5' : 'text-[#A1E8AF]/70 hover:text-[#FFF07C] hover:bg-[#3A7CA5]/10 border border-transparent hover:border-[#A1E8AF]/20'} ${isOpen ? '' : 'justify-center'}`
                 }
               >
                 {({ isActive }) => (
                   <>
-                    <span className={`transition-colors duration-300 ${isActive ? 'text-[#A9CEF4]' : 'text-[#7EA0B7] group-hover:text-[#A9CEF4]'}`}>
+                    <span className={`transition-all duration-300 transform ${isActive ? 'text-[#FFF07C] scale-110' : 'text-[#A1E8AF] group-hover:text-[#FFF07C] group-hover:scale-110'}`}>
                       {renderIcon(item.icon)}
                     </span>
                     {isOpen && <span className="ml-3 font-medium">{item.name}</span>}

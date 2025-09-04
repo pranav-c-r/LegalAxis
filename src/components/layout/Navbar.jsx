@@ -6,7 +6,7 @@ const Navbar = ({ toggleSidebar }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   return (
-    <nav className="bg-white/5 backdrop-blur-sm border-b border-white/10 px-6 py-4 fixed w-full top-0 left-0 z-50">
+    <nav className="bg-[#1B1725]/80 backdrop-blur-md border-b border-[#A1E8AF]/10 px-6 py-4 fixed w-full top-0 left-0 z-50 shadow-lg shadow-black/10">
       <div className="flex flex-wrap justify-between items-center">
         <div className="flex items-center">
           <button 
@@ -18,7 +18,7 @@ const Navbar = ({ toggleSidebar }) => {
             </svg>
           </button>
           <Link to="/" className="flex items-center">
-            <span className="self-center text-2xl font-bold whitespace-nowrap bg-gradient-to-r from-[#A9CEF4] to-[#7EA0B7] bg-clip-text text-transparent">
+            <span className="self-center text-2xl font-bold whitespace-nowrap bg-gradient-to-r from-[#A1E8AF] to-[#3A7CA5] bg-clip-text text-transparent hover:from-[#3A7CA5] hover:to-[#A1E8AF] transition-all duration-500">
               LegalAxis
             </span>
           </Link>
@@ -28,7 +28,7 @@ const Navbar = ({ toggleSidebar }) => {
           <div className="relative">
             <input 
               type="text" 
-              className="bg-white/5 border border-white/10 text-white text-sm rounded-xl focus:ring-2 focus:ring-[#A9CEF4] focus:border-transparent block w-64 pl-10 p-2.5 placeholder-gray-400" 
+              className="bg-[#A1E8AF]/5 border border-[#A1E8AF]/10 text-white text-sm rounded-xl focus:ring-2 focus:ring-[#A1E8AF]/30 focus:border-transparent block w-64 pl-10 p-2.5 placeholder-gray-400 transition-all duration-300 hover:bg-[#A1E8AF]/10" 
               placeholder="Search..."
             />
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -41,7 +41,7 @@ const Navbar = ({ toggleSidebar }) => {
           <div className="relative">
             <button 
               type="button" 
-              className="flex text-sm bg-gradient-to-br from-[#A9CEF4] to-[#7EA0B7] rounded-full focus:ring-2 focus:ring-[#A9CEF4] transition-transform duration-300 hover:scale-105"
+              className="flex text-sm bg-gradient-to-br from-[#A1E8AF] to-[#3A7CA5] rounded-full focus:ring-2 focus:ring-[#FFF07C] transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#A1E8AF]/20"
               onClick={() => setIsProfileOpen(!isProfileOpen)}
             >
               <span className="sr-only">Open user menu</span>
@@ -51,14 +51,14 @@ const Navbar = ({ toggleSidebar }) => {
             </button>
             
             {isProfileOpen && (
-              <div className="absolute top-12 right-0 z-50 my-4 text-base list-none bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl shadow-lg divide-y divide-white/10 animate-fadeIn">
+              <div className="absolute top-12 right-0 z-50 my-4 text-base list-none bg-[#1B1725]/90 backdrop-blur-md border border-[#A1E8AF]/10 rounded-xl shadow-lg shadow-black/20 divide-y divide-[#A1E8AF]/10 animate-fadeIn">
                 <div className="px-4 py-3">
                   <span className="block text-sm text-white">John Doe</span>
                   <span className="block text-sm font-medium text-gray-400 truncate">john.doe@legalaxis.com</span>
                 </div>
                 <ul className="py-2">
                   <li>
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors duration-300">Profile</a>
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-300 hover:text-[#A1E8AF] hover:bg-[#A1E8AF]/5 transition-all duration-300">Profile</a>
                   </li>
                   <li>
                     <a href="#" className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors duration-300">Settings</a>

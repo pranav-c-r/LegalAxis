@@ -34,12 +34,12 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#36494E]">
+    <div className="flex flex-col min-h-screen bg-[#1B1725] transition-colors duration-500">
       <Navbar toggleSidebar={toggleSidebar} />
       <div className="flex flex-1 pt-16">
         <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
-        <main className={`flex-1 p-6 transition-all duration-300 ${sidebarOpen ? 'md:ml-64' : 'md:ml-20'} bg-[#36494E]`}>
-          <div className="container mx-auto">
+        <main className={`flex-1 p-6 transition-all duration-500 ease-in-out ${sidebarOpen ? 'md:ml-64' : 'md:ml-20'} bg-[#1B1725]`}>
+          <div className="container mx-auto animate-fadeIn">
             {children}
           </div>
         </main>

@@ -18,7 +18,7 @@ const DocumentCard = ({ document }) => {
   };
 
   const getDocumentTypeIcon = (type) => {
-    const iconClasses = "w-8 h-8";
+    const iconClasses = "w-6 h-6 sm:w-8 sm:h-8";
     
     switch (type) {
       case 'Contract':
@@ -57,49 +57,49 @@ const DocumentCard = ({ document }) => {
   return (
     <div className="card group hover:border-l-4 hover:border-l-[#A9CEF4] transition-all duration-300 animate-fadeIn">
       <div className="flex items-start">
-        <div className="p-3 bg-white/5 rounded-xl mr-4 group-hover:scale-110 transition-transform duration-300">
+        <div className="p-2 sm:p-3 bg-white/5 rounded-xl mr-3 sm:mr-4 group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
           {getDocumentTypeIcon(document.type)}
         </div>
-        <div className="flex-1">
-          <div className="flex justify-between items-start mb-3">
-            <h3 className="text-lg font-semibold text-white group-hover:text-[#A9CEF4] transition-colors duration-300">
+        <div className="flex-1 min-w-0">
+          <div className="flex justify-between items-start mb-2 sm:mb-3 gap-2">
+            <h3 className="text-base sm:text-lg font-semibold text-white group-hover:text-[#A9CEF4] transition-colors duration-300 truncate">
               {document.name}
             </h3>
-            <span className={`text-xs font-medium px-3 py-1 rounded-full ${getStatusColor(document.status)}`}>
+            <span className={`text-xs font-medium px-2 sm:px-3 py-1 rounded-full flex-shrink-0 ${getStatusColor(document.status)}`}>
               {document.status}
             </span>
           </div>
-          <p className="text-gray-300 text-sm mb-4 line-clamp-2">{document.description}</p>
+          <p className="text-gray-300 text-sm mb-3 sm:mb-4 line-clamp-2 leading-relaxed">{document.description}</p>
           
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
             {document.tags.map((tag, index) => (
-              <span key={index} className="bg-white/5 text-gray-300 text-xs px-3 py-1 rounded-full border border-white/10">
+              <span key={index} className="bg-white/5 text-gray-300 text-xs px-2 sm:px-3 py-1 rounded-full border border-white/10">
                 {tag}
               </span>
             ))}
           </div>
           
-          <div className="flex justify-between items-center text-sm text-gray-400">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center text-xs sm:text-sm text-gray-400 gap-2">
             <div className="flex items-center">
-              <svg className="w-4 h-4 mr-2 text-[#7EA0B7]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-4 h-4 mr-2 text-[#7EA0B7] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
-              <span>{document.lastUpdated}</span>
+              <span className="truncate">{document.lastUpdated}</span>
             </div>
             
-            <div className="flex space-x-3">
-              <button className="text-gray-400 hover:text-[#A9CEF4] transition-colors duration-300 transform hover:scale-110" title="Edit">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <div className="flex space-x-2 sm:space-x-3 self-end sm:self-center">
+              <button className="text-gray-400 hover:text-[#A9CEF4] transition-colors duration-300 transform hover:scale-110 p-1" title="Edit">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
                 </svg>
               </button>
-              <button className="text-gray-400 hover:text-[#A9CEF4] transition-colors duration-300 transform hover:scale-110" title="Download">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <button className="text-gray-400 hover:text-[#A9CEF4] transition-colors duration-300 transform hover:scale-110 p-1" title="Download">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                 </svg>
               </button>
-              <button className="text-gray-400 hover:text-[#A9CEF4] transition-colors duration-300 transform hover:scale-110" title="More options">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <button className="text-gray-400 hover:text-[#A9CEF4] transition-colors duration-300 transform hover:scale-110 p-1" title="More options">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                 </svg>
               </button>

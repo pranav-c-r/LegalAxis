@@ -13,6 +13,10 @@ export default {
         accent: '#597081',
         background: '#36494E',
       },
+      screens: {
+        'xs': '475px',
+        '3xl': '1600px',
+      },
       animation: {
         'fadeIn': 'fadeIn 0.6s ease-out',
         'slideIn': 'slideIn 0.4s ease-out',
@@ -26,6 +30,11 @@ export default {
           '0%': { transform: 'translateX(-100%)' },
           '100%': { transform: 'translateX(0)' },
         },
+      },
+      spacing: {
+        '18': '4.5rem',
+        '88': '22rem',
+        '128': '32rem',
       },
     },
   },

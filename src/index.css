@@ -22,9 +22,15 @@ body {
   backdrop-filter: blur(12px);
   border: 1px solid rgba(161, 232, 175, 0.1);
   border-radius: 16px;
-  padding: 1.5rem;
+  padding: 1rem;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 640px) {
+  .card {
+    padding: 1.5rem;
+  }
 }
 
 .card:hover {
@@ -120,5 +126,138 @@ body {
 
 .animate-slideIn {
   animation: slideIn 0.4s ease-out;
+}
+
+/* Responsive text utilities */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Mobile first responsive spacing */
+@media (max-width: 639px) {
+  .card:hover {
+    transform: none;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Focus states for better accessibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Dashboard responsive grid improvements with sidebar consideration */
+.dashboard-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .dashboard-grid {
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+/* Adjust for when sidebar is open - more conservative column sizes */
+@media (min-width: 1280px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+}
+
+@media (min-width: 1440px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  }
+}
+
+@media (min-width: 1600px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  }
+}
+
+@media (min-width: 1920px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  }
+}
+
+/* Special handling for narrow screens when sidebar is present */
+@media (min-width: 1024px) and (max-width: 1399px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+/* Ensure text wrapping in constrained spaces */
+.agent-card-title {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  line-height: 1.3;
+  min-height: 2.6em; /* Ensure consistent height for titles */
+  display: flex;
+  align-items: flex-start;
+}
+
+.agent-card-description {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  line-height: 1.5;
+}
+
+/* Additional text utilities for better responsive text handling */
+.word-break-break-word {
+  word-break: break-word;
+}
+
+.hyphens-auto {
+  hyphens: auto;
+}
+
+/* Responsive typography adjustments for constrained spaces */
+@media (min-width: 1024px) and (max-width: 1399px) {
+  .agent-card-title {
+    font-size: 0.875rem; /* text-sm */
+    line-height: 1.25;
+  }
+  
+  .agent-card-description {
+    font-size: 0.75rem; /* text-xs */
+    line-height: 1.4;
+  }
 }
 

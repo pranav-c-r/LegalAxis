@@ -2,51 +2,53 @@ import React from 'react';
 
 const Obligations = () => {
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-[#A9CEF4]">Obligation & Deadline Tracker</h1>
-        <div className="flex space-x-3">
-          <button className="btn-primary">Add Obligation</button>
-          <button className="px-4 py-2 rounded-lg bg-[#7EA0B7]/20 text-[#A9CEF4] hover:bg-[#7EA0B7]/30 transition-all">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#A9CEF4]">Obligation & Deadline Tracker</h1>
+        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
+          <button className="btn-primary w-full sm:w-auto">Add Obligation</button>
+          <button className="px-3 sm:px-4 py-2 rounded-lg bg-[#7EA0B7]/20 text-[#A9CEF4] hover:bg-[#7EA0B7]/30 transition-all flex items-center justify-center">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
             </svg>
           </button>
         </div>
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="card col-span-2">
-          <h2 className="text-xl font-semibold mb-4 text-[#A9CEF4]">Upcoming Deadlines</h2>
-          <div className="space-y-4">
-            {[1, 2, 3].map((item) => (
-              <div key={item} className="p-4 rounded-lg bg-[#36494E]/80 border border-[#7EA0B7]/30 hover:border-[#A9CEF4]/50 transition-all">
-                <div className="flex justify-between">
-                  <h3 className="font-medium text-[#A9CEF4]">Quarterly Payment Due</h3>
-                  <span className="text-sm px-2 py-1 rounded-full bg-[#7EA0B7]/20 text-[#A9CEF4]">
-                    {item === 1 ? '3 days left' : item === 2 ? '2 weeks left' : '1 month left'}
-                  </span>
-                </div>
-                <p className="text-sm mt-2 text-[#7EA0B7]">$25,000 payment due to Vendor Inc. as per Section 4.2 of the agreement</p>
-                <div className="flex justify-between items-center mt-3">
-                  <span className="text-xs text-[#7EA0B7]/70">From: SaaS Subscription Agreement</span>
-                  <div className="flex space-x-2">
-                    <button className="text-xs px-3 py-1 rounded-full bg-[#A9CEF4]/10 text-[#A9CEF4] hover:bg-[#A9CEF4]/20 transition-all">
-                      Add to Calendar
-                    </button>
-                    <button className="text-xs px-3 py-1 rounded-full bg-[#A9CEF4]/10 text-[#A9CEF4] hover:bg-[#A9CEF4]/20 transition-all">
-                      Set Alert
-                    </button>
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
+        <div className="xl:col-span-2">
+          <div className="card">
+            <h2 className="text-lg sm:text-xl font-semibold mb-4 text-[#A9CEF4]">Upcoming Deadlines</h2>
+            <div className="space-y-3 sm:space-y-4">
+              {[1, 2, 3].map((item) => (
+                <div key={item} className="p-3 sm:p-4 rounded-lg bg-[#36494E]/80 border border-[#7EA0B7]/30 hover:border-[#A9CEF4]/50 transition-all">
+                  <div className="flex flex-col sm:flex-row sm:justify-between gap-2">
+                    <h3 className="font-medium text-[#A9CEF4] text-sm sm:text-base">Quarterly Payment Due</h3>
+                    <span className="text-xs sm:text-sm px-2 py-1 rounded-full bg-[#7EA0B7]/20 text-[#A9CEF4] self-start">
+                      {item === 1 ? '3 days left' : item === 2 ? '2 weeks left' : '1 month left'}
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm mt-2 text-[#7EA0B7] leading-relaxed">$25,000 payment due to Vendor Inc. as per Section 4.2 of the agreement</p>
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-3 gap-2">
+                    <span className="text-xs text-[#7EA0B7]/70">From: SaaS Subscription Agreement</span>
+                    <div className="flex flex-col sm:flex-row space-y-1 sm:space-y-0 sm:space-x-2">
+                      <button className="text-xs px-3 py-1 rounded-full bg-[#A9CEF4]/10 text-[#A9CEF4] hover:bg-[#A9CEF4]/20 transition-all">
+                        Add to Calendar
+                      </button>
+                      <button className="text-xs px-3 py-1 rounded-full bg-[#A9CEF4]/10 text-[#A9CEF4] hover:bg-[#A9CEF4]/20 transition-all">
+                        Set Alert
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
         
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           <div className="card">
-            <h2 className="text-xl font-semibold mb-4 text-[#A9CEF4]">Obligation Summary</h2>
+            <h2 className="text-lg sm:text-xl font-semibold mb-4 text-[#A9CEF4]">Obligation Summary</h2>
             <div className="space-y-3">
               <div className="flex justify-between items-center p-3 rounded-lg bg-[#36494E]/80 border border-[#7EA0B7]/30">
                 <span className="text-[#7EA0B7]">Due This Week</span>

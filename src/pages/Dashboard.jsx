@@ -113,15 +113,15 @@ const Dashboard = () => {
   ];
 
   return (
-    <div>
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold text-[#A9CEF4]">
+    <div className="space-y-6 sm:space-y-8">
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#A9CEF4]">
           Dashboard
         </h1>
-        <p className="text-[#7EA0B7] mt-2">Welcome to LegalAxis, your AI-powered legal co-pilot.</p>
+        <p className="text-[#7EA0B7] mt-2 text-sm sm:text-base">Welcome to LegalAxis, your AI-powered legal co-pilot.</p>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="dashboard-grid">
         {agents.map((agent, index) => (
           <AgentCard 
             key={index}
@@ -135,30 +135,30 @@ const Dashboard = () => {
         ))}
       </div>
       
-      <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="mt-6 sm:mt-8 grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
         <div className="card">
-          <h3 className="text-xl font-semibold text-[#A9CEF4] mb-6 flex items-center">
-            <div className="w-2 h-6 bg-[#A9CEF4] rounded-full mr-3"></div>
+          <h3 className="text-lg sm:text-xl font-semibold text-[#A9CEF4] mb-4 sm:mb-6 flex items-center">
+            <div className="w-2 h-4 sm:h-6 bg-[#A9CEF4] rounded-full mr-3"></div>
             Recent Activity
           </h3>
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {[
               { action: 'Document Uploaded', item: 'Service Agreement - TechCorp', time: '2 hours ago' },
               { action: 'Compliance Check', item: 'Privacy Policy v2.1', time: '4 hours ago' },
               { action: 'Risk Analysis', item: 'Vendor Contract - SupplyChain Inc', time: '1 day ago' },
               { action: 'Deadline Added', item: 'Renewal - Office Lease', time: '2 days ago' },
             ].map((activity, index) => (
-              <div key={index} className="flex items-start pb-4 border-b border-white/10 last:border-0 group">
-                <div className="bg-[#A9CEF4]/10 p-2 rounded-full mr-3 group-hover:scale-110 transition-transform duration-300">
-                  <svg className="w-5 h-5 text-[#A9CEF4]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <div key={index} className="flex items-start pb-3 sm:pb-4 border-b border-white/10 last:border-0 group">
+                <div className="bg-[#A9CEF4]/10 p-2 rounded-full mr-2 sm:mr-3 group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#A9CEF4]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
                 </div>
-                <div>
-                  <p className="text-sm font-medium text-white group-hover:text-[#A9CEF4] transition-colors duration-300">
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs sm:text-sm font-medium text-white group-hover:text-[#A9CEF4] transition-colors duration-300 truncate">
                     {activity.action}: {activity.item}
                   </p>
-                  <p className="text-xs text-gray-400">{activity.time}</p>
+                  <p className="text-xs text-gray-400 mt-0.5">{activity.time}</p>
                 </div>
               </div>
             ))}
@@ -166,37 +166,37 @@ const Dashboard = () => {
         </div>
         
         <div className="card">
-          <h3 className="text-xl font-semibold text-[#A9CEF4] mb-6 flex items-center">
-            <div className="w-2 h-6 bg-[#A9CEF4] rounded-full mr-3"></div>
+          <h3 className="text-lg sm:text-xl font-semibold text-[#A9CEF4] mb-4 sm:mb-6 flex items-center">
+            <div className="w-2 h-4 sm:h-6 bg-[#A9CEF4] rounded-full mr-3"></div>
             Upcoming Deadlines
           </h3>
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {[
               { title: 'Contract Renewal', description: 'Software License - CloudTech', date: 'Sep 15, 2025', urgent: true },
               { title: 'Payment Due', description: 'Legal Research Subscription', date: 'Sep 22, 2025', urgent: false },
               { title: 'Compliance Review', description: 'Updated Data Protection Policy', date: 'Oct 1, 2025', urgent: false },
               { title: 'Contract Expiration', description: 'Office Equipment Lease', date: 'Oct 10, 2025', urgent: false },
             ].map((deadline, index) => (
-              <div key={index} className="flex items-start pb-4 border-b border-white/10 last:border-0 group">
-                <div className={`p-2 rounded-full mr-3 group-hover:scale-110 transition-transform duration-300 ${
+              <div key={index} className="flex items-start pb-3 sm:pb-4 border-b border-white/10 last:border-0 group">
+                <div className={`p-2 rounded-full mr-2 sm:mr-3 group-hover:scale-110 transition-transform duration-300 flex-shrink-0 ${
                   deadline.urgent ? 'bg-red-500/20' : 'bg-yellow-500/20'
                 }`}>
-                  <svg className={`w-5 h-5 ${deadline.urgent ? 'text-red-400' : 'text-yellow-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg className={`w-4 h-4 sm:w-5 sm:h-5 ${deadline.urgent ? 'text-red-400' : 'text-yellow-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
                 </div>
-                <div className="flex-1">
-                  <div className="flex justify-between">
-                    <p className="text-sm font-medium text-white group-hover:text-[#A9CEF4] transition-colors duration-300">
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-2">
+                    <p className="text-xs sm:text-sm font-medium text-white group-hover:text-[#A9CEF4] transition-colors duration-300 min-w-0">
                       {deadline.title}
                     </p>
-                    <span className={`text-xs font-medium px-2 py-1 rounded-full ${
+                    <span className={`text-xs font-medium px-2 py-1 rounded-full flex-shrink-0 ${
                       deadline.urgent ? 'bg-red-500/20 text-red-300' : 'bg-yellow-500/20 text-yellow-300'
                     }`}>
                       {deadline.date}
                     </span>
                   </div>
-                  <p className="text-xs text-gray-400">{deadline.description}</p>
+                  <p className="text-xs text-gray-400 mt-0.5 truncate">{deadline.description}</p>
                 </div>
               </div>
             ))}

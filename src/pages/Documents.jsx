@@ -77,25 +77,25 @@ const Documents = () => {
   });
 
   return (
-    <div>
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-[#A9CEF4] to-[#7EA0B7] bg-clip-text text-transparent">
+    <div className="space-y-6 sm:space-y-8">
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-[#A9CEF4] to-[#7EA0B7] bg-clip-text text-transparent">
           Document Management
         </h1>
-        <p className="text-gray-300 mt-2">Upload, organize, and manage all your legal documents.</p>
+        <p className="text-gray-300 mt-2 text-sm sm:text-base">Upload, organize, and manage all your legal documents.</p>
       </div>
       
-      <div className="card mb-8">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div className="relative flex-1">
+      <div className="card mb-6 sm:mb-8">
+        <div className="flex flex-col gap-4">
+          <div className="relative">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
               </svg>
             </div>
             <input 
               type="text" 
-              className="bg-white/5 border border-white/10 text-white text-sm rounded-xl focus:ring-2 focus:ring-[#A9CEF4] focus:border-transparent block w-full pl-10 p-3 placeholder-gray-400" 
+              className="bg-white/5 border border-white/10 text-white text-sm rounded-xl focus:ring-2 focus:ring-[#A9CEF4] focus:border-transparent block w-full pl-8 sm:pl-10 p-2.5 sm:p-3 placeholder-gray-400" 
               placeholder="Search documents..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -104,51 +104,51 @@ const Documents = () => {
           
           <div className="flex flex-col sm:flex-row gap-3">
             <select 
-              className="bg-white/5 border border-white/10 text-white text-sm rounded-xl focus:ring-2 focus:ring-[#A9CEF4] focus:border-transparent p-3"
+              className="bg-white/5 border border-white/10 text-white text-sm rounded-xl focus:ring-2 focus:ring-[#A9CEF4] focus:border-transparent p-2.5 sm:p-3 flex-1 sm:flex-none"
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}
             >
               {documentTypes.map((type) => (
-                <option key={type} value={type}>{type}</option>
+                <option key={type} value={type} className="bg-[#1B1725] text-white">{type}</option>
               ))}
             </select>
             
             <select 
-              className="bg-white/5 border border-white/10 text-white text-sm rounded-xl focus:ring-2 focus:ring-[#A9CEF4] focus:border-transparent p-3"
+              className="bg-white/5 border border-white/10 text-white text-sm rounded-xl focus:ring-2 focus:ring-[#A9CEF4] focus:border-transparent p-2.5 sm:p-3 flex-1 sm:flex-none"
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
             >
               {statusOptions.map((status) => (
-                <option key={status} value={status}>{status}</option>
+                <option key={status} value={status} className="bg-[#1B1725] text-white">{status}</option>
               ))}
             </select>
             
-            <button className="btn-primary flex items-center justify-center whitespace-nowrap">
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <button className="btn-primary flex items-center justify-center whitespace-nowrap p-2.5 sm:p-3">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
               </svg>
-              Upload Document
+              <span className="text-sm sm:text-base">Upload Document</span>
             </button>
           </div>
         </div>
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
         {filteredDocuments.length > 0 ? (
           filteredDocuments.map((document) => (
             <DocumentCard key={document.id} document={document} />
           ))
         ) : (
-          <div className="col-span-2 card flex flex-col items-center justify-center py-16 text-center">
-            <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mb-6">
-              <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <div className="xl:col-span-2 card flex flex-col items-center justify-center py-12 sm:py-16 text-center">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white/5 rounded-full flex items-center justify-center mb-4 sm:mb-6">
+              <svg className="w-8 h-8 sm:w-10 sm:h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-white mb-3">No documents found</h3>
-            <p className="text-gray-400 max-w-md mb-6">We couldn't find any documents matching your search criteria. Try adjusting your filters or upload a new document.</p>
-            <button className="btn-primary">
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 sm:mb-3">No documents found</h3>
+            <p className="text-gray-400 max-w-md mb-4 sm:mb-6 text-sm sm:text-base px-4">We couldn't find any documents matching your search criteria. Try adjusting your filters or upload a new document.</p>
+            <button className="btn-primary flex items-center justify-center">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
               </svg>
               Upload Document

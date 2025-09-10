@@ -15,7 +15,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   ];
 
   const renderIcon = (iconName) => {
-    const iconClasses = "w-6 h-6";
+    const iconClasses = "w-5 h-5 sm:w-6 sm:h-6";
     switch(iconName) {
       case 'home':
         return (
@@ -89,31 +89,60 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   };
 
   return (
-    <aside className={`bg-[#1B1725]/90 backdrop-blur-md border-r border-[#A1E8AF]/10 fixed h-full top-0 left-0 pt-16 transition-all duration-500 ease-in-out ${isOpen ? 'w-64' : 'w-20'} z-40 shadow-xl shadow-black/20`}>
-      <div className="h-full px-3 py-6 overflow-y-auto">
+    <aside className={`bg-[#1B1725]/90 backdrop-blur-md border-r border-[#A1E8AF]/10 fixed h-full top-0 left-0 pt-14 sm:pt-16 transition-all duration-500 ease-in-out ${isOpen ? 'w-64' : 'w-20'} z-40 shadow-xl shadow-black/20 ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
+      <div className="h-full px-2 sm:px-3 py-4 sm:py-6 overflow-y-auto">
+        {/* Desktop toggle button - only show on large screens when sidebar is in collapsed mode */}
         <button 
           onClick={() => setIsOpen(!isOpen)}
-          className="absolute -right-3 top-20 bg-[#3A7CA5]/20 backdrop-blur-md border border-[#A1E8AF]/20 rounded-full p-1.5 shadow-lg transition-all duration-300 hover:scale-110 hover:bg-[#3A7CA5]/30 hover:shadow-[#A1E8AF]/20"
+          className="absolute -right-3 top-16 sm:top-20 bg-[#3A7CA5]/20 backdrop-blur-md border border-[#A1E8AF]/20 rounded-full p-1.5 shadow-lg transition-all duration-300 hover:scale-110 hover:bg-[#3A7CA5]/30 hover:shadow-[#A1E8AF]/20 hidden lg:block"
+          aria-label={isOpen ? 'Collapse sidebar' : 'Expand sidebar'}
         >
           <svg className={`w-4 h-4 text-white transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
           </svg>
         </button>
-        <ul className="space-y-2 font-medium">
+        
+        {/* Mobile header */}
+        <div className="flex items-center justify-between mb-6 lg:hidden">
+          <span className="text-lg font-bold bg-gradient-to-r from-[#A1E8AF] to-[#3A7CA5] bg-clip-text text-transparent">
+            LegalAxis
+          </span>
+          <button 
+            onClick={() => setIsOpen(false)}
+            className="p-2 text-gray-400 hover:text-white rounded-lg transition-colors duration-300"
+            aria-label="Close menu"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+        
+        <ul className="space-y-1 sm:space-y-2 font-medium">
           {menuItems.map((item, index) => (
             <li key={index}>
               <NavLink
                 to={item.path}
+                onClick={() => {
+                  // Close sidebar on mobile when a link is clicked
+                  if (window.innerWidth < 1024) {
+                    setIsOpen(false);
+                  }
+                }}
                 className={({ isActive }) =>
-                  `flex items-center p-3 rounded-xl transition-all duration-300 group ${isActive ? 'bg-gradient-to-r from-[#A1E8AF]/20 to-[#3A7CA5]/20 text-white border border-[#A1E8AF]/30 shadow-lg shadow-[#A1E8AF]/5' : 'text-[#A1E8AF]/70 hover:text-[#FFF07C] hover:bg-[#3A7CA5]/10 border border-transparent hover:border-[#A1E8AF]/20'} ${isOpen ? '' : 'justify-center'}`
+                  `flex items-center p-2 sm:p-3 rounded-xl transition-all duration-300 group ${isActive ? 'bg-gradient-to-r from-[#A1E8AF]/20 to-[#3A7CA5]/20 text-white border border-[#A1E8AF]/30 shadow-lg shadow-[#A1E8AF]/5' : 'text-[#A1E8AF]/70 hover:text-[#FFF07C] hover:bg-[#3A7CA5]/10 border border-transparent hover:border-[#A1E8AF]/20'} ${isOpen ? '' : 'lg:justify-center'}`
                 }
               >
                 {({ isActive }) => (
                   <>
-                    <span className={`transition-all duration-300 transform ${isActive ? 'text-[#FFF07C] scale-110' : 'text-[#A1E8AF] group-hover:text-[#FFF07C] group-hover:scale-110'}`}>
+                    <span className={`transition-all duration-300 transform flex-shrink-0 ${isActive ? 'text-[#FFF07C] scale-110' : 'text-[#A1E8AF] group-hover:text-[#FFF07C] group-hover:scale-110'}`}>
                       {renderIcon(item.icon)}
                     </span>
-                    {isOpen && <span className="ml-3 font-medium">{item.name}</span>}
+                    {(isOpen) && (
+                      <span className="ml-3 font-medium text-sm sm:text-base truncate">
+                        {item.name}
+                      </span>
+                    )}
                   </>
                 )}
               </NavLink>

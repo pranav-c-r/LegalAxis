@@ -115,10 +115,10 @@ const Dashboard = () => {
   return (
     <div className="space-y-6 sm:space-y-8">
       <div className="mb-6 sm:mb-8">
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#A9CEF4]">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-iconbg">
           Dashboard
         </h1>
-        <p className="text-[#7EA0B7] mt-2 text-sm sm:text-base">Welcome to LegalAxis, your AI-powered legal co-pilot.</p>
+        <p className="text-textcolor/70 mt-2 text-sm sm:text-base">Welcome to LegalAxis, your AI-powered legal co-pilot.</p>
       </div>
       
       <div className="dashboard-grid">
@@ -137,8 +137,8 @@ const Dashboard = () => {
       
       <div className="mt-6 sm:mt-8 grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
         <div className="card">
-          <h3 className="text-lg sm:text-xl font-semibold text-[#A9CEF4] mb-4 sm:mb-6 flex items-center">
-            <div className="w-2 h-4 sm:h-6 bg-[#A9CEF4] rounded-full mr-3"></div>
+          <h3 className="text-lg sm:text-xl font-semibold text-iconbg mb-4 sm:mb-6 flex items-center">
+            <div className="w-2 h-4 sm:h-6 bg-iconbg rounded-full mr-3"></div>
             Recent Activity
           </h3>
           <div className="space-y-3 sm:space-y-4">
@@ -148,17 +148,17 @@ const Dashboard = () => {
               { action: 'Risk Analysis', item: 'Vendor Contract - SupplyChain Inc', time: '1 day ago' },
               { action: 'Deadline Added', item: 'Renewal - Office Lease', time: '2 days ago' },
             ].map((activity, index) => (
-              <div key={index} className="flex items-start pb-3 sm:pb-4 border-b border-white/10 last:border-0 group">
-                <div className="bg-[#A9CEF4]/10 p-2 rounded-full mr-2 sm:mr-3 group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#A9CEF4]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <div key={index} className="flex items-start pb-3 sm:pb-4 border-b border-textcolor/10 last:border-0 group">
+                <div className="bg-iconbg/20 p-2 rounded-full mr-2 sm:mr-3 group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-iconbg" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs sm:text-sm font-medium text-white group-hover:text-[#A9CEF4] transition-colors duration-300 truncate">
+                  <p className="text-xs sm:text-sm font-medium text-textcolor group-hover:text-iconbg transition-colors duration-300 truncate">
                     {activity.action}: {activity.item}
                   </p>
-                  <p className="text-xs text-gray-400 mt-0.5">{activity.time}</p>
+                  <p className="text-xs text-textcolor/60 mt-0.5">{activity.time}</p>
                 </div>
               </div>
             ))}
@@ -166,8 +166,8 @@ const Dashboard = () => {
         </div>
         
         <div className="card">
-          <h3 className="text-lg sm:text-xl font-semibold text-[#A9CEF4] mb-4 sm:mb-6 flex items-center">
-            <div className="w-2 h-4 sm:h-6 bg-[#A9CEF4] rounded-full mr-3"></div>
+          <h3 className="text-lg sm:text-xl font-semibold text-iconbg mb-4 sm:mb-6 flex items-center">
+            <div className="w-2 h-4 sm:h-6 bg-iconbg rounded-full mr-3"></div>
             Upcoming Deadlines
           </h3>
           <div className="space-y-3 sm:space-y-4">
@@ -177,7 +177,7 @@ const Dashboard = () => {
               { title: 'Compliance Review', description: 'Updated Data Protection Policy', date: 'Oct 1, 2025', urgent: false },
               { title: 'Contract Expiration', description: 'Office Equipment Lease', date: 'Oct 10, 2025', urgent: false },
             ].map((deadline, index) => (
-              <div key={index} className="flex items-start pb-3 sm:pb-4 border-b border-white/10 last:border-0 group">
+              <div key={index} className="flex items-start pb-3 sm:pb-4 border-b border-textcolor/10 last:border-0 group">
                 <div className={`p-2 rounded-full mr-2 sm:mr-3 group-hover:scale-110 transition-transform duration-300 flex-shrink-0 ${
                   deadline.urgent ? 'bg-red-500/20' : 'bg-yellow-500/20'
                 }`}>

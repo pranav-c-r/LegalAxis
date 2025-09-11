@@ -8,10 +8,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#A9CEF4',
-        secondary: '#7EA0B7',
-        accent: '#597081',
-        background: '#36494E',
+        iconbg: '#f3cf1a',           // ICONS BACKGROUND
+        page: '#010101',             // MAIN PAGE BG
+        greybg: '#1a1a1a',           // bg grey
+        textcolor: '#FFFFFF',        // all text color
+        boxbg: '#343535',            // box components background
+        // Keep some legacy colors for gradual transition
+        primary: '#f3cf1a',
+        secondary: '#343535',
+        accent: '#1a1a1a',
+        background: '#010101',
       },
       screens: {
         'xs': '475px',

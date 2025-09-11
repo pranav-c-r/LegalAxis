@@ -18,6 +18,7 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/compliance" element={<Compliance />} />
           <Route path="/obligations" element={<Obligations />} />
           <Route path="/risk" element={<Risk />} />

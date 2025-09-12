@@ -44,6 +44,18 @@ const Navbar = ({ toggleSidebar }) => {
             </div>
           </div>
 
+          
+
+          {/* Mobile Search Button */}
+          <button 
+            onClick={() => setIsSearchOpen(!isSearchOpen)}
+            className="md:hidden text-[#f3cf1a] hover:text-white focus:outline-none transition-all duration-300 p-2 hover:bg-[#343535] rounded-lg"
+            aria-label="Toggle search"
+          >
+            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </button>
           {/* Notifications */}
           <div className="relative">
             <button 
@@ -88,17 +100,6 @@ const Navbar = ({ toggleSidebar }) => {
               </div>
             )}
           </div>
-
-          {/* Mobile Search Button */}
-          <button 
-            onClick={() => setIsSearchOpen(!isSearchOpen)}
-            className="md:hidden text-[#f3cf1a] hover:text-white focus:outline-none transition-all duration-300 p-2 hover:bg-[#343535] rounded-lg"
-            aria-label="Toggle search"
-          >
-            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
-          </button>
           
           {/* User Profile */}
           <div className="relative">

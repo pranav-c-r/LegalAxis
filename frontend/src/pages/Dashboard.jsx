@@ -1,6 +1,8 @@
 // Dashboard.jsx
 import React from 'react';
 import { AgentCard } from '../components/agents';
+import { useUserAuth } from '../context/UserAuthContext';
+
 
 const Dashboard = () => {
   const agents = [
@@ -111,7 +113,7 @@ const Dashboard = () => {
       onAction: () => window.location.href = '/documents'
     },
   ];
-
+  const {user}=useUserAuth();
   return (
     <div className="space-y-6 sm:space-y-8">
       <div className="mb-6 sm:mb-8">

@@ -10,14 +10,23 @@ import Negotiation from './pages/Negotiation';
 import Scenarios from './pages/Scenarios';
 import Research from './pages/Research';
 import Settings from './pages/Settings';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import { UserAuthContextProvider } from './context/UserAuthContext';  
 import './index.css';
 
 function App() {
   return (
+    <UserAuthContextProvider>
     <Router>
       <Layout>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+      
+          <Route path="/" element={<Login/>} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          
           <Route path="/compliance" element={<Compliance />} />
           <Route path="/obligations" element={<Obligations />} />
           <Route path="/risk" element={<Risk />} />
@@ -27,9 +36,11 @@ function App() {
           <Route path="/documents" element={<Documents />} />
           <Route path="/collaboration" element={<Collaboration />} />
           <Route path="/settings" element={<Settings />} />
+          
         </Routes>
       </Layout>
     </Router>
+    </UserAuthContextProvider>
   );
 }
 

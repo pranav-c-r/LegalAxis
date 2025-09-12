@@ -1,104 +1,207 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Obligations = () => {
+  const [activeTab, setActiveTab] = useState('upcoming');
+  
+  // Sample data for demonstration
+  const obligationsData = {
+    upcoming: [
+      { id: 1, title: 'Quarterly Payment Due', deadline: '3 days left', description: '$25,000 payment due to Vendor Inc. as per Section 4.2 of the agreement', source: 'SaaS Subscription Agreement' },
+      { id: 2, title: 'Annual Report Filing', deadline: '2 weeks left', description: 'Submit annual financial report to SEC as required by regulation', source: 'SEC Compliance Requirements' },
+      { id: 3, title: 'Software License Renewal', deadline: '1 month left', description: 'Renew enterprise software license with updated terms', source: 'Software Agreement v2.1' }
+    ],
+    overdue: [
+      { id: 4, title: 'Insurance Premium Payment', deadline: '5 days overdue', description: 'Monthly insurance premium payment for property coverage', source: 'Insurance Policy #45892' }
+    ],
+    completed: [
+      { id: 5, title: 'Tax Filing', deadline: 'Completed', description: 'Q2 corporate tax filing submitted to IRS', source: 'IRS Requirements', completionDate: 'Jul 15, 2023' }
+    ]
+  };
+
   return (
-    <div className="space-y-4 sm:space-y-6">
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
-        <h1 className="text-2xl sm:text-3xl font-bold text-iconbg">Obligation & Deadline Tracker</h1>
-        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
-          <button className="btn-primary w-full sm:w-auto">Add Obligation</button>
-          <button className="px-3 sm:px-4 py-2 rounded-lg bg-iconbg/20 text-iconbg hover:bg-iconbg/30 transition-all flex items-center justify-center">
-            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-            </svg>
-          </button>
-        </div>
-      </div>
-      
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
-        <div className="xl:col-span-2">
-          <div className="card">
-            <h2 className="text-lg sm:text-xl font-semibold mb-4 text-iconbg">Upcoming Deadlines</h2>
-            <div className="space-y-3 sm:space-y-4">
-              {[1, 2, 3].map((item) => (
-                <div key={item} className="p-3 sm:p-4 rounded-lg bg-greybg border border-iconbg/30 hover:border-iconbg/50 transition-all">
-                  <div className="flex flex-col sm:flex-row sm:justify-between gap-2">
-                    <h3 className="font-medium text-iconbg text-sm sm:text-base">Quarterly Payment Due</h3>
-                    <span className="text-xs sm:text-sm px-2 py-1 rounded-full bg-iconbg/20 text-iconbg self-start">
-                      {item === 1 ? '3 days left' : item === 2 ? '2 weeks left' : '1 month left'}
-                    </span>
-                  </div>
-                  <p className="text-xs sm:text-sm mt-2 text-textcolor/70 leading-relaxed">$25,000 payment due to Vendor Inc. as per Section 4.2 of the agreement</p>
-                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-3 gap-2">
-                    <span className="text-xs text-textcolor/60">From: SaaS Subscription Agreement</span>
-                    <div className="flex flex-col sm:flex-row space-y-1 sm:space-y-0 sm:space-x-2">
-                      <button className="text-xs px-3 py-1 rounded-full bg-iconbg/20 text-iconbg hover:bg-iconbg/30 transition-all">
-                        Add to Calendar
-                      </button>
-                      <button className="text-xs px-3 py-1 rounded-full bg-iconbg/20 text-iconbg hover:bg-iconbg/30 transition-all">
-                        Set Alert
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))}
+    <div className="min-h-screen bg-[#000000] text-white p-4 sm:p-6">
+      {/* Header Section */}
+      {/* Header Section */}
+        <div className="mb-8 sm:mb-12 relative">
+          <div className="absolute -top-4 -left-4 w-24 h-24 bg-[#f3cf1a]/10 rounded-full blur-xl"></div>
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+            <div>
+              <h1 className="text-3xl sm:text-4xl font-bold text-white relative">
+                Obligation & Deadline Tracker
+                <span className="block w-16 h-1 bg-[#f3cf1a] mt-2 rounded-full"></span>
+              </h1>
+              <p className="text-[#e0e0e0] mt-3 text-base">Manage your contractual obligations, compliance requirements, and important deadlines in one place</p>
             </div>
+            <button className="px-6 py-3 bg-[#f3cf1a] hover:bg-[#f3cf1a]/90 text-[#1a1a1a] font-medium rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#f3cf1a]/20 w-full sm:w-auto">
+              Scan New Contract
+            </button>
+          </div>
+        </div>
+
+      {/* Stats Summary */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+        <div className="bg-[#242424] p-4 sm:p-6 rounded-xl border border-[#343535] flex items-center">
+          <div className="bg-[#f3cf1a]/20 p-3 rounded-full mr-4">
+            <svg className="w-6 h-6 text-[#f3cf1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold">24</h3>
+            <p className="text-sm text-gray-400">Total Obligations</p>
           </div>
         </div>
         
-        <div className="space-y-4 sm:space-y-6">
-          <div className="card">
-            <h2 className="text-lg sm:text-xl font-semibold mb-4 text-iconbg">Obligation Summary</h2>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center p-3 rounded-lg bg-greybg border border-iconbg/30 hover:border-iconbg/50 transition-all">
-                <span className="text-textcolor/70">Due This Week</span>
-                <span className="text-xl font-semibold text-iconbg">3</span>
+        <div className="bg-[#242424] p-4 sm:p-6 rounded-xl border border-[#343535] flex items-center">
+          <div className="bg-[#f3cf1a]/20 p-3 rounded-full mr-4">
+            <svg className="w-6 h-6 text-[#f3cf1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold">3</h3>
+            <p className="text-sm text-gray-400">Due This Week</p>
+          </div>
+        </div>
+        
+        <div className="bg-[#242424] p-4 sm:p-6 rounded-xl border border-[#343535] flex items-center">
+          <div className="bg-[#f3cf1a]/20 p-3 rounded-full mr-4">
+            <svg className="w-6 h-6 text-[#f3cf1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold">92%</h3>
+            <p className="text-sm text-gray-400">Compliance Rate</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div className="xl:col-span-2">
+          {/* Tab Navigation */}
+          <div className="flex border-b border-[#343535] mb-6">
+            <button 
+              className={`px-4 py-2 font-medium text-sm ${activeTab === 'upcoming' ? 'text-[#f3cf1a] border-b-2 border-[#f3cf1a]' : 'text-gray-400'}`}
+              onClick={() => setActiveTab('upcoming')}
+            >
+              Upcoming
+            </button>
+            <button 
+              className={`px-4 py-2 font-medium text-sm ${activeTab === 'overdue' ? 'text-[#f3cf1a] border-b-2 border-[#f3cf1a]' : 'text-gray-400'}`}
+              onClick={() => setActiveTab('overdue')}
+            >
+              Overdue
+            </button>
+            <button 
+              className={`px-4 py-2 font-medium text-sm ${activeTab === 'completed' ? 'text-[#f3cf1a] border-b-2 border-[#f3cf1a]' : 'text-gray-400'}`}
+              onClick={() => setActiveTab('completed')}
+            >
+              Completed
+            </button>
+          </div>
+
+          {/* Obligations List */}
+          <div className="space-y-4">
+            {obligationsData[activeTab].map((item) => (
+              <div key={item.id} className="bg-[#242424] p-4 sm:p-6 rounded-xl border border-[#343535] hover:border-[#f3cf1a]/30 transition-all duration-300">
+                <div className="flex flex-col sm:flex-row sm:justify-between gap-3 mb-3">
+                  <h3 className="font-semibold text-lg text-white">{item.title}</h3>
+                  <span className={`text-xs px-3 py-1 rounded-full self-start ${activeTab === 'overdue' ? 'bg-red-500/20 text-red-400' : activeTab === 'completed' ? 'bg-green-500/20 text-green-400' : 'bg-[#f3cf1a]/20 text-[#f3cf1a]'}`}>
+                    {item.deadline}
+                  </span>
+                </div>
+                <p className="text-sm text-gray-400 mb-4">{item.description}</p>
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
+                  <span className="text-xs text-gray-500">From: {item.source}</span>
+                  <div className="flex space-x-2">
+                    <button className="text-xs px-3 py-2 rounded-lg bg-[#343535] text-gray-300 hover:bg-[#f3cf1a] hover:text-[#1a1a1a] transition-all">
+                      Add to Calendar
+                    </button>
+                    <button className="text-xs px-3 py-2 rounded-lg bg-[#343535] text-gray-300 hover:bg-[#f3cf1a] hover:text-[#1a1a1a] transition-all">
+                      Set Alert
+                    </button>
+                    {activeTab === 'completed' && (
+                      <span className="text-xs text-gray-500 self-center">Completed on {item.completionDate}</span>
+                    )}
+                  </div>
+                </div>
               </div>
-              <div className="flex justify-between items-center p-3 rounded-lg bg-greybg border border-iconbg/30 hover:border-iconbg/50 transition-all">
-                <span className="text-textcolor/70">Due This Month</span>
-                <span className="text-xl font-semibold text-iconbg">8</span>
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-6">
+          {/* Compliance Score Card */}
+          <div className="bg-[#242424] p-6 rounded-xl border border-[#343535]">
+            <h2 className="text-xl font-semibold mb-6 text-white flex items-center">
+              <svg className="w-5 h-5 mr-2 text-[#f3cf1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
+              Compliance Score
+            </h2>
+            
+            <div className="relative mb-6">
+              <div className="w-full h-3 bg-[#343535] rounded-full">
+                <div className="h-3 bg-gradient-to-r from-[#f3cf1a] to-[#e5b800] rounded-full" style={{ width: '92%' }}></div>
               </div>
-              <div className="flex justify-between items-center p-3 rounded-lg bg-greybg border border-iconbg/30 hover:border-iconbg/50 transition-all">
-                <span className="text-textcolor/70">Total Active</span>
-                <span className="text-xl font-semibold text-iconbg">24</span>
+              <div className="absolute top-0 right-0 text-sm font-semibold text-[#f3cf1a]">92%</div>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-[#1a1a1a] p-3 rounded-lg">
+                <div className="text-2xl font-bold text-white">24</div>
+                <div className="text-xs text-gray-400">Total Tracked</div>
+              </div>
+              <div className="bg-[#1a1a1a] p-3 rounded-lg">
+                <div className="text-2xl font-bold text-white">22</div>
+                <div className="text-xs text-gray-400">Completed</div>
+              </div>
+              <div className="bg-[#1a1a1a] p-3 rounded-lg">
+                <div className="text-2xl font-bold text-white">1</div>
+                <div className="text-xs text-gray-400">Overdue</div>
+              </div>
+              <div className="bg-[#1a1a1a] p-3 rounded-lg">
+                <div className="text-2xl font-bold text-white">3</div>
+                <div className="text-xs text-gray-400">Upcoming</div>
               </div>
             </div>
           </div>
-          
-          <div className="card">
-            <h2 className="text-xl font-semibold mb-4 text-iconbg">Obligation Types</h2>
-            <div className="space-y-3">
-              <div className="p-3 rounded-lg bg-greybg border border-iconbg/30 hover:border-iconbg/50 transition-all flex items-center">
-                <div className="w-10 h-10 rounded-full bg-iconbg/20 flex items-center justify-center text-iconbg">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+
+          {/* Regulation Updates */}
+          <div className="bg-[#242424] p-6 rounded-xl border border-[#343535]">
+            <h2 className="text-xl font-semibold mb-4 text-white">Regulation Updates</h2>
+            <div className="space-y-4">
+              <div className="p-3 rounded-lg bg-[#1a1a1a] border border-[#343535] hover:border-[#f3cf1a]/30 transition-all">
+                <h3 className="font-medium text-white text-sm">New Tax Filing Requirements</h3>
+                <p className="text-xs text-gray-400 mt-1">Updated regulations for FY2023 reporting</p>
+                <div className="flex items-center mt-2 text-xs text-gray-500">
+                  <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
-                </div>
-                <div className="ml-3">
-                  <h3 className="font-medium text-iconbg">Payments</h3>
-                  <p className="text-xs text-textcolor/70">12 obligations</p>
+                  2 hours ago
                 </div>
               </div>
-              <div className="p-3 rounded-lg bg-greybg border border-iconbg/30 hover:border-iconbg/50 transition-all flex items-center">
-                <div className="w-10 h-10 rounded-full bg-iconbg/20 flex items-center justify-center text-iconbg">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              
+              <div className="p-3 rounded-lg bg-[#1a1a1a] border border-[#343535] hover:border-[#f3cf1a]/30 transition-all">
+                <h3 className="font-medium text-white text-sm">Data Privacy Law Changes</h3>
+                <p className="text-xs text-gray-400 mt-1">New requirements for user data handling</p>
+                <div className="flex items-center mt-2 text-xs text-gray-500">
+                  <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
-                </div>
-                <div className="ml-3">
-                  <h3 className="font-medium text-iconbg">Filings</h3>
-                  <p className="text-xs text-textcolor/70">8 obligations</p>
+                  1 day ago
                 </div>
               </div>
-              <div className="p-3 rounded-lg bg-greybg border border-iconbg/30 hover:border-iconbg/50 transition-all flex items-center">
-                <div className="w-10 h-10 rounded-full bg-iconbg/20 flex items-center justify-center text-iconbg">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+              
+              <div className="p-3 rounded-lg bg-[#1a1a1a] border border-[#343535] hover:border-[#f3cf1a]/30 transition-all">
+                <h3 className="font-medium text-white text-sm">Industry Compliance Standards</h3>
+                <p className="text-xs text-gray-400 mt-1">Updated safety protocols for Q3</p>
+                <div className="flex items-center mt-2 text-xs text-gray-500">
+                  <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
-                </div>
-                <div className="ml-3">
-                  <h3 className="font-medium text-iconbg">Renewals</h3>
-                  <p className="text-xs text-textcolor/70">4 obligations</p>
+                  3 days ago
                 </div>
               </div>
             </div>

@@ -1,10 +1,22 @@
 // Navbar.jsx
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-
+import { Link,useNavigate} from 'react-router-dom';
+import {Button } from 'react-bootstrap';
+import { useUserAuth } from '../../context/UserAuthContext';
 const Navbar = ({ toggleSidebar }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const {user,logOut} = useUserAuth();
+  const navigate = useNavigate();
+  const handleLogOut=async()=>{
+    try{
+      await logOut();
+      navigate("/login");
+    }
+    catch(err){
+      console.log(err.message);
+    }
+  };
 
   return (
   <nav className="bg-background/90 backdrop-blur-md border-b border-primary/10 px-3 sm:px-6 py-3 sm:py-4 fixed w-full top-0 left-0 z-50 shadow-lg shadow-black/10">
@@ -24,11 +36,14 @@ const Navbar = ({ toggleSidebar }) => {
               LegalAxis
             </span>
           </Link>
+          <div>{user && user.email }</div>
         </div>
         
         <div className="flex items-center space-x-2 sm:space-x-4">
+           
           {/* Desktop Search */}
           <div className="relative hidden md:block">
+            <Button variant="outline-primary" onClick={handleLogOut}>Log Out</Button>
             <input 
               type="text" 
               className="bg-box/60 border border-primary/10 text-text text-sm rounded-xl focus:ring-2 focus:ring-primary/30 focus:border-transparent block w-48 lg:w-64 pl-10 p-2.5 placeholder-gray-400 transition-all duration-300 hover:bg-box/80" 

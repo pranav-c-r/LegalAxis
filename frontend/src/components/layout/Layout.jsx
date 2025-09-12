@@ -35,7 +35,7 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#1B1725] transition-colors duration-500">
+    <div className="flex flex-col min-h-screen bg-page transition-colors duration-500">
       <Navbar toggleSidebar={toggleSidebar} />
       <div className="flex flex-1 pt-14 sm:pt-16">
         {/* Overlay for mobile when sidebar is open */}
@@ -51,7 +51,7 @@ const Layout = ({ children }) => {
         <main 
           className={`flex-1 p-3 sm:p-4 lg:p-6 transition-all duration-500 ease-in-out ${
             sidebarOpen && !isMobile ? 'lg:ml-64' : 'lg:ml-20'
-          } bg-[#1B1725] min-w-0`}
+          } bg-page min-w-0`}
         >
           <div className="mx-auto max-w-full animate-fadeIn">
             {children}

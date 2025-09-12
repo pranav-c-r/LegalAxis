@@ -2,12 +2,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --bg-primary: #1B1725;
-  --primary: #A1E8AF;
-  --secondary: #3A7CA5;
-  --accent: #FFF07C;
-  --text-light: #F8F9FA;
-  --text-dark: #1B1725;
+  --bg-primary: #010101;
+  --primary: #f3cf1a;
+  --secondary: #343535;
+  --accent: #1a1a1a;
+  --text-light: #FFFFFF;
+  --text-dark: #010101;
+  --icon-bg: #f3cf1a;
+  --box-bg: #343535;
+  --grey-bg: #1a1a1a;
 }
 
 body {
@@ -18,13 +21,12 @@ body {
 
 /* Enhanced card component */
 .card {
-  background: linear-gradient(135deg, rgba(161, 232, 175, 0.05) 0%, rgba(58, 124, 165, 0.05) 100%);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(161, 232, 175, 0.1);
+  background: var(--box-bg);
+  border: 1px solid rgba(243, 207, 26, 0.2);
   border-radius: 16px;
   padding: 1rem;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 @media (min-width: 640px) {
@@ -35,27 +37,28 @@ body {
 
 .card:hover {
   transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 12px 40px rgba(161, 232, 175, 0.15);
-  border-color: rgba(161, 232, 175, 0.3);
+  box-shadow: 0 12px 40px rgba(243, 207, 26, 0.3);
+  border-color: rgba(243, 207, 26, 0.5);
 }
 
 /* Enhanced buttons */
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  background: var(--primary);
   color: var(--text-dark);
   border: none;
   border-radius: 12px;
   padding: 0.75rem 1.5rem;
   font-weight: 600;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 15px rgba(161, 232, 175, 0.2);
+  box-shadow: 0 4px 15px rgba(243, 207, 26, 0.3);
   position: relative;
   overflow: hidden;
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(161, 232, 175, 0.3);
+  box-shadow: 0 6px 20px rgba(243, 207, 26, 0.5);
+  background: rgba(243, 207, 26, 0.9);
 }
 
 .btn-primary::before {
@@ -65,7 +68,7 @@ body {
   left: 50%;
   width: 0;
   height: 0;
-  background: rgba(255, 240, 124, 0.2);
+  background: rgba(26, 26, 26, 0.2);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   transition: width 0.6s ease, height 0.6s ease;

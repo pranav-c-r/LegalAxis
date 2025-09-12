@@ -26,27 +26,27 @@ const CommentThread = ({ comments, documentId }) => {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="mb-6">
-        <div className="flex items-start space-x-4">
-          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#A9CEF4] to-[#7EA0B7] flex items-center justify-center text-white font-bold text-lg shadow-lg">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="mb-4 sm:mb-6">
+        <div className="flex items-start space-x-3 sm:space-x-4">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-full bg-iconbg flex items-center justify-center text-page font-bold text-sm sm:text-base lg:text-lg shadow-lg flex-shrink-0">
             JD
           </div>
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <textarea
-              className="w-full p-4 bg-white/5 border border-white/10 rounded-xl focus:ring-2 focus:ring-[#A9CEF4] focus:border-transparent text-white placeholder-gray-400 resize-none"
+              className="w-full p-3 sm:p-4 bg-boxbg border border-iconbg/20 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-iconbg focus:border-transparent text-textcolor placeholder-textcolor/50 resize-none text-sm sm:text-base"
               placeholder="Add a comment..."
               rows="3"
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
             ></textarea>
-            <div className="mt-3 flex justify-end">
+            <div className="mt-2 sm:mt-3 flex flex-col sm:flex-row sm:justify-end gap-2">
               <button 
-                className="btn-primary"
+                className="bg-iconbg text-page px-4 py-2 rounded-lg hover:bg-iconbg/90 transition-all duration-300 font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                 onClick={handleAddComment}
                 disabled={newComment.trim() === ''}
               >
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                 </svg>
                 Post Comment

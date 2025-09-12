@@ -32,7 +32,7 @@ const Scenarios = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#1a1a1a] text-white p-4 sm:p-6">
+    <div className="min-h-screen bg-[#000000] text-white p-4 sm:p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="mb-8 sm:mb-12 relative">

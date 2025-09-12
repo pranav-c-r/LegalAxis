@@ -143,9 +143,9 @@ const Obligations = () => {
             
             <div className="relative mb-6">
               <div className="w-full h-3 bg-[#343535] rounded-full">
-                <div className="h-3 bg-gradient-to-r from-[#f3cf1a] to-[#e5b800] rounded-full" style={{ width: '92%' }}></div>
+                <div className="h-3 bg-gradient-to-r from-[#f3cf1a] to-[#e5b800] rounded-full" style={{ width: '85%' }}></div>
               </div>
-              <div className="absolute top-0 right-0 text-sm font-semibold text-[#f3cf1a]">92%</div>
+              <div className="absolute top-0 right-0 text-sm font-semibold text-[#f3cf1a]">85%</div>
             </div>
             
             <div className="grid grid-cols-2 gap-4">

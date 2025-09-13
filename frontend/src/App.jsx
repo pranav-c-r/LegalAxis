@@ -13,115 +13,133 @@ import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
-import ProtectedRoute from "./components/ProtectedRoute";  // ✅ added
+import ProtectedRoute from "./components/ProtectedRoute";
 import "./index.css";
 
 function App() {
   return (
     <UserAuthContextProvider>
       <Router>
-        <Layout>
-          <Routes>
-            {/* Public routes */}
-            <Route path="/" element={<Login />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+        <Routes>
+          {/* Public routes (no Layout - clean login/signup pages) */}
+          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
 
-            {/* Protected routes */}
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
+          {/* Protected routes (with Layout - sidebar/navbar) */}
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Layout>
                   <Dashboard />
-                </ProtectedRoute>
-              }
-            />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
 
-            <Route
-              path="/documents"
-              element={
-                <ProtectedRoute>
+          <Route
+            path="/documents"
+            element={
+              <ProtectedRoute>
+                <Layout>
                   <Documents />
-                </ProtectedRoute>
-              }
-            />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
 
-            <Route
-              path="/collaboration"
-              element={
-                <ProtectedRoute>
+          <Route
+            path="/collaboration"
+            element={
+              <ProtectedRoute>
+                <Layout>
                   <Collaboration />
-                </ProtectedRoute>
-              }
-            />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
 
-            <Route
-              path="/compliance"
-              element={
-                <ProtectedRoute>
+          <Route
+            path="/compliance"
+            element={
+              <ProtectedRoute>
+                <Layout>
                   <Compliance />
-                </ProtectedRoute>
-              }
-            />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
 
-            <Route
-              path="/obligations"
-              element={
-                <ProtectedRoute>
+          <Route
+            path="/obligations"
+            element={
+              <ProtectedRoute>
+                <Layout>
                   <Obligations />
-                </ProtectedRoute>
-              }
-            />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
 
-            <Route
-              path="/risk"
-              element={
-                <ProtectedRoute>
+          <Route
+            path="/risk"
+            element={
+              <ProtectedRoute>
+                <Layout>
                   <Risk />
-                </ProtectedRoute>
-              }
-            />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
 
-            <Route
-              path="/negotiation"
-              element={
-                <ProtectedRoute>
+          <Route
+            path="/negotiation"
+            element={
+              <ProtectedRoute>
+                <Layout>
                   <Negotiation />
-                </ProtectedRoute>
-              }
-            />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
 
-            <Route
-              path="/scenarios"
-              element={
-                <ProtectedRoute>
+          <Route
+            path="/scenarios"
+            element={
+              <ProtectedRoute>
+                <Layout>
                   <Scenarios />
-                </ProtectedRoute>
-              }
-            />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
 
-            <Route
-              path="/research"
-              element={
-                <ProtectedRoute>
+          <Route
+            path="/research"
+            element={
+              <ProtectedRoute>
+                <Layout>
                   <Research />
-                </ProtectedRoute>
-              }
-            />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
 
-            <Route
-              path="/settings"
-              element={
-                <ProtectedRoute>
+          <Route
+            path="/settings"
+            element={
+              <ProtectedRoute>
+                <Layout>
                   <Settings />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-        </Layout>
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
       </Router>
     </UserAuthContextProvider>
   );
 }
 
-export default App;
+export default App;

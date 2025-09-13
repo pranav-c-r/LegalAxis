@@ -115,13 +115,22 @@ const Dashboard = () => {
   ];
   const {user}=useUserAuth();
   return (
-    <div className="space-y-6 sm:space-y-8">
-      <div className="mb-6 sm:mb-8">
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-iconbg">
-          Dashboard
-        </h1>
-        <p className="text-textcolor/70 mt-2 text-sm sm:text-base">Welcome to LegalAxis, your AI-powered legal co-pilot.</p>
-      </div>
+    <div className="space-y-6 sm:space-y-8 min-h-screen bg-[#000000] text-white p-4 sm:p-6">
+      {/* Header Section */}
+        <div className="mb-8 sm:mb-12 relative">
+          <div className="absolute -top-4 -left-4 w-24 h-24 bg-[#f3cf1a]/10 rounded-full blur-xl"></div>
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+            <div>
+              <h1 className="text-3xl sm:text-4xl font-bold text-white relative">
+                Dashboard
+                <span className="block w-16 h-1 bg-[#f3cf1a] mt-2 rounded-full"></span>
+              </h1>
+              <p className="text-[#e0e0e0] mt-3 text-base">Welcome to LegalAxis, your AI-powered legal co-pilot.</p>
+            </div>
+            
+          </div>
+        </div>
+      
       
       <div className="dashboard-grid">
         {agents.map((agent, index) => (

@@ -10,6 +10,7 @@ import Negotiation from "./pages/Negotiation";
 import Scenarios from "./pages/Scenarios";
 import Research from "./pages/Research";
 import Settings from "./pages/Settings";
+import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
@@ -22,7 +23,7 @@ function App() {
       <Router>
         <Routes>
           {/* Public routes (no Layout - clean login/signup pages) */}
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
 

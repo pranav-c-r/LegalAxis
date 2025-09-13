@@ -38,7 +38,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen bg-page flex items-center justify-center px-4 sm:px-6 lg:px-8">
+  <div className="min-h-screen bg-[#010101] flex items-center justify-center px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         {/* Header */}
         <div className="text-center">
@@ -47,12 +47,12 @@ const Signup = () => {
               <img src="/logolegal.png" alt="LegalAxis Logo" className="h-16 w-auto object-contain select-none" draggable="false" />
             </div>
           </div>
-          <h2 className="text-3xl font-bold text-textcolor">Join LegalAxis</h2>
-          <p className="mt-2 text-textcolor/70">Create your account to get started</p>
+          <h2 className="text-3xl font-bold text-[#f3cf1a]">Join LegalAxis</h2>
+          <p className="mt-2 text-[#e0e0e0]">Create your account to get started</p>
         </div>
 
         {/* Signup Form */}
-        <div className="bg-boxbg rounded-lg shadow-lg p-8 border border-textcolor/10">
+  <div className="bg-[#222222] rounded-lg shadow-lg p-8 border border-[#343535]">
           {error && (
             <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
               <p className="text-red-400 text-sm">{error}</p>
@@ -61,7 +61,7 @@ const Signup = () => {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-textcolor mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-[#FFFFFF] mb-2">
                 Email Address
               </label>
               <input
@@ -70,13 +70,13 @@ const Signup = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-greybg border border-textcolor/20 rounded-lg text-textcolor placeholder-textcolor/50 focus:outline-none focus:ring-2 focus:ring-iconbg focus:border-transparent transition-all duration-200"
+                className="w-full px-4 py-3 bg-[#2a2a2a] border border-[#343535] rounded-lg text-[#FFFFFF] placeholder-[#a0a0a0] focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent transition-all duration-200"
                 placeholder="Enter your email"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-textcolor mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-[#FFFFFF] mb-2">
                 Password
               </label>
               <input
@@ -85,13 +85,13 @@ const Signup = () => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-greybg border border-textcolor/20 rounded-lg text-textcolor placeholder-textcolor/50 focus:outline-none focus:ring-2 focus:ring-iconbg focus:border-transparent transition-all duration-200"
+                className="w-full px-4 py-3 bg-[#2a2a2a] border border-[#343535] rounded-lg text-[#FFFFFF] placeholder-[#a0a0a0] focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent transition-all duration-200"
                 placeholder="Create a password (min. 6 characters)"
               />
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-textcolor mb-2">
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-[#FFFFFF] mb-2">
                 Confirm Password
               </label>
               <input
@@ -100,19 +100,19 @@ const Signup = () => {
                 required
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-greybg border border-textcolor/20 rounded-lg text-textcolor placeholder-textcolor/50 focus:outline-none focus:ring-2 focus:ring-iconbg focus:border-transparent transition-all duration-200"
+                className="w-full px-4 py-3 bg-[#2a2a2a] border border-[#343535] rounded-lg text-[#FFFFFF] placeholder-[#a0a0a0] focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent transition-all duration-200"
                 placeholder="Confirm your password"
               />
             </div>
 
             {/* Password requirements */}
-            <div className="text-xs text-textcolor/60 space-y-1">
+            <div className="text-xs text-[#a0a0a0] space-y-1">
               <p className="flex items-center">
-                <span className={`w-2 h-2 rounded-full mr-2 ${password.length >= 6 ? 'bg-green-500' : 'bg-gray-500'}`}></span>
+                <span className={`w-2 h-2 rounded-full mr-2 ${password.length >= 6 ? 'bg-green-500' : 'bg-[#343535]'}`}></span>
                 At least 6 characters
               </p>
               <p className="flex items-center">
-                <span className={`w-2 h-2 rounded-full mr-2 ${password === confirmPassword && password.length > 0 ? 'bg-green-500' : 'bg-gray-500'}`}></span>
+                <span className={`w-2 h-2 rounded-full mr-2 ${password === confirmPassword && password.length > 0 ? 'bg-green-500' : 'bg-[#343535]'}`}></span>
                 Passwords match
               </p>
             </div>
@@ -120,7 +120,7 @@ const Signup = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-iconbg hover:bg-iconbg/90 text-page font-semibold py-3 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-iconbg focus:ring-offset-2 focus:ring-offset-boxbg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-[#f3cf1a] hover:bg-[#f3cf1a]/90 text-[#010101] font-semibold py-3 px-4 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] focus:ring-offset-2 focus:ring-offset-[#343535] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <div className="flex items-center justify-center">
@@ -138,13 +138,13 @@ const Signup = () => {
 
           {/* Terms and conditions */}
           <div className="mt-6 text-center">
-            <p className="text-xs text-textcolor/60">
+            <p className="text-xs text-[#a0a0a0]">
               By creating an account, you agree to our{' '}
-              <a href="#" className="text-iconbg hover:text-iconbg/80 transition-colors duration-200">
+              <a href="#" className="text-[#f3cf1a] hover:text-[#f3cf1a]/80 transition-all duration-200">
                 Terms of Service
               </a>{' '}
               and{' '}
-              <a href="#" className="text-iconbg hover:text-iconbg/80 transition-colors duration-200">
+              <a href="#" className="text-[#f3cf1a] hover:text-[#f3cf1a]/80 transition-all duration-200">
                 Privacy Policy
               </a>
             </p>
@@ -153,11 +153,11 @@ const Signup = () => {
 
         {/* Login Link */}
         <div className="text-center">
-          <p className="text-textcolor/70">
+          <p className="text-[#a0a0a0]">
             Already have an account?{' '}
             <Link 
               to="/" 
-              className="text-iconbg hover:text-iconbg/80 font-medium transition-colors duration-200"
+              className="text-[#f3cf1a] hover:text-[#f3cf1a]/80 font-medium transition-all duration-200"
             >
               Sign in here
             </Link>

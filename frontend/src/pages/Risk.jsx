@@ -17,7 +17,15 @@ const Risk = () => {
               </h1>
               <p className="text-[#e0e0e0] mt-3 text-base">Identify and assess contractual risks with interactive heatmaps and scoring</p>
             </div>
-            <button className="px-6 py-3 bg-[#f3cf1a] hover:bg-[#f3cf1a]/90 text-[#1a1a1a] font-medium rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#f3cf1a]/20 w-full sm:w-auto">
+            <button 
+              className="px-6 py-3 bg-[#f3cf1a] hover:bg-[#f3cf1a]/90 text-[#1a1a1a] font-medium rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#f3cf1a]/20 w-full sm:w-auto"
+              style={{
+                borderRadius: '8px',
+                backgroundColor: '#f3cf1a',
+                color: '#1a1a1a',
+                border: '2px solid #f3cf1a'
+              }}
+            >
               Analyze New Contract
             </button>
           </div>
@@ -137,14 +145,30 @@ const Risk = () => {
                 <div className="p-4 rounded-xl bg-[#2a2a2a] border border-red-500/30 hover:border-red-500/50 transition-all duration-300 group">
                   <h3 className="font-medium text-white text-base group-hover:text-red-300 transition-colors duration-300">One-sided Termination</h3>
                   <p className="text-sm mt-2 text-[#e0e0e0] leading-relaxed">Allows vendor to terminate without cause with only 15 days notice</p>
-                  <button className="text-xs mt-3 px-3 py-1.5 rounded-lg bg-[#f3cf1a]/10 text-[#f3cf1a] hover:bg-[#f3cf1a]/20 transition-all">
+                  <button 
+                    className="text-xs mt-3 px-3 py-1.5 rounded-lg bg-[#f3cf1a]/10 text-[#f3cf1a] hover:bg-[#f3cf1a]/20 transition-all"
+                    style={{
+                      borderRadius: '8px',
+                      backgroundColor: 'rgba(243, 207, 26, 0.1)',
+                      color: '#f3cf1a',
+                      border: '1px solid rgba(243, 207, 26, 0.2)'
+                    }}
+                  >
                     View Suggested Alternative
                   </button>
                 </div>
                 <div className="p-4 rounded-xl bg-[#2a2a2a] border border-yellow-500/30 hover:border-yellow-500/50 transition-all duration-300 group">
                   <h3 className="font-medium text-white text-base group-hover:text-yellow-300 transition-colors duration-300">Unbalanced Indemnification</h3>
                   <p className="text-sm mt-2 text-[#e0e0e0] leading-relaxed">Customer indemnifies vendor broadly while vendor's obligations are limited</p>
-                  <button className="text-xs mt-3 px-3 py-1.5 rounded-lg bg-[#f3cf1a]/10 text-[#f3cf1a] hover:bg-[#f3cf1a]/20 transition-all">
+                  <button 
+                    className="text-xs mt-3 px-3 py-1.5 rounded-lg bg-[#f3cf1a]/10 text-[#f3cf1a] hover:bg-[#f3cf1a]/20 transition-all"
+                    style={{
+                      borderRadius: '8px',
+                      backgroundColor: 'rgba(243, 207, 26, 0.1)',
+                      color: '#f3cf1a',
+                      border: '1px solid rgba(243, 207, 26, 0.2)'
+                    }}
+                  >
                     View Suggested Alternative
                   </button>
                 </div>

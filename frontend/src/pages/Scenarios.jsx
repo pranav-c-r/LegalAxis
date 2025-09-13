@@ -45,7 +45,15 @@ const Scenarios = () => {
               </h1>
               <p className="text-[#e0e0e0] mt-3 text-base">Model different contract scenarios and visualize potential outcomes</p>
             </div>
-            <button className="px-6 py-3 bg-[#f3cf1a] hover:bg-[#f3cf1a]/90 text-[#1a1a1a] font-medium rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#f3cf1a]/20 w-full sm:w-auto">
+            <button 
+              className="px-6 py-3 bg-[#f3cf1a] hover:bg-[#f3cf1a]/90 text-[#1a1a1a] font-medium rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#f3cf1a]/20 w-full sm:w-auto"
+              style={{
+                borderRadius: '8px',
+                backgroundColor: '#f3cf1a',
+                color: '#1a1a1a',
+                border: '2px solid #f3cf1a'
+              }}
+            >
               New Simulation
             </button>
           </div>
@@ -77,7 +85,15 @@ const Scenarios = () => {
                       <h3 className="font-medium text-white text-base sm:text-lg group-hover:text-[#f3cf1a] transition-colors duration-300">
                         {scenario.title}
                       </h3>
-                      <button className="text-xs sm:text-sm px-3 py-1.5 rounded-lg bg-[#f3cf1a]/10 text-[#f3cf1a] hover:bg-[#f3cf1a]/20 transition-all self-start">
+                      <button 
+                        className="text-xs sm:text-sm px-3 py-1.5 rounded-lg bg-[#f3cf1a]/10 text-[#f3cf1a] hover:bg-[#f3cf1a]/20 transition-all self-start"
+                        style={{
+                          borderRadius: '8px',
+                          backgroundColor: 'rgba(243, 207, 26, 0.1)',
+                          color: '#f3cf1a',
+                          border: '1px solid rgba(243, 207, 26, 0.2)'
+                        }}
+                      >
                         Run Simulation
                       </button>
                     </div>
@@ -184,7 +200,15 @@ const Scenarios = () => {
                     <option>NDA</option>
                   </select>
                 </div>
-                <button className="w-full mt-2 px-4 py-3 rounded-xl bg-[#f3cf1a] hover:bg-[#f3cf1a]/90 text-[#1a1a1a] font-medium transition-all duration-300">
+                <button 
+                  className="w-full mt-2 px-4 py-3 rounded-xl bg-[#f3cf1a] hover:bg-[#f3cf1a]/90 text-[#1a1a1a] font-medium transition-all duration-300"
+                  style={{
+                    borderRadius: '12px',
+                    backgroundColor: '#f3cf1a',
+                    color: '#1a1a1a',
+                    border: '2px solid #f3cf1a'
+                  }}
+                >
                   Create Scenario
                 </button>
               </div>

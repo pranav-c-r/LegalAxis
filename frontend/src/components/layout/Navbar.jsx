@@ -34,12 +34,16 @@ const Navbar = ({ toggleSidebar }) => {
             </svg>
           </button>
           <Link to="/" className="flex items-center min-w-0">
-            <span className="text-xl sm:text-2xl font-bold text-[#f3cf1a] truncate flex items-center">
-              <svg className="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-              </svg>
+            <span className="text-xl sm:text-2xl font-bold text-[#f3cf1a] truncate flex items-center">  
+              <img 
+              src="/logolegal.png" 
+              alt="LegalAxis Logo" 
+              className="h-9 sm:h-12 w-auto object-contain select-none " 
+              draggable="false"
+            />
               LegalAxis
             </span>
+    
           </Link>
         </div>
 

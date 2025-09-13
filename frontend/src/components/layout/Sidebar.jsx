@@ -140,8 +140,9 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                   }
                 }}
                 className={({ isActive }) =>
-                  `flex items-center p-2 sm:p-3 rounded-xl transition-all duration-300 group ${isActive ? 'bg-[#343535] text-white border-l-4 border-[#f3cf1a] shadow-md' : 'text-white/80 hover:bg-[#343535] hover:text-white border-l-4 border-transparent'} ${isOpen ? '' : 'lg:justify-center'}`
+                  `flex items-center p-2 sm:p-3 rounded-xl transition-all duration-300 group no-underline ${isActive ? 'bg-[#343535] text-[#f3cf1a] border-l-4 border-[#f3cf1a] shadow-md' : 'text-white hover:bg-[#343535] hover:text-[#f3cf1a] border-l-4 border-transparent'} ${isOpen ? '' : 'lg:justify-center'}`
                 }
+                style={{ textDecoration: 'none' }}
               >
                 {({ isActive }) => (
                   <>

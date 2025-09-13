@@ -43,10 +43,8 @@ const Signup = () => {
         {/* Header */}
         <div className="text-center">
           <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 bg-iconbg rounded-full flex items-center justify-center">
-              <svg className="w-8 h-8 text-page" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-              </svg>
+            <div className="w-20 h-20 flex items-center justify-center">
+              <img src="/logolegal.png" alt="LegalAxis Logo" className="h-16 w-auto object-contain select-none" draggable="false" />
             </div>
           </div>
           <h2 className="text-3xl font-bold text-textcolor">Join LegalAxis</h2>

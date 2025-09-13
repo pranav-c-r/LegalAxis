@@ -147,9 +147,9 @@ const Dashboard = () => {
       </div>
       
       <div className="mt-6 sm:mt-8 grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
-        <div className="card">
-          <h3 className="text-lg sm:text-xl font-semibold text-iconbg mb-4 sm:mb-6 flex items-center">
-            <div className="w-2 h-4 sm:h-6 bg-iconbg rounded-full mr-3"></div>
+        <div className="bg-[#222222] rounded-2xl p-5 sm:p-6 border border-[#343535] shadow-lg hover:shadow-xl transition-all duration-500 hover:border-[#f3cf1a]/30 group h-full flex flex-col">
+          <h3 className="text-lg sm:text-xl font-semibold text-white transition-all duration-500 leading-tight break-words mb-4 sm:mb-6 flex items-center">
+            <div className="w-2 h-4 sm:h-6 bg-[#f3cf1a] rounded-full mr-3"></div>
             Recent Activity
           </h3>
           <div className="space-y-3 sm:space-y-4">
@@ -176,9 +176,9 @@ const Dashboard = () => {
           </div>
         </div>
         
-        <div className="card">
-          <h3 className="text-lg sm:text-xl font-semibold text-iconbg mb-4 sm:mb-6 flex items-center">
-            <div className="w-2 h-4 sm:h-6 bg-iconbg rounded-full mr-3"></div>
+        <div className="bg-[#222222] rounded-2xl p-5 sm:p-6 border border-[#343535] shadow-lg hover:shadow-xl transition-all duration-500 hover:border-[#f3cf1a]/30 group h-full flex flex-col">
+          <h3 className="text-lg sm:text-xl font-semibold text-white transition-all duration-500 leading-tight break-words mb-4 sm:mb-6 flex items-center">
+            <div className="w-2 h-4 sm:h-6 bg-[#f3cf1a] rounded-full mr-3"></div>
             Upcoming Deadlines
           </h3>
           <div className="space-y-3 sm:space-y-4">

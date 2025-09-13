@@ -61,7 +61,16 @@ const Research = () => {
               </h1>
               
             </div>
-            <button className="px-6 py-3 bg-[#f3cf1a] hover:bg-[#f3cf1a]/90 text-[#1a1a1a] font-medium rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#f3cf1a]/20 w-full sm:w-auto">
+            <button 
+              className="px-6 py-3 bg-[#f3cf1a] hover:bg-[#f3cf1a]/90 text-[#1a1a1a] font-medium rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#f3cf1a]/20 w-full sm:w-auto"
+              style={{ 
+                borderRadius: '8px',
+                backgroundColor: '#f3cf1a',
+                color: '#1a1a1a',
+                border: 'none',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+              }}
+            >
               New Research
             </button>
           </div>
@@ -112,6 +121,11 @@ const Research = () => {
                       <button 
                         onClick={() => handleViewCase(item.id, item.title)}
                         className="text-xs px-4 py-2 rounded-full bg-[#f3cf1a]/20 text-[#f3cf1a] hover:bg-[#f3cf1a]/30 transition-all"
+                        style={{ 
+                          borderRadius: '50px',
+                          backgroundColor: 'rgba(243, 207, 26, 0.2)',
+                          border: 'none'
+                        }}
                       >
                         View Full Case
                       </button>
@@ -164,7 +178,14 @@ const Research = () => {
             </div>
             
             {/* Additional action button */}
-            <button className="mt-6 w-full py-3 rounded-lg border border-[#343535] hover:border-[#f3cf1a]/50 text-[#f3cf1a] hover:bg-[#f3cf1a]/10 transition-all flex items-center justify-center gap-2">
+            <button 
+              className="mt-6 w-full py-3 rounded-lg border border-[#343535] hover:border-[#f3cf1a]/50 text-[#f3cf1a] hover:bg-[#f3cf1a]/10 transition-all flex items-center justify-center gap-2"
+              style={{ 
+                borderRadius: '8px',
+                border: '1px solid #343535',
+                backgroundColor: 'transparent'
+              }}
+            >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
               </svg>

@@ -32,7 +32,15 @@ const Obligations = () => {
               </h1>
               <p className="text-[#e0e0e0] mt-3 text-base">Manage your contractual obligations, compliance requirements, and important deadlines in one place</p>
             </div>
-            <button className="px-6 py-3 bg-[#f3cf1a] hover:bg-[#f3cf1a]/90 text-[#1a1a1a] font-medium rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#f3cf1a]/20 w-full sm:w-auto">
+            <button 
+              className="px-6 py-3 bg-[#f3cf1a] hover:bg-[#f3cf1a]/90 text-[#1a1a1a] font-medium rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#f3cf1a]/20 w-full sm:w-auto"
+              style={{
+                borderRadius: '8px',
+                backgroundColor: '#f3cf1a',
+                color: '#1a1a1a',
+                border: '2px solid #f3cf1a'
+              }}
+            >
               Scan New Contract
             </button>
           </div>
@@ -115,10 +123,26 @@ const Obligations = () => {
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
                   <span className="text-xs text-gray-500">From: {item.source}</span>
                   <div className="flex space-x-2">
-                    <button className="text-xs px-3 py-2 rounded-lg bg-[#343535] text-gray-300 hover:bg-[#f3cf1a] hover:text-[#1a1a1a] transition-all">
+                    <button 
+                      className="text-xs px-3 py-2 rounded-lg bg-[#343535] text-gray-300 hover:bg-[#f3cf1a] hover:text-[#1a1a1a] transition-all"
+                      style={{
+                        borderRadius: '8px',
+                        backgroundColor: '#343535',
+                        color: '#d1d5db',
+                        border: '1px solid #4b5563'
+                      }}
+                    >
                       Add to Calendar
                     </button>
-                    <button className="text-xs px-3 py-2 rounded-lg bg-[#343535] text-gray-300 hover:bg-[#f3cf1a] hover:text-[#1a1a1a] transition-all">
+                    <button 
+                      className="text-xs px-3 py-2 rounded-lg bg-[#343535] text-gray-300 hover:bg-[#f3cf1a] hover:text-[#1a1a1a] transition-all"
+                      style={{
+                        borderRadius: '8px',
+                        backgroundColor: '#343535',
+                        color: '#d1d5db',
+                        border: '1px solid #4b5563'
+                      }}
+                    >
                       Set Alert
                     </button>
                     {activeTab === 'completed' && (

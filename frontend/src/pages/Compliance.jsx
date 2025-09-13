@@ -17,7 +17,14 @@ const Compliance = () => {
               </h1>
               <p className="text-[#e0e0e0] mt-3 text-base">Monitor regulatory changes and ensure document compliance</p>
             </div>
-            <button className="px-6 py-3 bg-[#f3cf1a] hover:bg-[#f3cf1a]/90 text-[#1a1a1a] font-medium rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#f3cf1a]/20 w-full sm:w-auto">
+            <button 
+              className="px-6 py-3 bg-[#f3cf1a] hover:bg-[#f3cf1a]/90 text-[#1a1a1a] font-medium rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#f3cf1a]/20 w-full sm:w-auto"
+              style={{ 
+                borderRadius: '8px',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                border: 'none'
+              }}
+            >
               Scan New Contract
             </button>
           </div>
@@ -46,7 +53,13 @@ const Compliance = () => {
                     <p className="text-sm mt-2 text-[#e0e0e0] leading-relaxed">Data processing clause in SaaS Agreement does not meet current GDPR requirements</p>
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-4 gap-2">
                       <span className="text-xs text-[#a0a0a0]">Found in: Section 8.3 of Master Service Agreement</span>
-                      <button className="text-xs px-3 py-1.5 rounded-lg bg-[#f3cf1a]/10 text-[#f3cf1a] hover:bg-[#f3cf1a]/20 transition-all self-start">
+                      <button 
+                        className="text-xs px-3 py-1.5 rounded-lg bg-[#f3cf1a]/10 text-[#f3cf1a] hover:bg-[#f3cf1a]/20 transition-all self-start"
+                        style={{ 
+                          borderRadius: '6px',
+                          border: 'none'
+                        }}
+                      >
                         View Suggested Fix
                       </button>
                     </div>

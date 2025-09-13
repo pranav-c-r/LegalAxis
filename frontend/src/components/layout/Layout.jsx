@@ -35,7 +35,7 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-page transition-colors duration-500">
+    <div className="flex flex-col min-h-screen bg-[#000000] transition-colors duration-500">
       <Navbar toggleSidebar={toggleSidebar} />
       <div className="flex flex-1 pt-14 sm:pt-16">
         {/* Overlay for mobile when sidebar is open */}

@@ -17,7 +17,15 @@ const Negotiation = () => {
               </h1>
               <p className="text-[#e0e0e0] mt-3 text-base">Generate counter-proposals and negotiation strategies based on contract analysis</p>
             </div>
-            <button className="px-6 py-3 bg-[#f3cf1a] hover:bg-[#f3cf1a]/90 text-[#1a1a1a] font-medium rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#f3cf1a]/20 w-full sm:w-auto">
+            <button 
+              className="px-6 py-3 bg-[#f3cf1a] hover:bg-[#f3cf1a]/90 text-[#1a1a1a] font-medium rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#f3cf1a]/20 w-full sm:w-auto"
+              style={{
+                borderRadius: '8px',
+                backgroundColor: '#f3cf1a',
+                color: '#1a1a1a',
+                border: '2px solid #f3cf1a'
+              }}
+            >
               New Negotiation
             </button>
           </div>
@@ -59,10 +67,26 @@ const Negotiation = () => {
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-4 gap-2">
                       <span className="text-xs text-[#a0a0a0]">Section {item === 1 ? '8.2' : item === 2 ? '4.1' : '3.4'} of Master Service Agreement</span>
                       <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
-                        <button className="text-xs px-3 py-1.5 rounded-lg bg-[#f3cf1a]/10 text-[#f3cf1a] hover:bg-[#f3cf1a]/20 transition-all">
+                        <button 
+                          className="text-xs px-3 py-1.5 rounded-lg bg-[#f3cf1a]/10 text-[#f3cf1a] hover:bg-[#f3cf1a]/20 transition-all"
+                          style={{
+                            borderRadius: '8px',
+                            backgroundColor: 'rgba(243, 207, 26, 0.1)',
+                            color: '#f3cf1a',
+                            border: '1px solid rgba(243, 207, 26, 0.2)'
+                          }}
+                        >
                           View Redline
                         </button>
-                        <button className="text-xs px-3 py-1.5 rounded-lg bg-[#f3cf1a]/10 text-[#f3cf1a] hover:bg-[#f3cf1a]/20 transition-all">
+                        <button 
+                          className="text-xs px-3 py-1.5 rounded-lg bg-[#f3cf1a]/10 text-[#f3cf1a] hover:bg-[#f3cf1a]/20 transition-all"
+                          style={{
+                            borderRadius: '8px',
+                            backgroundColor: 'rgba(243, 207, 26, 0.1)',
+                            color: '#f3cf1a',
+                            border: '1px solid rgba(243, 207, 26, 0.2)'
+                          }}
+                        >
                           Talking Points
                         </button>
                       </div>
@@ -125,7 +149,15 @@ const Negotiation = () => {
               <div className="p-4 rounded-xl bg-[#2a2a2a] border border-[#343535] hover:border-[#f3cf1a]/30 transition-all duration-300 group">
                 <h3 className="font-medium text-white text-base group-hover:text-[#f3cf1a] transition-colors duration-300">Recommended Approach</h3>
                 <p className="text-sm mt-2 text-[#e0e0e0] leading-relaxed">Focus on value exchange rather than direct pushback. Offer longer contract term in exchange for improved liability cap and SLAs.</p>
-                <button className="text-sm mt-4 px-4 py-2 rounded-lg bg-[#f3cf1a] hover:bg-[#f3cf1a]/90 text-[#1a1a1a] font-medium transition-all duration-300 w-full">
+                <button 
+                  className="text-sm mt-4 px-4 py-2 rounded-lg bg-[#f3cf1a] hover:bg-[#f3cf1a]/90 text-[#1a1a1a] font-medium transition-all duration-300 w-full"
+                  style={{
+                    borderRadius: '8px',
+                    backgroundColor: '#f3cf1a',
+                    color: '#1a1a1a',
+                    border: '2px solid #f3cf1a'
+                  }}
+                >
                   Generate Email Draft
                 </button>
               </div>

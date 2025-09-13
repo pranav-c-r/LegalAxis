@@ -115,13 +115,22 @@ const Dashboard = () => {
   ];
   const {user}=useUserAuth();
   return (
-    <div className="space-y-6 sm:space-y-8">
-      <div className="mb-6 sm:mb-8">
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-iconbg">
-          Dashboard
-        </h1>
-        <p className="text-textcolor/70 mt-2 text-sm sm:text-base">Welcome to LegalAxis, your AI-powered legal co-pilot.</p>
-      </div>
+    <div className="space-y-6 sm:space-y-8 min-h-screen bg-[#000000] text-white p-4 sm:p-6">
+      {/* Header Section */}
+        <div className="mb-8 sm:mb-12 relative">
+          <div className="absolute -top-4 -left-4 w-24 h-24 bg-[#f3cf1a]/10 rounded-full blur-xl"></div>
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+            <div>
+              <h1 className="text-3xl sm:text-4xl font-bold text-white relative">
+                Dashboard
+                <span className="block w-16 h-1 bg-[#f3cf1a] mt-2 rounded-full"></span>
+              </h1>
+              <p className="text-[#e0e0e0] mt-3 text-base">Welcome to LegalAxis, your AI-powered legal co-pilot.</p>
+            </div>
+            
+          </div>
+        </div>
+      
       
       <div className="dashboard-grid">
         {agents.map((agent, index) => (
@@ -138,9 +147,9 @@ const Dashboard = () => {
       </div>
       
       <div className="mt-6 sm:mt-8 grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
-        <div className="card">
-          <h3 className="text-lg sm:text-xl font-semibold text-iconbg mb-4 sm:mb-6 flex items-center">
-            <div className="w-2 h-4 sm:h-6 bg-iconbg rounded-full mr-3"></div>
+        <div className="bg-[#222222] rounded-2xl p-5 sm:p-6 border border-[#343535] shadow-lg hover:shadow-xl transition-all duration-500 hover:border-[#f3cf1a]/30 group h-full flex flex-col">
+          <h3 className="text-lg sm:text-xl font-semibold text-white transition-all duration-500 leading-tight break-words mb-4 sm:mb-6 flex items-center">
+            <div className="w-2 h-4 sm:h-6 bg-[#f3cf1a] rounded-full mr-3"></div>
             Recent Activity
           </h3>
           <div className="space-y-3 sm:space-y-4">
@@ -167,9 +176,9 @@ const Dashboard = () => {
           </div>
         </div>
         
-        <div className="card">
-          <h3 className="text-lg sm:text-xl font-semibold text-iconbg mb-4 sm:mb-6 flex items-center">
-            <div className="w-2 h-4 sm:h-6 bg-iconbg rounded-full mr-3"></div>
+        <div className="bg-[#222222] rounded-2xl p-5 sm:p-6 border border-[#343535] shadow-lg hover:shadow-xl transition-all duration-500 hover:border-[#f3cf1a]/30 group h-full flex flex-col">
+          <h3 className="text-lg sm:text-xl font-semibold text-white transition-all duration-500 leading-tight break-words mb-4 sm:mb-6 flex items-center">
+            <div className="w-2 h-4 sm:h-6 bg-[#f3cf1a] rounded-full mr-3"></div>
             Upcoming Deadlines
           </h3>
           <div className="space-y-3 sm:space-y-4">

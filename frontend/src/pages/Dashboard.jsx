@@ -1,10 +1,12 @@
 // Dashboard.jsx
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AgentCard } from '../components/agents';
 import { useUserAuth } from '../context/UserAuthContext';
 
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const agents = [
     {
       title: 'Compliance Guardian',
@@ -19,7 +21,7 @@ const Dashboard = () => {
         { label: 'Compliance Score', value: '94%' },
         { label: 'Monitored Regulations', value: '1,243' },
       ],
-      onAction: () => window.location.href = '/compliance'
+      onAction: () => navigate('/compliance')
     },
     {
       title: 'Obligation & Deadline Tracker',
@@ -34,7 +36,7 @@ const Dashboard = () => {
         { label: 'Upcoming Deadlines', value: '12' },
         { label: 'Tracked Obligations', value: '87' },
       ],
-      onAction: () => window.location.href = '/obligations'
+      onAction: () => navigate('/obligations')
     },
     {
       title: 'Risk & Fairness Analyzer',
@@ -49,7 +51,7 @@ const Dashboard = () => {
         { label: 'Risk Score', value: '32 (Low)' },
         { label: 'Fairness Rating', value: '8.5/10' },
       ],
-      onAction: () => window.location.href = '/risk'
+      onAction: () => navigate('/risk')
     },
     {
       title: 'Negotiation Strategist',
@@ -64,7 +66,7 @@ const Dashboard = () => {
         { label: 'Success Rate', value: '78%' },
         { label: 'Avg. Improvement', value: '23%' },
       ],
-      onAction: () => window.location.href = '/negotiation'
+      onAction: () => navigate('/negotiation')
     },
     {
       title: 'Scenario Simulation',
@@ -80,7 +82,7 @@ const Dashboard = () => {
         { label: 'Scenarios Created', value: '24' },
         { label: 'Simulations Run', value: '156' },
       ],
-      onAction: () => window.location.href = '/scenarios'
+      onAction: () => navigate('/scenarios')
     },
     {
       title: 'Legal Research & Citation',
@@ -95,7 +97,7 @@ const Dashboard = () => {
         { label: 'Sources Accessed', value: '1,892' },
         { label: 'Citations Generated', value: '342' },
       ],
-      onAction: () => window.location.href = '/research'
+      onAction: () => navigate('/research')
     },
     {
       title: 'Document Management',
@@ -110,7 +112,7 @@ const Dashboard = () => {
         { label: 'Total Documents', value: '247' },
         { label: 'Recent Uploads', value: '12' },
       ],
-      onAction: () => window.location.href = '/documents'
+      onAction: () => navigate('/documents')
     },
   ];
   const {user}=useUserAuth();

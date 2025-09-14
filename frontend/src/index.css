@@ -1,5 +1,8 @@
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --bg-primary: #010101;
@@ -11,6 +14,43 @@
   --icon-bg: #f3cf1a;
   --box-bg: #343535;
   --grey-bg: #1a1a1a;
+}
+
+/* Global link and button reset */
+a, a:link, a:visited, a:hover, a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, a.button-like {
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Ensure buttons have proper rounded corners */
+button {
+  border-radius: 8px;
+}
+
+.rounded-lg, .rounded-xl {
+  border-radius: 8px !important;
+}
+
+.rounded-2xl {
+  border-radius: 16px !important;
+}
+
+/* Color fallbacks */
+.bg-\[#f3cf1a\] {
+  background-color: #f3cf1a !important;
+}
+
+.text-\[#f3cf1a\] {
+  color: #f3cf1a !important;
+}
+
+.border-\[#f3cf1a\] {
+  border-color: #f3cf1a !important;
 }
 
 body {

@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import * as pdfjsLib from 'pdfjs-dist';
+import mammoth from 'mammoth/mammoth.browser';
+import Tesseract from 'tesseract.js';
 
 const Risk = () => {
   const [activeTab, setActiveTab] = useState('heatmap');
@@ -6,54 +9,94 @@ const Risk = () => {
   const [analysisResult, setAnalysisResult] = useState(null);
   const [executiveSummary, setExecutiveSummary] = useState('');
   const [industryBenchmarks, setIndustryBenchmarks] = useState(null);
-  
-  // Sample contract data for analysis
-  const sampleContract = {
-    title: 'Master Service Agreement',
-    content: `
-      This Master Service Agreement (the "Agreement") is entered into as of [Date] (the "Effective Date") by and between [Company Name], 
-      a [State] corporation ("Client") and [Vendor Name], a [State] corporation ("Vendor").
-      
-      SECTION 1: SERVICES
-      Vendor shall provide the services described in Exhibit A (the "Services") to Client in accordance with the terms of this Agreement.
-      
-      SECTION 2: TERM AND TERMINATION
-      This Agreement shall commence on the Effective Date and continue for a period of one (1) year unless earlier terminated as provided herein.
-      Either party may terminate this Agreement for convenience upon thirty (30) days written notice to the other party.
-      Vendor may terminate this Agreement immediately if Client fails to pay any amount due within fifteen (15) days after receipt of written notice of non-payment.
-      
-      SECTION 3: PAYMENT TERMS
-      Client shall pay Vendor the fees set forth in Exhibit B. All payments are due within thirty (30) days of invoice date.
-      Late payments shall bear interest at the rate of 1.5% per month or the maximum rate allowed by law, whichever is less.
-      
-      SECTION 4: INTELLECTUAL PROPERTY
-      Vendor retains all right, title, and interest in and to its pre-existing intellectual property.
-      Client shall own all right, title, and interest in and to the deliverables specifically developed for Client under this Agreement.
-      
-      SECTION 5: LIMITATION OF LIABILITY
-      In no event shall either party's total liability exceed the total fees paid by Client to Vendor under this Agreement in the twelve (12) months preceding the claim.
-      Neither party shall be liable for any indirect, special, incidental, or consequential damages.
-      
-      SECTION 6: CONFIDENTIALITY
-      Both parties agree to maintain the confidentiality of each other's proprietary information for a period of three (3) years after termination.
-    `,
-    clauses: [
-      { id: 1, section: 'Termination Clause (§2)', text: 'Either party may terminate this Agreement for convenience upon thirty (30) days written notice to the other party. Vendor may terminate this Agreement immediately if Client fails to pay any amount due within fifteen (15) days after receipt of written notice of non-payment.' },
-      { id: 2, section: 'Limitation of Liability (§5)', text: 'In no event shall either party\'s total liability exceed the total fees paid by Client to Vendor under this Agreement in the twelve (12) months preceding the claim. Neither party shall be liable for any indirect, special, incidental, or consequential damages.' },
-      { id: 3, section: 'Payment Terms (§3)', text: 'Client shall pay Vendor the fees set forth in Exhibit B. All payments are due within thirty (30) days of invoice date. Late payments shall bear interest at the rate of 1.5% per month or the maximum rate allowed by law, whichever is less.' },
-      { id: 4, section: 'IP Rights (§4)', text: 'Vendor retains all right, title, and interest in and to its pre-existing intellectual property. Client shall own all right, title, and interest in and to the deliverables specifically developed for Client under this Agreement.' },
-      { id: 5, section: 'Confidentiality (§6)', text: 'Both parties agree to maintain the confidentiality of each other\'s proprietary information for a period of three (3) years after termination.' }
-    ]
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [extractedText, setExtractedText] = useState('');
+  const [fileError, setFileError] = useState('');
+  const [ocrStatus, setOcrStatus] = useState('');
+
+
+  const handleFileChange = async (e) => {
+    setFileError('');
+    const file = e.target.files?.[0];
+    setSelectedFile(file || null);
+    setExtractedText('');
+    if (!file) return;
+
+    const maxSizeMB = 15; // client-side soft limit
+    if (file.size > maxSizeMB * 1024 * 1024) {
+      setFileError(`File too large. Max ${maxSizeMB} MB.`);
+      return;
+    }
+
+    const ext = (file.name.split('.').pop() || '').toLowerCase();
+    try {
+      if (ext === 'txt' || ext === 'md') {
+        const text = await file.text();
+        setExtractedText(text);
+      } else if (ext === 'pdf') {
+        // Read PDF with pdfjs-dist
+        const arrayBuffer = await file.arrayBuffer();
+        // Configure worker if needed (vite will handle asset path); fallback to CDN if necessary
+        if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
+          pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+        }
+        const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+        const pdf = await loadingTask.promise;
+        let fullText = '';
+        for (let p = 1; p <= pdf.numPages; p++) {
+          const page = await pdf.getPage(p);
+          const content = await page.getTextContent();
+          const strings = content.items.map((it) => ('str' in it ? it.str : ''));
+          fullText += strings.join(' ') + '\n\n';
+        }
+        setExtractedText(fullText.trim());
+      } else if (ext === 'docx') {
+        // Read DOCX with mammoth
+        const arrayBuffer = await file.arrayBuffer();
+        const { value } = await mammoth.extractRawText({ arrayBuffer });
+        setExtractedText(value.trim());
+      } else if (['png','jpg','jpeg','gif','bmp','tiff','webp'].includes(ext)) {
+        // OCR with Tesseract.js
+        setOcrStatus('Initializing OCR…');
+        const img = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+        const res = await Tesseract.recognize(img, 'eng', {
+          logger: (m) => {
+            if (m.status === 'recognizing text') {
+              setOcrStatus(`OCR: ${(m.progress * 100).toFixed(0)}%`);
+            } else {
+              setOcrStatus(m.status);
+            }
+          }
+        });
+        setExtractedText(res.data.text.trim());
+        setOcrStatus('');
+      } else {
+        setFileError('Unsupported file type. Please upload .txt, .md, .pdf, .docx, or an image.');
+      }
+    } catch (err) {
+      setFileError('Failed to read file.');
+      setOcrStatus('');
+    }
   };
 
-  // Analyze contract with Gemini API
   const analyzeContractWithGemini = async () => {
+    if (!extractedText.trim()) {
+      setFileError('Please upload a document to analyze.');
+      return;
+    }
     setIsAnalyzing(true);
     try {
       const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
       if (!apiKey) {
         throw new Error('Gemini API key not found');
       }
+
+  const contractBody = extractedText.trim();
 
       const prompt = `
         Analyze this legal contract for risks and fairness. Provide a detailed assessment including:
@@ -64,7 +107,7 @@ const Risk = () => {
         5. Risk severity classification (Critical, High, Medium, Low)
         6. Executive summary for stakeholders
         
-        Contract content: ${sampleContract.content}
+  Contract content: ${contractBody}
         
         Format the response as a JSON object with the following structure:
         {
@@ -91,113 +134,58 @@ const Risk = () => {
         }
       `;
 
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`, {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          contents: [{
-            parts: [{
-              text: prompt
-            }]
-          }]
+          contents: [
+            {
+              role: 'user',
+              parts: [{ text: prompt }]
+            }
+          ],
+          generationConfig: {
+            response_mime_type: 'application/json'
+          }
         })
       });
 
-      const data = await response.json();
-      if (data.candidates && data.candidates[0].content.parts[0].text) {
-        const resultText = data.candidates[0].content.parts[0].text;
-        // Extract JSON from the response (Gemini might add some text around the JSON)
-        const jsonMatch = resultText.match(/\{[\s\S]*\}/);
-        if (jsonMatch) {
-          const result = JSON.parse(jsonMatch[0]);
-          setAnalysisResult(result);
-          setExecutiveSummary(result.executiveSummary);
-          setIndustryBenchmarks(result.industryBenchmarks);
-        } else {
-          // Fallback if we can't parse JSON
-          setAnalysisResult({
-            overallRisk: "Medium",
-            fairnessScore: 65,
-            riskBreakdown: [
-              {section: "Termination Clause (§2)", riskLevel: "High", issues: ["One-sided termination rights", "Short notice period"]},
-              {section: "Limitation of Liability (§5)", riskLevel: "Medium", issues: ["Cap on liability may be too low"]},
-              {section: "Payment Terms (§3)", riskLevel: "Low", issues: []},
-              {section: "IP Rights (§4)", riskLevel: "Medium", issues: ["Vendor retains too much IP"]},
-              {section: "Confidentiality (§6)", riskLevel: "Low", issues: []}
-            ],
-            predatoryClauses: [
-              {section: "Termination Clause (§2)", description: "Allows vendor to terminate without cause with only 15 days notice", suggestion: "Require mutual termination rights with 30 days notice"},
-              {section: "Limitation of Liability (§5)", description: "Customer indemnifies vendor broadly while vendor's obligations are limited", suggestion: "Balance indemnification obligations for both parties"}
-            ],
-            industryBenchmarks: {
-              terminationNotice: "Industry standard: 30 days",
-              liabilityCap: "Industry standard: 12 months fees or greater",
-              paymentTerms: "Industry standard: Net 30",
-              confidentiality: "Industry standard: 3-5 years"
-            },
-            executiveSummary: "This contract has moderate risk with several areas needing negotiation. The termination clause and limitation of liability present the highest risks that should be addressed before signing."
-          });
-        }
-      } else {
-        // Fallback data if API fails
-        setAnalysisResult({
-          overallRisk: "Medium",
-          fairnessScore: 65,
-          riskBreakdown: [
-            {section: "Termination Clause (§2)", riskLevel: "High", issues: ["One-sided termination rights", "Short notice period"]},
-            {section: "Limitation of Liability (§5)", riskLevel: "Medium", issues: ["Cap on liability may be too low"]},
-            {section: "Payment Terms (§3)", riskLevel: "Low", issues: []},
-            {section: "IP Rights (§4)", riskLevel: "Medium", issues: ["Vendor retains too much IP"]},
-            {section: "Confidentiality (§6)", riskLevel: "Low", issues: []}
-          ],
-          predatoryClauses: [
-            {section: "Termination Clause (§2)", description: "Allows vendor to terminate without cause with only 15 days notice", suggestion: "Require mutual termination rights with 30 days notice"},
-            {section: "Limitation of Liability (§5)", description: "Customer indemnifies vendor broadly while vendor's obligations are limited", suggestion: "Balance indemnification obligations for both parties"}
-          ],
-          industryBenchmarks: {
-            terminationNotice: "Industry standard: 30 days",
-            liabilityCap: "Industry standard: 12 months fees or greater",
-            paymentTerms: "Industry standard: Net 30",
-            confidentiality: "Industry standard: 3-5 years"
-          },
-          executiveSummary: "This contract has moderate risk with several areas needing negotiation. The termination clause and limitation of liability present the highest risks that should be addressed before signing."
-        });
+      if (!response.ok) {
+        const errText = await response.text().catch(() => '');
+        throw new Error(`Gemini HTTP ${response.status}: ${response.statusText} ${errText}`);
       }
+
+      const data = await response.json();
+      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (!text) throw new Error('Empty response from model');
+      let result;
+      try {
+        result = JSON.parse(text);
+      } catch (e) {
+        // Fallback: try to extract JSON blob if model wrapped text
+        const jsonMatch = text.match(/\{[\s\S]*\}/);
+        if (!jsonMatch) throw new Error('Model response not in JSON format');
+        result = JSON.parse(jsonMatch[0]);
+      }
+      setAnalysisResult(result);
+      setExecutiveSummary(result.executiveSummary || '');
+      setIndustryBenchmarks(result.industryBenchmarks || null);
     } catch (error) {
       console.error('Error calling Gemini API:', error);
-      // Set fallback data on error
-      setAnalysisResult({
-        overallRisk: "Medium",
-        fairnessScore: 65,
-        riskBreakdown: [
-          {section: "Termination Clause (§2)", riskLevel: "High", issues: ["One-sided termination rights", "Short notice period"]},
-          {section: "Limitation of Liability (§5)", riskLevel: "Medium", issues: ["Cap on liability may be too low"]},
-          {section: "Payment Terms (§3)", riskLevel: "Low", issues: []},
-          {section: "IP Rights (§4)", riskLevel: "Medium", issues: ["Vendor retains too much IP"]},
-          {section: "Confidentiality (§6)", riskLevel: "Low", issues: []}
-        ],
-        predatoryClauses: [
-          {section: "Termination Clause (§2)", description: "Allows vendor to terminate without cause with only 15 days notice", suggestion: "Require mutual termination rights with 30 days notice"},
-          {section: "Limitation of Liability (§5)", description: "Customer indemnifies vendor broadly while vendor's obligations are limited", suggestion: "Balance indemnification obligations for both parties"}
-        ],
-        industryBenchmarks: {
-          terminationNotice: "Industry standard: 30 days",
-          liabilityCap: "Industry standard: 12 months fees or greater",
-          paymentTerms: "Industry standard: Net 30",
-          confidentiality: "Industry standard: 3-5 years"
-        },
-        executiveSummary: "This contract has moderate risk with several areas needing negotiation. The termination clause and limitation of liability present the highest risks that should be addressed before signing."
-      });
+      setFileError('Analysis failed. Please try again.');
+      setAnalysisResult(null);
+      setExecutiveSummary('');
+      setIndustryBenchmarks(null);
     } finally {
       setIsAnalyzing(false);
     }
   };
 
   useEffect(() => {
-    // Analyze contract on component mount
-    analyzeContractWithGemini();
+    // Do not auto-analyze on mount; wait for user action
+    // analyzeContractWithGemini();
   }, []);
 
   const getRiskColor = (riskLevel) => {
@@ -234,28 +222,39 @@ const Risk = () => {
               </h1>
               <p className="text-[#e0e0e0] mt-3 text-base">Identify and assess contractual risks with interactive heatmaps and scoring</p>
             </div>
-            <button 
-              onClick={analyzeContractWithGemini}
-              disabled={isAnalyzing}
-              className="px-6 py-3 bg-[#f3cf1a] hover:bg-[#f3cf1a]/90 text-[#1a1a1a] font-medium rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#f3cf1a]/20 w-full sm:w-auto flex items-center justify-center gap-2"
-            >
-              {isAnalyzing ? (
-                <>
-                  <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Analyzing...
-                </>
-              ) : (
-                <>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                  </svg>
-                  Analyze Contract
-                </>
-              )}
-            </button>
+            <div className="w-full sm:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+              <label className="w-full sm:w-72">
+                <span className="sr-only">Choose contract file</span>
+                <input
+                  type="file"
+                  accept=".txt,.md,.pdf,.docx,image/*"
+                  onChange={handleFileChange}
+                  className="block w-full text-sm text-[#e0e0e0] file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-[#343535] file:text-white hover:file:bg-[#3d3d3d] cursor-pointer"
+                />
+              </label>
+              <button 
+                onClick={analyzeContractWithGemini}
+                disabled={isAnalyzing}
+                className="px-6 py-3 bg-[#f3cf1a] hover:bg-[#f3cf1a]/90 text-[#1a1a1a] font-medium rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#f3cf1a]/20 flex items-center justify-center gap-2"
+              >
+                {isAnalyzing ? (
+                  <>
+                    <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Analyzing...
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
+                    Analyze Contract
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </div>
         
@@ -302,14 +301,43 @@ const Risk = () => {
                     <p className="mt-4 text-[#e0e0e0]">Analyzing contract with Gemini AI...</p>
                   </div>
                 </div>
-              ) : (
+              ) : analysisResult ? (
                 <div className="bg-[#2a2a2a] rounded-xl p-4 sm:p-5 border border-[#343535] mb-4">
                   <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-4">
-                    <h3 className="font-medium text-white text-base sm:text-lg">{sampleContract.title}</h3>
-                    <span className={`text-sm px-3 py-1.5 rounded-full border ${getRiskColor(analysisResult?.overallRisk || 'Medium')} self-start sm:self-center`}>
-                      Overall Risk: {analysisResult?.overallRisk || 'Medium'}
-                    </span>
+                    <h3 className="font-medium text-white text-base sm:text-lg">{selectedFile?.name || 'Document'}</h3>
+                    {analysisResult?.overallRisk && (
+                      <span className={`text-sm px-3 py-1.5 rounded-full border ${getRiskColor(analysisResult.overallRisk)} self-start sm:self-center`}>
+                        Overall Risk: {analysisResult.overallRisk}
+                      </span>
+                    )}
                   </div>
+                  {(selectedFile || extractedText || fileError) && (
+                    <div className="mb-4 p-3 rounded-lg bg-[#1a1a1a] border border-[#343535] text-sm text-[#e0e0e0] space-y-2">
+                      {selectedFile && (
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="font-medium">File:</span>
+                          <span>{selectedFile.name}</span>
+                          <span className="text-[#a0a0a0]">({(selectedFile.size/1024).toFixed(1)} KB)</span>
+                          <button
+                            onClick={() => { setSelectedFile(null); setExtractedText(''); setFileError(''); }}
+                            className="ml-auto px-2 py-1 text-xs rounded bg-[#343535] hover:bg-[#3d3d3d]"
+                          >Clear</button>
+                        </div>
+                      )}
+                      {extractedText && (
+                        <div>
+                          <span className="font-medium">Preview:</span>
+                          <p className="mt-1 max-h-24 overflow-auto whitespace-pre-wrap text-xs text-[#cfcfcf]">{extractedText.slice(0, 600)}{extractedText.length > 600 ? '…' : ''}</p>
+                        </div>
+                      )}
+                      {ocrStatus && (
+                        <p className="text-[#e0e0e0]">{ocrStatus}</p>
+                      )}
+                      {fileError && (
+                        <p className="text-red-300">{fileError}</p>
+                      )}
+                    </div>
+                  )}
                   
                   <div className="space-y-3">
                     {analysisResult?.riskBreakdown?.map((item, index) => (
@@ -336,6 +364,10 @@ const Risk = () => {
                     ))}
                   </div>
                 </div>
+              ) : (
+                <div className="bg-[#2a2a2a] rounded-xl p-6 border border-[#343535] mb-4 text-center text-[#e0e0e0]">
+                  Upload a document and click Analyze to view the risk heatmap.
+                </div>
               )}
               
               <div className="flex items-center justify-center gap-4 flex-wrap">
@@ -355,7 +387,7 @@ const Risk = () => {
             </div>
             
             {/* Executive Summary (shown when tab is active) */}
-            {activeTab === 'executive' && (
+            {activeTab === 'executive' && analysisResult && (
               <div className="bg-[#222222] rounded-2xl p-5 sm:p-6 border border-[#343535] shadow-lg mt-6">
                 <h2 className="text-xl sm:text-2xl font-semibold mb-5 sm:mb-6 text-white flex items-center">
                   <svg className="w-5 h-5 mr-2 text-[#f3cf1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -366,9 +398,9 @@ const Risk = () => {
                 
                 <div className="bg-[#2a2a2a] rounded-xl p-5 border border-[#343535]">
                   <div className="prose prose-invert max-w-none">
-                    <p className="text-[#e0e0e0] leading-relaxed">
-                      {executiveSummary || "This contract has moderate risk with several areas needing negotiation. The termination clause and limitation of liability present the highest risks that should be addressed before signing."}
-                    </p>
+                    {executiveSummary && (
+                      <p className="text-[#e0e0e0] leading-relaxed">{executiveSummary}</p>
+                    )}
                     
                     <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="p-4 rounded-lg bg-[#1a1a1a] border border-[#343535]">
@@ -415,6 +447,7 @@ const Risk = () => {
           
           <div className="space-y-6 sm:space-y-8">
             {/* Fairness Score */}
+            {analysisResult?.fairnessScore !== undefined && (
             <div className="bg-[#222222] rounded-2xl p-5 sm:p-6 border border-[#343535] shadow-lg">
               <h2 className="text-xl sm:text-2xl font-semibold mb-5 sm:mb-6 text-white flex items-center">
                 <svg className="w-5 h-5 mr-2 text-[#f3cf1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -441,11 +474,11 @@ const Risk = () => {
                       fill="none"
                       stroke="#f3cf1a"
                       strokeWidth="3"
-                      strokeDasharray={`${analysisResult?.fairnessScore || 65}, 100`}
+                      strokeDasharray={`${analysisResult.fairnessScore}, 100`}
                     />
                   </svg>
                   <div className="absolute inset-0 flex items-center justify-center flex-col">
-                    <span className="text-3xl sm:text-4xl font-bold text-[#f3cf1a]">{analysisResult?.fairnessScore || 65}%</span>
+                    <span className="text-3xl sm:text-4xl font-bold text-[#f3cf1a]">{analysisResult.fairnessScore}%</span>
                     <span className="text-sm text-[#a0a0a0]">Fair</span>
                   </div>
                 </div>
@@ -457,12 +490,14 @@ const Risk = () => {
                 </div>
                 <div className="text-center p-3 rounded-xl bg-[#2a2a2a] border border-[#343535]">
                   <p className="text-sm text-[#a0a0a0]">Issues Found</p>
-                  <p className="text-xl font-bold text-white">{analysisResult?.predatoryClauses?.length || 2}</p>
+                  <p className="text-xl font-bold text-white">{analysisResult?.predatoryClauses?.length ?? 0}</p>
                 </div>
               </div>
             </div>
+            )}
             
             {/* Unfair Clauses */}
+            {analysisResult?.predatoryClauses?.length > 0 && (
             <div className="bg-[#222222] rounded-2xl p-5 sm:p-6 border border-[#343535] shadow-lg">
               <h2 className="text-xl sm:text-2xl font-semibold mb-5 sm:mb-6 text-white flex items-center">
                 <svg className="w-5 h-5 mr-2 text-[#f3cf1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -483,6 +518,7 @@ const Risk = () => {
                 ))}
               </div>
             </div>
+            )}
             
             {/* Industry Benchmarking */}
             <div className="bg-[#222222] rounded-2xl p-5 sm:p-6 border border-[#343535] shadow-lg">

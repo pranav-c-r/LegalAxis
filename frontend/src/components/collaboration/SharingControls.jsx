@@ -1,23 +1,23 @@
 import { useState } from 'react';
 
-const SharingControls = ({ documentId, currentPermissions = [] }) => {
+const SharingControls = ({ documentId, currentPermissions = [], onAddPermission, onChangePermission, onRemovePermission }) => {
   const [email, setEmail] = useState('');
   const [permission, setPermission] = useState('view');
   const [showPermissionsList, setShowPermissionsList] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const handleAddUser = () => {
+  const handleAddUser = async () => {
     if (email.trim() === '') return;
-    console.log('Adding permission:', { email, permission, documentId });
+    await onAddPermission?.(email, permission);
     setEmail('');
   };
 
-  const handleRemovePermission = (userId) => {
-    console.log('Removing permission for user:', userId);
+  const handleRemovePermission = async (userId) => {
+    await onRemovePermission?.(userId);
   };
 
-  const handleChangePermission = (userId, newPermission) => {
-    console.log('Changing permission for user:', userId, 'to', newPermission);
+  const handleChangePermission = async (userId, newPermission) => {
+    await onChangePermission?.(userId, newPermission);
   };
 
   const handleCopyLink = () => {

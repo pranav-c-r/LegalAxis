@@ -36,9 +36,9 @@ const Risk = () => {
       } else if (ext === 'pdf') {
         // Read PDF with pdfjs-dist
         const arrayBuffer = await file.arrayBuffer();
-        // Configure worker if needed (vite will handle asset path); fallback to CDN if necessary
+        // Configure worker for Vite development
         if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
-          pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+          pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
         }
         const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
         const pdf = await loadingTask.promise;

@@ -1,20 +1,20 @@
 // CommentThread.jsx
 import { useState } from 'react';
 
-const CommentThread = ({ comments, documentId }) => {
+const CommentThread = ({ comments, documentId, onPostComment, onPostReply }) => {
   const [newComment, setNewComment] = useState('');
   const [showReplies, setShowReplies] = useState({});
   const [replyText, setReplyText] = useState({});
 
-  const handleAddComment = () => {
+  const handleAddComment = async () => {
     if (newComment.trim() === '') return;
-    console.log('Adding comment:', newComment, 'to document:', documentId);
+    await onPostComment?.(newComment);
     setNewComment('');
   };
 
-  const handleAddReply = (commentId) => {
+  const handleAddReply = async (commentId) => {
     if (!replyText[commentId] || replyText[commentId].trim() === '') return;
-    console.log('Adding reply:', replyText[commentId], 'to comment:', commentId);
+    await onPostReply?.(commentId, replyText[commentId]);
     setReplyText({ ...replyText, [commentId]: '' });
   };
 

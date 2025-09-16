@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const TABS = [
   { key: 'counter', label: 'Counter-Proposal', icon: '🤖' },
@@ -9,7 +11,6 @@ const TABS = [
   { key: 'history', label: 'History', icon: '🕑' },
 ];
 
-// Mock data for negotiation history
 const MOCK_HISTORY = [
   { id: 1, date: '2023-10-15', type: 'Counter-Proposal', outcome: 'Successful', details: 'Price negotiation with Vendor Inc.' },
   { id: 2, date: '2023-10-10', type: 'Contract Terms', outcome: 'Partially Successful', details: 'Service agreement with TechCorp' },
@@ -26,9 +27,16 @@ const Negotiation = () => {
   const [powerAnalysisResult, setPowerAnalysisResult] = useState(null);
   const [copied, setCopied] = useState(false);
   const tabRef = useRef(null);
+  // Per-tab inputs
+  const [playbookInput, setPlaybookInput] = useState('');
+  const [emailContext, setEmailContext] = useState('Initial Proposal');
+  const [emailInput, setEmailInput] = useState('');
+  const [winwinOurGoals, setWinwinOurGoals] = useState('');
+  const [winwinTheirGoals, setWinwinTheirGoals] = useState('');
+  const [winwinInput, setWinwinInput] = useState('');
 
   // Gemini API call helper
-  const callGemini = async (prompt) => {
+  const callGemini = async (prompt, { details, typeLabel } = {}) => {
     setLoading(true);
     setAiResponse('');
     try {
@@ -37,24 +45,24 @@ const Negotiation = () => {
         throw new Error('API key not found');
       }
       
-      const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + apiKey, {
+      const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + apiKey, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
+          contents: [ { role: 'user', parts: [ { text: prompt } ] } ],
           generationConfig: {
             temperature: 0.7,
             topK: 40,
             topP: 0.95,
-            maxOutputTokens: 1024,
+            maxOutputTokens: 1024
           }
         }),
       });
       
       if (!res.ok) {
-        throw new Error(`API error: ${res.status}`);
+        const errText = await res.text().catch(() => '');
+        throw new Error(`API error: ${res.status} ${errText}`);
       }
-      
       const data = await res.json();
       const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response generated.';
       setAiResponse(responseText);
@@ -64,9 +72,9 @@ const Negotiation = () => {
         const newHistoryItem = {
           id: negotiationHistory.length + 1,
           date: new Date().toISOString().split('T')[0],
-          type: TABS.find(tab => tab.key === activeTab)?.label || 'Unknown',
+          type: typeLabel || TABS.find(tab => tab.key === activeTab)?.label || 'Unknown',
           outcome: 'Generated',
-          details: inputClause.substring(0, 50) + '...'
+          details: ((details ?? inputClause) || '').substring(0, 50) + '...'
         };
         setNegotiationHistory([newHistoryItem, ...negotiationHistory]);
       }
@@ -77,8 +85,7 @@ const Negotiation = () => {
     setLoading(false);
   };
 
-  // Analyze power dynamics
-  const analyzePowerDynamics = async () => {
+   const analyzePowerDynamics = async () => {
     if (!powerAnalysisInput) return;
     
     setLoading(true);
@@ -92,20 +99,24 @@ const Negotiation = () => {
         "recommendations": []
       }`;
       
-      const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + apiKey, {
+      const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + apiKey, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
+          contents: [ { role: 'user', parts: [ { text: prompt } ] } ],
           generationConfig: {
             temperature: 0.3,
             topK: 40,
             topP: 0.95,
             maxOutputTokens: 1024,
+            response_mime_type: 'application/json'
           }
         }),
       });
-      
+      if (!res.ok) {
+        const errText = await res.text().catch(() => '');
+        throw new Error(`API error: ${res.status} ${errText}`);
+      }
       const data = await res.json();
       const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
       
@@ -180,9 +191,11 @@ const Negotiation = () => {
               )}
             </button>
             {aiResponse && (
-              <div className="mt-4 p-4 bg-[#2a2a2a] border border-[#f3cf1a]/20 rounded-xl text-white whitespace-pre-line animate-fadeIn">
+              <div className="mt-4 p-4 bg-[#2a2a2a] border border-[#f3cf1a]/20 rounded-xl text-white animate-fadeIn">
                 <h3 className="font-semibold text-[#f3cf1a] mb-2">AI Suggestions:</h3>
-                {aiResponse}
+                <div className="prose prose-invert max-w-none">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{aiResponse}</ReactMarkdown>
+                </div>
               </div>
             )}
           </div>
@@ -239,17 +252,29 @@ const Negotiation = () => {
                 className="w-full p-3 rounded-xl bg-[#2a2a2a] border border-[#343535] text-white mb-3 focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] transition-all duration-300"
                 rows={3}
                 placeholder="Describe your negotiation scenario..."
-                value={inputClause}
-                onChange={e => setInputClause(e.target.value)}
+                value={playbookInput}
+                onChange={e => setPlaybookInput(e.target.value)}
               />
               <button
                 className="bg-[#f3cf1a] text-[#1a1a1a] px-4 py-2 rounded-xl font-medium hover:bg-[#f3cf1a]/90 transition-all duration-300 text-sm disabled:opacity-50 disabled:cursor-not-allowed transform hover:-translate-y-0.5"
-                onClick={() => callGemini(`Create negotiation talking points for this scenario: ${inputClause}`)}
-                disabled={!inputClause || loading}
+                onClick={() => callGemini(
+                  `Create a concise negotiation playbook for this scenario: ${playbookInput}. Include 3-5 talking points, best practices, and common pitfalls to avoid. Use Markdown with headings and bullet points.`,
+                  { details: playbookInput, typeLabel: 'Playbook' }
+                )}
+                disabled={!playbookInput || loading}
               >
                 {loading ? 'Generating...' : 'Generate Custom Responses'}
               </button>
             </div>
+
+            {aiResponse && (
+              <div className="mt-4 p-4 bg-[#2a2a2a] border border-[#f3cf1a]/20 rounded-xl text-white animate-fadeIn">
+                <h3 className="font-semibold text-[#f3cf1a] mb-2">Playbook Suggestions:</h3>
+                <div className="prose prose-invert max-w-none">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{aiResponse}</ReactMarkdown>
+                </div>
+              </div>
+            )}
           </div>
         );
       case 'email':
@@ -262,12 +287,16 @@ const Negotiation = () => {
             
             <div className="mb-4 bg-[#f3cf1a]/5 p-4 rounded-xl">
               <h3 className="font-medium text-[#f3cf1a] mb-2">Email Context</h3>
-              <select className="w-full p-3 rounded-xl bg-[#2a2a2a] border border-[#343535] text-white mb-3 focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] transition-all duration-300">
-                <option>Initial Proposal</option>
-                <option>Counter Offer</option>
-                <option>Follow-up</option>
-                <option>Final Terms</option>
-                <option>Agreement</option>
+              <select 
+                className="w-full p-3 rounded-xl bg-[#2a2a2a] border border-[#343535] text-white mb-3 focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] transition-all duration-300"
+                value={emailContext}
+                onChange={e => setEmailContext(e.target.value)}
+              >
+                <option value="Initial Proposal">Initial Proposal</option>
+                <option value="Counter Offer">Counter Offer</option>
+                <option value="Follow-up">Follow-up</option>
+                <option value="Final Terms">Final Terms</option>
+                <option value="Agreement">Agreement</option>
               </select>
             </div>
             
@@ -275,22 +304,25 @@ const Negotiation = () => {
               className="w-full p-3 rounded-xl bg-[#2a2a2a] border border-[#343535] text-white mb-4 focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] transition-all duration-300"
               rows={5}
               placeholder="Describe the negotiation context, your goals, and any specific points to include..."
-              value={inputClause}
-              onChange={e => setInputClause(e.target.value)}
+              value={emailInput}
+              onChange={e => setEmailInput(e.target.value)}
             />
             
             <div className="flex gap-3">
               <button
                 className="bg-[#f3cf1a] text-[#1a1a1a] px-6 py-3 rounded-xl font-semibold hover:bg-[#f3cf1a]/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:-translate-y-0.5"
-                onClick={() => callGemini(`Draft a professional negotiation email for this context: ${inputClause}. Use appropriate business language.`)}
-                disabled={!inputClause || loading}
+                onClick={() => callGemini(
+                  `Draft a professional negotiation email. Context: ${emailContext}. Details: ${emailInput}. Use clear subject, polite tone, structured paragraphs, and a concise call-to-action. Format in Markdown.`,
+                  { details: emailInput, typeLabel: 'Email Draft' }
+                )}
+                disabled={!emailInput || loading}
               >
                 {loading ? 'Generating...' : 'Generate Email'}
               </button>
               
               <button
                 className="bg-[#2a2a2a] text-[#f3cf1a] border border-[#f3cf1a] px-6 py-3 rounded-xl font-semibold hover:bg-[#f3cf1a]/10 transition-all duration-300 transform hover:-translate-y-0.5"
-                onClick={() => setInputClause('')}
+                onClick={() => { setEmailInput(''); setEmailContext('Initial Proposal'); }}
               >
                 Clear
               </button>
@@ -299,8 +331,8 @@ const Negotiation = () => {
             {aiResponse && (
               <div className="mt-6 p-4 bg-[#2a2a2a] border border-[#f3cf1a]/20 rounded-xl animate-fadeIn">
                 <h3 className="font-semibold text-[#f3cf1a] mb-3">Email Draft:</h3>
-                <div className="whitespace-pre-line bg-[#1a1a1a] p-4 rounded text-white">
-                  {aiResponse}
+                <div className="bg-[#1a1a1a] p-4 rounded text-white prose prose-invert max-w-none">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{aiResponse}</ReactMarkdown>
                 </div>
                 <div className="mt-4 flex justify-end">
                   <button 
@@ -409,6 +441,8 @@ const Negotiation = () => {
                   className="w-full p-2 rounded bg-[#1a1a1a] border border-[#343535] text-white text-sm transition-all duration-300"
                   rows={3}
                   placeholder="What we need to achieve..."
+                  value={winwinOurGoals}
+                  onChange={e => setWinwinOurGoals(e.target.value)}
                 />
               </div>
               
@@ -418,6 +452,8 @@ const Negotiation = () => {
                   className="w-full p-2 rounded bg-[#1a1a1a] border border-[#343535] text-white text-sm transition-all duration-300"
                   rows={3}
                   placeholder="What they likely want..."
+                  value={winwinTheirGoals}
+                  onChange={e => setWinwinTheirGoals(e.target.value)}
                 />
               </div>
             </div>
@@ -426,22 +462,27 @@ const Negotiation = () => {
               className="w-full p-3 rounded-xl bg-[#2a2a2a] border border-[#343535] text-white mb-4 focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] transition-all duration-300"
               rows={4}
               placeholder="Additional context about the negotiation..."
-              value={inputClause}
-              onChange={e => setInputClause(e.target.value)}
+              value={winwinInput}
+              onChange={e => setWinwinInput(e.target.value)}
             />
             
             <button
               className="bg-[#f3cf1a] text-[#1a1a1a] px-6 py-3 rounded-xl font-semibold hover:bg-[#f3cf1a]/90 transition-all duration-300 mb-4 disabled:opacity-50 disabled:cursor-not-allowed transform hover:-translate-y-0.5"
-              onClick={() => callGemini(`Suggest win-win solutions for a negotiation where: ${inputClause}. Provide creative options that benefit both parties.`)}
-              disabled={!inputClause || loading}
+              onClick={() => callGemini(
+                `Suggest win-win solutions for this negotiation. Our goals: ${winwinOurGoals || 'N/A'}. Their goals: ${winwinTheirGoals || 'N/A'}. Context: ${winwinInput || 'N/A'}. Provide 3-5 creative, mutually-beneficial options with trade-offs and implementation steps. Use Markdown lists and headings.`,
+                { details: winwinInput || `${winwinOurGoals} | ${winwinTheirGoals}`, typeLabel: 'Win-Win' }
+              )}
+              disabled={(!winwinInput && !winwinOurGoals && !winwinTheirGoals) || loading}
               >
               {loading ? 'Generating...' : 'Suggest Win-Win Solutions'}
             </button>
             
             {aiResponse && (
-              <div className="mt-4 p-4 bg-[#2a2a2a] border border-[#f3cf1a]/20 rounded-xl text-white whitespace-pre-line animate-fadeIn">
+              <div className="mt-4 p-4 bg-[#2a2a2a] border border-[#f3cf1a]/20 rounded-xl text-white animate-fadeIn">
                 <h3 className="font-semibold text-[#f3cf1a] mb-2">Win-Win Suggestions:</h3>
-                {aiResponse}
+                <div className="prose prose-invert max-w-none">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{aiResponse}</ReactMarkdown>
+                </div>
               </div>
             )}
           </div>

@@ -165,7 +165,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                       {renderIcon(item.icon)}
                     </span>
                     {(isOpen) && (
-                      <span className="ml-3 font-medium text-sm sm:text-base truncate transition-all duration-300">
+                      <span className={`ml-3 font-medium text-sm sm:text-base truncate transition-all duration-300 ${isActive ? 'text-[#f3cf1a]' : 'text-white group-hover:text-[#f3cf1a]'}`}> 
                         {item.name}
                       </span>
                     )}

@@ -80,7 +80,7 @@ const Chatbot = () => {
       </div>
 
       {/* Main Container */}
-      <div className="relative z-10 h-full backdrop-blur-sm bg-[#000000]/95 rounded-3xl shadow-2xl border border-[#343535]/50 overflow-hidden">
+      <div className="relative z-10 h-full backdrop-blur-sm bg-[#000000]/95 rounded-3xl shadow-2xl ring-1 ring-white/5/50 overflow-hidden">
         
         {/* Floating Particles */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -99,7 +99,7 @@ const Chatbot = () => {
         </div>
 
         {/* Header with Glitch Effect */}
-        <div className="relative bg-gradient-to-r from-[#222222] via-[#1a1a1a] to-[#222222] px-8 py-6 border-b border-[#343535]/70">
+        <div className="relative bg-gradient-to-r from-[#222222] via-[#1a1a1a] to-[#222222] px-8 py-6 ring-1 ring-white/5 rounded-xl bg-[#1a1a1a] p-1/70">
           <div className="flex items-center gap-4">
             {/* Animated Logo */}
             <div className="relative">
@@ -148,7 +148,7 @@ const Chatbot = () => {
                   <div
                     className={`relative rounded-3xl p-6 shadow-2xl backdrop-blur-sm border transition-all duration-300 hover:scale-[1.02] ${
                       msg.sender === "user"
-                        ? "bg-gradient-to-br from-[#222222] to-[#1a1a1a] text-white border-[#343535] ml-4"
+                        ? "bg-gradient-to-br from-[#222222] to-[#1a1a1a] text-white ring-white/10 ml-4"
                         : "bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] border-[#f3cf1a]/30 text-[#f3cf1a] mr-4"
                     }`}
                   >
@@ -220,14 +220,14 @@ const Chatbot = () => {
           </div>
           
           {/* Enhanced Input Area */}
-          <div className="relative p-6 bg-gradient-to-r from-[#222222] via-[#1a1a1a] to-[#222222] border-t border-[#343535]/70">
+          <div className="relative p-6 bg-gradient-to-r from-[#222222] via-[#1a1a1a] to-[#222222] border-t border-white/5/70">
             <div className="relative">
               <div className="flex gap-4">
                 {/* Input Field with Glow Effect */}
                 <div className="flex-1 relative group">
                   <input
                     type="text"
-                    className="w-full rounded-2xl px-6 py-4 bg-[#000000]/80 backdrop-blur-sm text-white border-2 border-[#343535] focus:border-[#f3cf1a] focus:outline-none transition-all duration-300 text-lg placeholder-[#666] shadow-inner"
+                    className="w-full rounded-2xl px-6 py-4 bg-[#000000]/80 backdrop-blur-sm text-white ring-2 ring-white/10 focus:border-[#f3cf1a] focus:outline-none transition-all duration-300 text-lg placeholder-[#666] shadow-inner"
                     placeholder="Ask me anything about legal matters..."
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
@@ -282,7 +282,7 @@ const Chatbot = () => {
               {["Contract Review", "Legal Advice", "Case Research", "Document Analysis"].map((action, idx) => (
                 <button
                   key={action}
-                  className="group flex-shrink-0 px-4 py-2 bg-[#1a1a1a] border border-[#343535] rounded-xl text-[#f3cf1a] text-sm hover:bg-[#222222] hover:border-[#f3cf1a] transition-all duration-300 hover:scale-105"
+                  className="group flex-shrink-0 px-4 py-2 bg-[#1a1a1a] ring-1 ring-white/5 rounded-xl text-[#f3cf1a] text-sm hover:bg-gradient-to-b from-[#1f1f1f] to-[#151515] hover:border-[#f3cf1a] transition-all duration-300 hover:scale-105"
                   onClick={() => setInput(action)}
                 >
                   <span className="group-hover:text-white transition-colors">{action}</span>

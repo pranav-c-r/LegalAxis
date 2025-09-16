@@ -375,7 +375,7 @@ const Collaboration = () => {
               <p className="text-[#e0e0e0] mt-3 text-base">Collaborate on legal documents with your team in real-time.</p>
             </div>
             <div className="flex items-center gap-3">
-              <label className="inline-flex items-center gap-2 px-3 py-2 bg-[#1a1a1a] border border-[#343535] rounded-lg text-sm cursor-pointer hover:bg-[#2a2a2a]">
+              <label className="inline-flex items-center gap-2 px-3 py-2 bg-[#1a1a1a] ring-1 ring-white/5 rounded-lg text-sm cursor-pointer hover:bg-[#232323]">
                 <svg className="w-4 h-4 text-[#f3cf1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                 </svg>
@@ -398,7 +398,7 @@ const Collaboration = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
           <div className="lg:col-span-2 space-y-6 sm:space-y-8">
             {/* Document Header Card */}
-            <div className="bg-[#222222] rounded-2xl p-5 sm:p-6 border border-[#343535] shadow-lg">
+            <div className="bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-2xl p-5 sm:p-6 ring-1 ring-white/5 shadow-lg">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-5 sm:mb-6 gap-4">
                 <h2 className="text-xl sm:text-2xl font-semibold text-white break-words">
                   {documentMeta.name}
@@ -414,7 +414,7 @@ const Collaboration = () => {
               </div>
               
               {/* AI Analysis Section */}
-              <div className="mb-6 p-4 bg-[#1a1a1a] rounded-lg border border-[#343535]">
+              <div className="mb-6 p-4 bg-[#1a1a1a] rounded-lg ring-1 ring-white/5">
                 {selectedFile && (
                   <div className="mb-3 text-xs text-[#a0a0a0]">
                     Selected: <span className="text-white font-medium">{selectedFile.name}</span>
@@ -466,7 +466,7 @@ const Collaboration = () => {
                 </div>
               </div>
               
-              <div className="border-t border-[#343535] pt-5 sm:pt-6">
+              <div className="border-t border-white/5 pt-5 sm:pt-6">
                 <h3 className="text-xl sm:text-2xl font-semibold text-white mb-5 sm:mb-6 flex items-center">
                   <svg className="w-5 h-5 mr-2 text-[#f3cf1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
@@ -481,7 +481,7 @@ const Collaboration = () => {
                 />
                 
                 {/* New Comment Input */}
-                <div className="mt-6 p-4 bg-[#1a1a1a] rounded-lg border border-[#343535]">
+                <div className="mt-6 p-4 bg-[#1a1a1a] rounded-lg ring-1 ring-white/5">
                   <h4 className="text-md font-medium text-white mb-3">Add a comment</h4>
                   <textarea 
                     className="w-full bg-[#252525] text-white p-3 rounded-md border border-[#444] focus:border-[#f3cf1a] focus:ring-1 focus:ring-[#f3cf1a] resize-none"
@@ -537,7 +537,7 @@ const Collaboration = () => {
             />
             
             {/* Team Workspace Section */}
-            <div className="bg-[#222222] rounded-2xl p-5 sm:p-6 border border-[#343535] shadow-lg">
+            <div className="bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-2xl p-5 sm:p-6 ring-1 ring-white/5 shadow-lg">
               <h3 className="text-xl font-semibold text-white mb-4 flex items-center">
                 <svg className="w-5 h-5 mr-2 text-[#f3cf1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>

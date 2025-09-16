@@ -88,7 +88,7 @@ const Login = () => {
         </div>
 
         {/* Login Form */}
-  <div className="bg-[#222222] rounded-2xl shadow-2xl p-8 border border-[#343535] transform transition-all duration-500 hover:shadow-[#f3cf1a]/10 hover:shadow-xl animate-fade-in-up">
+  <div className="bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-2xl shadow-2xl p-8 ring-1 ring-white/5 transform transition-all duration-500 hover:shadow-[#f3cf1a]/10 hover:shadow-xl animate-fade-in-up">
           {error && (
             <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg animate-shake">
               <p className="text-red-300 text-sm">{error}</p>
@@ -106,7 +106,7 @@ const Login = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-[#2a2a2a] border border-[#343535] rounded-lg text-[#FFFFFF] placeholder-[#a0a0a0] focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent transition-all duration-200 focus:shadow-[0_0_0_3px_rgba(243,207,26,0.2)]"
+                className="w-full px-4 py-3 bg-[#232323] ring-1 ring-white/5 rounded-lg text-[#FFFFFF] placeholder-[#a0a0a0] focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent transition-all duration-200 focus:shadow-[0_0_0_3px_rgba(243,207,26,0.2)]"
                 placeholder="Enter your email"
               />
             </div>
@@ -121,7 +121,7 @@ const Login = () => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-[#2a2a2a] border border-[#343535] rounded-lg text-[#FFFFFF] placeholder-[#a0a0a0] focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent transition-all duration-200 focus:shadow-[0_0_0_3px_rgba(243,207,26,0.2)]"
+                className="w-full px-4 py-3 bg-[#232323] ring-1 ring-white/5 rounded-lg text-[#FFFFFF] placeholder-[#a0a0a0] focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent transition-all duration-200 focus:shadow-[0_0_0_3px_rgba(243,207,26,0.2)]"
                 placeholder="Enter your password"
               />
             </div>
@@ -150,10 +150,10 @@ const Login = () => {
           <div className="mt-6 animate-fade-in-up" style={{animationDelay: '0.6s'}}>
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-[#343535]/20"></div>
+                <div className="w-full border-t border-white/5/20"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-[#222222] text-[#a0a0a0]">Or continue with</span>
+                <span className="px-2 bg-gradient-to-b from-[#1f1f1f] to-[#151515] text-[#a0a0a0]">Or continue with</span>
               </div>
             </div>
           </div>

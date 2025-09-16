@@ -79,14 +79,14 @@ const Research = () => {
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
           {/* Recent Citations - 2/3 width on large screens */}
-          <div className="lg:col-span-2 bg-[#242424] p-5 sm:p-6 rounded-lg border border-[#343535]">
+          <div className="lg:col-span-2 bg-[#242424] p-5 sm:p-6 rounded-lg ring-1 ring-white/5">
             <h2 className="text-xl sm:text-2xl font-semibold mb-5 text-[#f3cf1a]">Recent Citations</h2>
             
             {loading ? (
               // Loading state
               <div className="space-y-4">
                 {[1, 2, 3].map(item => (
-                  <div key={item} className="p-4 rounded-lg bg-[#2c2c2c] border border-[#343535] animate-pulse">
+                  <div key={item} className="p-4 rounded-lg bg-[#2c2c2c] ring-1 ring-white/5 animate-pulse">
                     <div className="h-6 bg-[#343535] rounded w-3/4 mb-3"></div>
                     <div className="h-4 bg-[#343535] rounded w-full mb-2"></div>
                     <div className="h-4 bg-[#343535] rounded w-2/3"></div>
@@ -108,7 +108,7 @@ const Research = () => {
               // Citations list
               <div className="space-y-4 sm:space-y-5">
                 {citations.map((item) => (
-                  <div key={item.id} className="p-4 sm:p-5 rounded-lg bg-[#2c2c2c] border border-[#343535] hover:border-[#f3cf1a]/50 transition-all">
+                  <div key={item.id} className="p-4 sm:p-5 rounded-lg bg-[#2c2c2c] ring-1 ring-white/5 hover:ring-[#f3cf1a]/30 transition-all">
                     <div className="flex flex-col sm:flex-row sm:justify-between gap-3 mb-3">
                       <h3 className="font-medium text-white text-base sm:text-lg">{item.title}</h3>
                       <span className="text-xs sm:text-sm px-3 py-1 rounded-full bg-[#f3cf1a]/20 text-[#f3cf1a] self-start">
@@ -137,10 +137,10 @@ const Research = () => {
           </div>
           
           {/* Research Sources - 1/3 width on large screens */}
-          <div className="bg-[#242424] p-5 sm:p-6 rounded-lg border border-[#343535]">
+          <div className="bg-[#242424] p-5 sm:p-6 rounded-lg ring-1 ring-white/5">
             <h2 className="text-xl sm:text-2xl font-semibold mb-5 text-[#f3cf1a]">Research Sources</h2>
             <div className="space-y-4">
-              <div className="p-4 rounded-lg bg-[#2c2c2c] border border-[#343535] hover:border-[#f3cf1a]/50 transition-all flex items-center cursor-pointer">
+              <div className="p-4 rounded-lg bg-[#2c2c2c] ring-1 ring-white/5 hover:ring-[#f3cf1a]/30 transition-all flex items-center cursor-pointer">
                 <div className="w-12 h-12 rounded-full bg-[#f3cf1a]/20 flex items-center justify-center text-[#f3cf1a] flex-shrink-0">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
@@ -152,7 +152,7 @@ const Research = () => {
                 </div>
               </div>
               
-              <div className="p-4 rounded-lg bg-[#2c2c2c] border border-[#343535] hover:border-[#f3cf1a]/50 transition-all flex items-center cursor-pointer">
+              <div className="p-4 rounded-lg bg-[#2c2c2c] ring-1 ring-white/5 hover:ring-[#f3cf1a]/30 transition-all flex items-center cursor-pointer">
                 <div className="w-12 h-12 rounded-full bg-[#f3cf1a]/20 flex items-center justify-center text-[#f3cf1a] flex-shrink-0">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
@@ -164,7 +164,7 @@ const Research = () => {
                 </div>
               </div>
               
-              <div className="p-4 rounded-lg bg-[#2c2c2c] border border-[#343535] hover:border-[#f3cf1a]/50 transition-all flex items-center cursor-pointer">
+              <div className="p-4 rounded-lg bg-[#2c2c2c] ring-1 ring-white/5 hover:ring-[#f3cf1a]/30 transition-all flex items-center cursor-pointer">
                 <div className="w-12 h-12 rounded-full bg-[#f3cf1a]/20 flex items-center justify-center text-[#f3cf1a] flex-shrink-0">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
@@ -179,7 +179,7 @@ const Research = () => {
             
             {/* Additional action button */}
             <button 
-              className="mt-6 w-full py-3 rounded-lg border border-[#343535] hover:border-[#f3cf1a]/50 text-[#f3cf1a] hover:bg-[#f3cf1a]/10 transition-all flex items-center justify-center gap-2"
+              className="mt-6 w-full py-3 rounded-lg ring-1 ring-white/5 hover:ring-[#f3cf1a]/30 text-[#f3cf1a] hover:bg-[#f3cf1a]/10 transition-all flex items-center justify-center gap-2"
               style={{ 
                 borderRadius: '8px',
                 border: '1px solid #343535',

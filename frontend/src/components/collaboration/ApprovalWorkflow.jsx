@@ -45,7 +45,7 @@ const ApprovalWorkflow = ({ documentId, workflowSteps = [] }) => {
   };
 
   return (
-    <div className="bg-[#222222] rounded-2xl p-5 sm:p-6 border border-[#343535] shadow-lg">
+    <div className="bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-2xl p-5 sm:p-6 ring-1 ring-white/5 shadow-lg">
       <h3 className="text-xl sm:text-2xl font-semibold text-white mb-6 flex items-center">
         <svg className="w-5 h-5 mr-2 text-[#f3cf1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
@@ -67,7 +67,7 @@ const ApprovalWorkflow = ({ documentId, workflowSteps = [] }) => {
                   )}
                 </div>
                 <div className="flex-1">
-                  <div className="bg-[#2a2a2a] rounded-xl p-5 border border-[#343535] transition-all duration-300 hover:border-[#f3cf1a]/30">
+                  <div className="bg-[#2a2a2a] rounded-xl p-5 ring-1 ring-white/5 transition-all duration-300 hover:ring-[#f3cf1a]/20">
                     <div className="flex justify-between items-start mb-4">
                       <div>
                         <h4 className="font-semibold text-white text-lg">{step.title}</h4>
@@ -107,7 +107,7 @@ const ApprovalWorkflow = ({ documentId, workflowSteps = [] }) => {
             ))}
           </div>
         ) : (
-          <div className="text-center py-12 bg-[#2a2a2a] rounded-xl border-2 border-dashed border-[#343535]">
+          <div className="text-center py-12 bg-[#2a2a2a] rounded-xl ring-1 ring-dashed ring-white/10">
             <div className="w-16 h-16 mx-auto mb-4 bg-[#343535] rounded-full flex items-center justify-center">
               <svg className="w-8 h-8 text-[#a0a0a0]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
@@ -130,14 +130,14 @@ const ApprovalWorkflow = ({ documentId, workflowSteps = [] }) => {
             Add approval step
           </button>
         ) : (
-          <div className="bg-[#2a2a2a] rounded-xl p-5 border border-[#343535]">
+          <div className="bg-[#2a2a2a] rounded-xl p-5 ring-1 ring-white/5">
             <h4 className="font-semibold text-white text-lg mb-4">Add New Approval Step</h4>
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-[#a0a0a0] mb-2">Step Title</label>
                 <input 
                   type="text" 
-                  className="w-full p-3 text-sm bg-[#343535] border border-[#343535] rounded-xl focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent text-white placeholder-[#a0a0a0] transition-all duration-300"
+                  className="w-full p-3 text-sm bg-[#343535] ring-1 ring-white/5 rounded-xl focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent text-white placeholder-[#a0a0a0] transition-all duration-300"
                   placeholder="e.g., Legal Review"
                   value={newStepTitle}
                   onChange={(e) => setNewStepTitle(e.target.value)}
@@ -147,7 +147,7 @@ const ApprovalWorkflow = ({ documentId, workflowSteps = [] }) => {
                 <label className="block text-sm font-medium text-[#a0a0a0] mb-2">Approvers (comma separated emails)</label>
                 <input 
                   type="text" 
-                  className="w-full p-3 text-sm bg-[#343535] border border-[#343535] rounded-xl focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent text-white placeholder-[#a0a0a0] transition-all duration-300"
+                  className="w-full p-3 text-sm bg-[#343535] ring-1 ring-white/5 rounded-xl focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent text-white placeholder-[#a0a0a0] transition-all duration-300"
                   placeholder="e.g., john@example.com, jane@example.com"
                   value={newStepApprovers}
                   onChange={(e) => setNewStepApprovers(e.target.value)}

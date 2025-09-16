@@ -11,6 +11,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     { name: 'Risk Analyzer', icon: 'chart-bar', path: '/risk' },
     { name: 'Negotiation Strategist', icon: 'chat', path: '/negotiation' },
     { name: 'Scenario Simulation', icon: 'play', path: '/scenarios' },
+    { name: 'AI Chatbot', icon: 'message-circle', path: '/chatbot' },
+    { name: 'Voice Assistant', icon: 'mic', path: '/voice-assistant' },
     { name: 'Legal Research', icon: 'search', path: '/research' },
     { name: 'Documents', icon: 'document-text', path: '/documents' },
     { name: 'Collaboration', icon: 'users', path: '/collaboration' },
@@ -80,6 +82,19 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="3" strokeWidth="1.5" stroke="currentColor" fill="none"></circle>
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 01-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5v.3a2 2 0 01-4 0v-.3a1.7 1.7 0 00-1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 01-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H4a2 2 0 010-4h.3a1.7 1.7 0 001.5-1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 012.8-2.8l.1.1a1.7 1.7 0 001.8.3h.3a1.7 1.7 0 001-1.5V4a2 2 0 014 0v.3a1.7 1.7 0 001 1.5h.3a1.7 1.7 0 001.8-.3l.1-.1a2 2 0 012.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8v.3a1.7 1.7 0 001.5 1H20a2 2 0 010 4h-.3a1.7 1.7 0 00-1.5 1z"></path>
+          </svg>
+        );
+      case 'message-circle':
+        return (
+          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6A8.38 8.38 0 0112.5 3c4.7 0 8.5 3.8 8.5 8.5z"></path>
+          </svg>
+        );
+      case 'mic':
+        return (
+          <svg className={iconClasses} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 19v2m0 0h3m-3 0H9m6-2a6 6 0 10-12 0v.75a6 6 0 0012 0v-.75z" />
+            <circle cx="12" cy="10" r="4" strokeWidth="1.5" stroke="currentColor" fill="none"></circle>
           </svg>
         );
       default:

@@ -85,6 +85,37 @@ const Dashboard = () => {
       onAction: () => navigate('/scenarios')
     },
     {
+      title: 'AI Chatbot',
+      description: 'Chat with LegalAxis AI for instant legal insights and support.',
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6A8.38 8.38 0 0112.5 3c4.7 0 8.5 3.8 8.5 8.5z" />
+        </svg>
+      ),
+      actionText: 'Chat',
+      metrics: [
+        { label: 'AI Model', value: 'Gemini 1.5' },
+        { label: 'Realtime', value: 'Yes' },
+      ],
+      onAction: () => navigate('/chatbot')
+    },
+    {
+      title: 'Voice Assistant',
+      description: 'Use your voice to interact with LegalAxis AI for hands-free help.',
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 19v2m0 0h3m-3 0H9m6-2a6 6 0 10-12 0v.75a6 6 0 0012 0v-.75z" />
+          <circle cx="12" cy="10" r="4" strokeWidth="1.5" stroke="currentColor" fill="none"></circle>
+        </svg>
+      ),
+      actionText: 'Speak',
+      metrics: [
+        { label: 'AI Model', value: 'Gemini 1.5' },
+        { label: 'Voice', value: 'Enabled' },
+      ],
+      onAction: () => navigate('/voice-assistant')
+    },
+    {
       title: 'Legal Research & Citation',
       description: 'Access case law, regulations, and generate legal briefs with proper citations.',
       icon: (

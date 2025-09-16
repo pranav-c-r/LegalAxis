@@ -13,6 +13,8 @@ import Settings from "./pages/Settings";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Chatbot from "./pages/Chatbot";
+import VoiceAssistant from "./pages/VoiceAssistant";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import "./index.css";
@@ -127,6 +129,26 @@ function App() {
             }
           />
 
+          <Route
+            path="/chatbot"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <Chatbot />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/voice-assistant"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <VoiceAssistant />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/settings"
             element={

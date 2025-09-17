@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "bootstrap": "^5.3.8",
     "firebase": "^12.2.1",
     "mammoth": "^1.10.0",

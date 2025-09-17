@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const AgentCard = ({ title, icon, description, actionText, onAction, metrics }) => {
   return (
-    <div className="bg-[#222222] rounded-2xl p-5 sm:p-6 border border-[#343535] shadow-lg hover:shadow-xl transition-all duration-500 hover:border-[#f3cf1a]/30 group h-full flex flex-col">
+    <div className="bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-2xl p-5 sm:p-6 ring-1 ring-white/5 hover:ring-[#f3cf1a]/20 shadow-lg hover:shadow-xl transition-all duration-500 group h-full flex flex-col">
       <div className="flex-1 flex flex-col">
         <div className="flex items-start justify-between mb-4 gap-2">
           <div className="flex items-start min-w-0 flex-1 gap-3">
@@ -36,7 +36,7 @@ const AgentCard = ({ title, icon, description, actionText, onAction, metrics }) 
         {metrics && metrics.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-auto">
             {metrics.map((metric, index) => (
-              <div key={index} className="bg-[#2a2a2a] p-3 rounded-lg border border-[#343535] hover:border-[#f3cf1a]/40 transition-all duration-300 hover:shadow-md hover:shadow-[#f3cf1a]/10 group/metric">
+              <div key={index} className="bg-[#232323] p-3 rounded-lg ring-1 ring-white/5 hover:ring-[#f3cf1a]/30 transition-all duration-300 hover:shadow-md hover:shadow-[#f3cf1a]/10 group/metric">
                 <p className="text-xs text-[#a0a0a0] mb-1 group-hover/metric:text-[#f3cf1a] transition-all duration-300 break-words leading-tight">
                   {metric.label}
                 </p>

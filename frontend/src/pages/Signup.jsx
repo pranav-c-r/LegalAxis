@@ -52,7 +52,7 @@ const Signup = () => {
         </div>
 
         {/* Signup Form */}
-  <div className="bg-[#222222] rounded-lg shadow-lg p-8 border border-[#343535]">
+  <div className="bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-lg shadow-lg p-8 ring-1 ring-white/5">
           {error && (
             <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
               <p className="text-red-400 text-sm">{error}</p>
@@ -70,7 +70,7 @@ const Signup = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-[#2a2a2a] border border-[#343535] rounded-lg text-[#FFFFFF] placeholder-[#a0a0a0] focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent transition-all duration-200"
+                className="w-full px-4 py-3 bg-[#232323] ring-1 ring-white/5 rounded-lg text-[#FFFFFF] placeholder-[#a0a0a0] focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent transition-all duration-200"
                 placeholder="Enter your email"
               />
             </div>
@@ -85,7 +85,7 @@ const Signup = () => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-[#2a2a2a] border border-[#343535] rounded-lg text-[#FFFFFF] placeholder-[#a0a0a0] focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent transition-all duration-200"
+                className="w-full px-4 py-3 bg-[#232323] ring-1 ring-white/5 rounded-lg text-[#FFFFFF] placeholder-[#a0a0a0] focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent transition-all duration-200"
                 placeholder="Create a password (min. 6 characters)"
               />
             </div>
@@ -100,7 +100,7 @@ const Signup = () => {
                 required
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-[#2a2a2a] border border-[#343535] rounded-lg text-[#FFFFFF] placeholder-[#a0a0a0] focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent transition-all duration-200"
+                className="w-full px-4 py-3 bg-[#232323] ring-1 ring-white/5 rounded-lg text-[#FFFFFF] placeholder-[#a0a0a0] focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent transition-all duration-200"
                 placeholder="Confirm your password"
               />
             </div>

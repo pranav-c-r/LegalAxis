@@ -343,7 +343,7 @@ const Documents = () => {
     };
 
     return (
-      <div className="bg-[#222222] rounded-2xl p-5 border border-[#343535] shadow-lg hover:border-[#f3cf1a]/30 transition-all duration-300">
+      <div className="bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-2xl p-5 ring-1 ring-white/5 shadow-lg hover:ring-[#f3cf1a]/20 transition-all duration-300">
         <div className="flex justify-between items-start mb-4">
           <div className="flex items-start space-x-3">
             <div className="text-2xl mt-1">{getFileIcon(document.fileType)}</div>
@@ -358,10 +358,10 @@ const Documents = () => {
         </div>
         
         <div className="flex flex-wrap gap-2 mb-4">
-          <span className="bg-[#2a2a2a] text-[#f3cf1a] px-2 py-1 rounded-lg text-xs">
+          <span className="bg-[#232323] text-[#f3cf1a] px-2 py-1 rounded-lg text-xs">
             {document.type}
           </span>
-          <span className="bg-[#2a2a2a] text-[#a0a0a0] px-2 py-1 rounded-lg text-xs">
+          <span className="bg-[#232323] text-[#a0a0a0] px-2 py-1 rounded-lg text-xs">
             {document.fileType} • {document.size}
           </span>
           {document.ocrProcessed && (
@@ -369,7 +369,7 @@ const Documents = () => {
               OCR Processed
             </span>
           )}
-          <span className="bg-[#2a2a2a] text-[#a0a0a0] px-2 py-1 rounded-lg text-xs">
+          <span className="bg-[#232323] text-[#a0a0a0] px-2 py-1 rounded-lg text-xs">
             {document.version}
           </span>
         </div>
@@ -408,7 +408,7 @@ const Documents = () => {
         </div>
         
         {showVersions && (
-          <div className="mt-4 p-3 bg-[#2a2a2a] rounded-lg border border-[#343535]">
+          <div className="mt-4 p-3 bg-[#232323] rounded-lg ring-1 ring-white/5">
             <h4 className="font-medium text-white mb-2">Version History</h4>
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
@@ -446,14 +446,14 @@ const Documents = () => {
             </div>
             <div className="flex gap-3">
               <button 
-                className="px-4 py-3 bg-[#2a2a2a] hover:bg-[#343535] text-white font-medium rounded-xl transition-all duration-300 border border-[#343535] flex items-center"
+                className="px-4 py-3 bg-[#232323] hover:bg-[#343535] text-white font-medium rounded-xl transition-all duration-300 ring-1 ring-white/5 flex items-center"
                 onClick={processBatchAnalysis}
                 disabled={batchProcessing}
               >
                 {batchProcessing ? 'Processing...' : 'Batch Analysis'}
               </button>
               <button 
-                className="px-4 py-3 bg-[#2a2a2a] hover:bg-[#343535] text-white font-medium rounded-xl transition-all duration-300 border border-[#343535] flex items-center"
+                className="px-4 py-3 bg-[#232323] hover:bg-[#343535] text-white font-medium rounded-xl transition-all duration-300 ring-1 ring-white/5 flex items-center"
                 onClick={categorizeDocuments}
               >
                 Auto-Categorize
@@ -463,7 +463,7 @@ const Documents = () => {
         </div>
         
         {/* Search and Filter Section */}
-        <div className="bg-[#222222] rounded-2xl p-5 sm:p-6 border border-[#343535] shadow-lg mb-6 sm:mb-8">
+        <div className="bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-2xl p-5 sm:p-6 ring-1 ring-white/5 shadow-lg mb-6 sm:mb-8">
           <div className="flex flex-col gap-4">
             <div className="relative">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -473,7 +473,7 @@ const Documents = () => {
               </div>
               <input 
                 type="text" 
-                className="bg-[#2a2a2a] border border-[#343535] text-white text-sm rounded-xl focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent block w-full pl-10 p-3 placeholder-[#a0a0a0] transition-all duration-300" 
+                className="bg-[#232323] ring-1 ring-white/5 text-white text-sm rounded-xl focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent block w-full pl-10 p-3 placeholder-[#a0a0a0] transition-all duration-300" 
                 placeholder="Search documents, tags, or content..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -482,22 +482,22 @@ const Documents = () => {
             
             <div className="flex flex-col sm:flex-row gap-3">
               <select 
-                className="bg-[#2a2a2a] border border-[#343535] text-white text-sm rounded-xl focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent p-3 flex-1 sm:flex-none transition-all duration-300"
+                className="bg-[#232323] ring-1 ring-white/5 text-white text-sm rounded-xl focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent p-3 flex-1 sm:flex-none transition-all duration-300"
                 value={filterType}
                 onChange={(e) => setFilterType(e.target.value)}
               >
                 {documentTypes.map((type) => (
-                  <option key={type} value={type} className="bg-[#2a2a2a] text-white">{type}</option>
+                  <option key={type} value={type} className="bg-[#232323] text-white">{type}</option>
                 ))}
               </select>
               
               <select 
-                className="bg-[#2a2a2a] border border-[#343535] text-white text-sm rounded-xl focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent p-3 flex-1 sm:flex-none transition-all duration-300"
+                className="bg-[#232323] ring-1 ring-white/5 text-white text-sm rounded-xl focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent p-3 flex-1 sm:flex-none transition-all duration-300"
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
               >
                 {statusOptions.map((status) => (
-                  <option key={status} value={status} className="bg-[#2a2a2a] text-white">{status}</option>
+                  <option key={status} value={status} className="bg-[#232323] text-white">{status}</option>
                 ))}
               </select>
               
@@ -525,15 +525,15 @@ const Documents = () => {
 
         {/* Drag and Drop Area */}
         <div 
-          className={`bg-[#222222] rounded-2xl p-8 border-2 border-dashed mb-8 transition-all duration-300 ${
-            isDragging ? 'border-[#f3cf1a] bg-[#f3cf1a]/10' : 'border-[#343535] hover:border-[#f3cf1a]/50'
+          className={`bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-2xl p-8 border-2 border-dashed mb-8 transition-all duration-300 ${
+            isDragging ? 'border-[#f3cf1a] bg-[#f3cf1a]/10' : 'ring-white/10 hover:ring-[#f3cf1a]/30'
           }`}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
         >
           <div className="text-center">
-            <div className="w-16 h-16 bg-[#2a2a2a] rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-[#232323] rounded-full flex items-center justify-center mx-auto mb-4">
               <svg className="w-8 h-8 text-[#a0a0a0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
               </svg>
@@ -541,7 +541,7 @@ const Documents = () => {
             <h3 className="text-lg font-semibold text-white mb-2">Drag & Drop Files Here</h3>
             <p className="text-[#a0a0a0] mb-4">Supported formats: PDF, DOC, DOCX, TXT</p>
             <button 
-              className="px-4 py-2 bg-[#2a2a2a] hover:bg-[#343535] text-white font-medium rounded-lg transition-all duration-300 border border-[#343535]"
+              className="px-4 py-2 bg-[#232323] hover:bg-[#343535] text-white font-medium rounded-lg transition-all duration-300 ring-1 ring-white/5"
               onClick={() => fileInputRef.current?.click()}
             >
               Select Files
@@ -556,8 +556,8 @@ const Documents = () => {
               <DocumentCard key={document.id} document={document} />
             ))
           ) : (
-            <div className="xl:col-span-2 bg-[#222222] rounded-2xl p-8 border border-[#343535] shadow-lg flex flex-col items-center justify-center text-center">
-              <div className="w-20 h-20 bg-[#2a2a2a] rounded-full flex items-center justify-center mb-6">
+            <div className="xl:col-span-2 bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-2xl p-8 ring-1 ring-white/5 shadow-lg flex flex-col items-center justify-center text-center">
+              <div className="w-20 h-20 bg-[#232323] rounded-full flex items-center justify-center mb-6">
                 <svg className="w-10 h-10 text-[#a0a0a0]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                 </svg>
@@ -581,14 +581,14 @@ const Documents = () => {
       {/* Upload Modal */}
       {showUploadModal && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-          <div className="bg-[#222222] rounded-2xl p-6 border border-[#343535] shadow-lg max-w-md w-full">
+          <div className="bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-2xl p-6 ring-1 ring-white/5 shadow-lg max-w-md w-full">
             <h3 className="text-xl font-semibold text-white mb-4">Upload Documents</h3>
             
             <div className="mb-4">
               <h4 className="font-medium text-white mb-2">Selected Files:</h4>
               <div className="space-y-2 max-h-40 overflow-y-auto">
                 {selectedFiles.map((file, index) => (
-                  <div key={index} className="flex items-center justify-between p-2 bg-[#2a2a2a] rounded-lg">
+                  <div key={index} className="flex items-center justify-between p-2 bg-[#232323] rounded-lg">
                     <span className="text-sm text-white truncate flex-1 mr-2">{file.name}</span>
                     <span className="text-xs text-[#a0a0a0]">{(file.size / (1024 * 1024)).toFixed(1)}MB</span>
                   </div>
@@ -598,7 +598,7 @@ const Documents = () => {
             
             {isUploading && (
               <div className="mb-4">
-                <div className="w-full bg-[#2a2a2a] rounded-full h-2.5">
+                <div className="w-full bg-[#232323] rounded-full h-2.5">
                   <div 
                     className="bg-[#f3cf1a] h-2.5 rounded-full transition-all duration-300" 
                     style={{ width: `${uploadProgress}%` }}
@@ -610,7 +610,7 @@ const Documents = () => {
             
             <div className="flex justify-end space-x-3">
               <button 
-                className="px-4 py-2 bg-[#2a2a2a] hover:bg-[#343535] text-white font-medium rounded-lg transition-all duration-300 border border-[#343535]"
+                className="px-4 py-2 bg-[#232323] hover:bg-[#343535] text-white font-medium rounded-lg transition-all duration-300 ring-1 ring-white/5"
                 onClick={() => {
                   setShowUploadModal(false);
                   setSelectedFiles([]);

@@ -99,7 +99,7 @@ const VoiceAssistant = () => {
   };
 
   return (
-    <div className="flex flex-col h-full max-h-[80vh] w-full max-w-2xl mx-auto bg-[#222222] rounded-xl shadow-lg border border-[#343535] p-4 mt-8">
+    <div className="flex flex-col h-full max-h-[80vh] w-full max-w-2xl mx-auto bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-xl shadow-lg ring-1 ring-white/5 p-4 mt-8">
       <h2 className="text-2xl font-bold mb-4 text-[#f3cf1a]">Voice Assistant</h2>
       <div className="flex-1 overflow-y-auto mb-4 space-y-2 bg-[#000000] rounded-lg p-3">
         {messages.map((msg, idx) => (
@@ -111,7 +111,7 @@ const VoiceAssistant = () => {
               className={`px-4 py-2 rounded-2xl max-w-[70%] text-sm shadow-md ${
                 msg.sender === "user"
                   ? "bg-[#343535] text-[#ffffff]"
-                  : "bg-[#222222] text-[#f3cf1a] border border-[#343535]"
+                  : "bg-gradient-to-b from-[#1f1f1f] to-[#151515] text-[#f3cf1a] ring-1 ring-white/10"
               }`}
             >
               {msg.text}

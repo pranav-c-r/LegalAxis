@@ -37,7 +37,7 @@ const SharingControls = ({ documentId, currentPermissions = [], onAddPermission,
   };
 
   return (
-    <div className="bg-[#222222] rounded-2xl p-5 sm:p-6 border border-[#343535] shadow-lg">
+    <div className="bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-2xl p-5 sm:p-6 ring-1 ring-white/5 shadow-lg hover:ring-[#f3cf1a]/20 transition-all duration-300">
       <h3 className="text-xl sm:text-2xl font-semibold text-white mb-5 sm:mb-6 flex items-center">
         <svg className="w-5 h-5 mr-2 text-[#f3cf1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
@@ -64,7 +64,7 @@ const SharingControls = ({ documentId, currentPermissions = [], onAddPermission,
             type="text" 
             value={`https://legalaxis.com/documents/${documentId}`} 
             readOnly 
-            className="flex-1 p-3 text-sm bg-[#2a2a2a] border border-[#343535] rounded-xl sm:rounded-l-xl sm:rounded-r-none focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent text-white/80 min-w-0 transition-all duration-300"
+            className="flex-1 p-3 text-sm bg-[#2a2a2a] ring-1 ring-white/5 rounded-xl sm:rounded-l-xl sm:rounded-r-none focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent text-white/80 min-w-0 transition-all duration-300"
           />
           <button 
             className={`py-3 px-4 rounded-xl sm:rounded-r-xl sm:rounded-l-none font-medium text-sm whitespace-nowrap transition-all duration-300 flex items-center justify-center ${
@@ -101,13 +101,13 @@ const SharingControls = ({ documentId, currentPermissions = [], onAddPermission,
             <input 
               type="email" 
               placeholder="Email address" 
-              className="flex-1 p-3 text-sm bg-[#2a2a2a] border border-[#343535] rounded-xl focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent text-white placeholder-[#a0a0a0] min-w-0 transition-all duration-300"
+              className="flex-1 p-3 text-sm bg-[#2a2a2a] ring-1 ring-white/5 rounded-xl focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent text-white placeholder-[#a0a0a0] min-w-0 transition-all duration-300"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <div className="flex gap-3">
               <select 
-                className="flex-1 sm:flex-none p-3 text-sm bg-[#2a2a2a] border border-[#343535] rounded-xl focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent text-white min-w-0 sm:min-w-[140px] transition-all duration-300"
+                className="flex-1 sm:flex-none p-3 text-sm bg-[#2a2a2a] ring-1 ring-white/5 rounded-xl focus:ring-2 focus:ring-[#f3cf1a] focus:border-transparent text-white min-w-0 sm:min-w-[140px] transition-all duration-300"
                 value={permission}
                 onChange={(e) => setPermission(e.target.value)}
               >
@@ -159,7 +159,7 @@ const SharingControls = ({ documentId, currentPermissions = [], onAddPermission,
         
         {showPermissionsList && (
           <div className="space-y-4 animate-fadeIn">
-            <div className="flex items-center justify-between py-3 border-b border-[#343535]">
+            <div className="flex items-center justify-between py-3 border-b border-white/5">
               <div className="flex items-center space-x-4 min-w-0 flex-1">
                 <div className="w-10 h-10 rounded-full bg-[#f3cf1a] flex items-center justify-center text-[#1a1a1a] font-bold text-sm flex-shrink-0">
                   JD
@@ -173,7 +173,7 @@ const SharingControls = ({ documentId, currentPermissions = [], onAddPermission,
             </div>
 
             {currentPermissions.map((user) => (
-              <div key={user.id} className="flex items-center justify-between py-3 border-b border-[#343535] last:border-0 group">
+              <div key={user.id} className="flex items-center justify-between py-3 border-b border-white/5 last:border-0 group">
                 <div className="flex items-center space-x-4 min-w-0 flex-1">
                   <div className="w-10 h-10 rounded-full bg-[#2a2a2a] flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
                     {user.initials}
@@ -185,7 +185,7 @@ const SharingControls = ({ documentId, currentPermissions = [], onAddPermission,
                 </div>
                 <div className="flex items-center space-x-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex-shrink-0">
                   <select 
-                    className="p-2 text-xs bg-[#2a2a2a] border border-[#343535] rounded-lg focus:ring-1 focus:ring-[#f3cf1a] focus:border-transparent text-white min-w-0 transition-all duration-300"
+                    className="p-2 text-xs bg-[#2a2a2a] ring-1 ring-white/5 rounded-lg focus:ring-1 focus:ring-[#f3cf1a] focus:border-transparent text-white min-w-0 transition-all duration-300"
                     value={user.permission}
                     onChange={(e) => handleChangePermission(user.id, e.target.value)}
                   >

@@ -34,7 +34,7 @@ const Compliance = () => {
         
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 sm:gap-8">
           <div className="xl:col-span-2">
-            <div className="bg-[#222222] rounded-2xl p-5 sm:p-6 border border-[#343535] shadow-lg">
+            <div className="bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-2xl p-5 sm:p-6 ring-1 ring-white/5 shadow-lg">
               <h2 className="text-xl sm:text-2xl font-semibold mb-5 sm:mb-6 text-white flex items-center">
                 <svg className="w-5 h-5 mr-2 text-[#f3cf1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
@@ -43,7 +43,7 @@ const Compliance = () => {
               </h2>
               <div className="space-y-4 sm:space-y-5">
                 {[1, 2, 3].map((item) => (
-                  <div key={item} className="p-4 sm:p-5 rounded-xl bg-[#2a2a2a] border border-[#343535] hover:border-[#f3cf1a]/30 transition-all duration-300 group">
+                  <div key={item} className="p-4 sm:p-5 rounded-xl bg-[#232323] ring-1 ring-white/5 hover:ring-[#f3cf1a]/30 transition-all duration-300 group">
                     <div className="flex flex-col sm:flex-row sm:justify-between gap-2 sm:gap-4">
                       <h3 className="font-medium text-white text-base sm:text-lg group-hover:text-[#f3cf1a] transition-colors duration-300">GDPR Non-Compliance Risk</h3>
                       <span className="text-xs sm:text-sm px-3 py-1 rounded-full bg-red-500/20 text-red-300 self-start">
@@ -70,7 +70,7 @@ const Compliance = () => {
           </div>
           
           <div className="space-y-6 sm:space-y-8">
-            <div className="bg-[#222222] rounded-2xl p-5 sm:p-6 border border-[#343535] shadow-lg">
+            <div className="bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-2xl p-5 sm:p-6 ring-1 ring-white/5 shadow-lg">
               <h2 className="text-xl sm:text-2xl font-semibold mb-5 sm:mb-6 text-white flex items-center">
                 <svg className="w-5 h-5 mr-2 text-[#f3cf1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
@@ -85,7 +85,7 @@ const Compliance = () => {
                         a 15.9155 15.9155 0 0 1 0 31.831
                         a 15.9155 15.9155 0 0 1 0 -31.831"
                       fill="none"
-                      stroke="#343535"
+                      stroke="rgba(255,255,255,0.1)"
                       strokeWidth="3"
                       strokeDasharray="100, 100"
                     />
@@ -106,18 +106,18 @@ const Compliance = () => {
                 </div>
               </div>
               <div className="mt-6 grid grid-cols-2 gap-4">
-                <div className="text-center p-3 rounded-xl bg-[#2a2a2a] border border-[#343535]">
+                <div className="text-center p-3 rounded-xl bg-[#232323] ring-1 ring-white/5">
                   <p className="text-sm text-[#a0a0a0]">Documents</p>
                   <p className="text-xl font-bold text-white">42</p>
                 </div>
-                <div className="text-center p-3 rounded-xl bg-[#2a2a2a] border border-[#343535]">
+                <div className="text-center p-3 rounded-xl bg-[#232323] ring-1 ring-white/5">
                   <p className="text-sm text-[#a0a0a0]">Issues</p>
                   <p className="text-xl font-bold text-white">8</p>
                 </div>
               </div>
             </div>
             
-            <div className="bg-[#222222] rounded-2xl p-5 sm:p-6 border border-[#343535] shadow-lg">
+            <div className="bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-2xl p-5 sm:p-6 ring-1 ring-white/5 shadow-lg">
               <h2 className="text-xl sm:text-2xl font-semibold mb-5 sm:mb-6 text-white flex items-center">
                 <svg className="w-5 h-5 mr-2 text-[#f3cf1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
@@ -125,7 +125,7 @@ const Compliance = () => {
                 Regulation Updates
               </h2>
               <div className="space-y-4">
-                <div className="p-4 rounded-xl bg-[#2a2a2a] border border-[#343535] hover:border-[#f3cf1a]/30 transition-all duration-300 group">
+                <div className="p-4 rounded-xl bg-[#232323] ring-1 ring-white/5 hover:ring-[#f3cf1a]/30 transition-all duration-300 group">
                   <div className="flex justify-between items-start gap-2">
                     <h3 className="font-medium text-white text-base group-hover:text-[#f3cf1a] transition-colors duration-300">CCPA Amendment</h3>
                     <span className="text-xs px-2 py-1 rounded-full bg-[#f3cf1a]/20 text-[#f3cf1a] flex-shrink-0">New</span>
@@ -138,7 +138,7 @@ const Compliance = () => {
                     Posted 2 days ago
                   </div>
                 </div>
-                <div className="p-4 rounded-xl bg-[#2a2a2a] border border-[#343535] hover:border-[#f3cf1a]/30 transition-all duration-300 group">
+                <div className="p-4 rounded-xl bg-[#232323] ring-1 ring-white/5 hover:ring-[#f3cf1a]/30 transition-all duration-300 group">
                   <div className="flex justify-between items-start gap-2">
                     <h3 className="font-medium text-white text-base group-hover:text-[#f3cf1a] transition-colors duration-300">EU AI Act</h3>
                     <span className="text-xs px-2 py-1 rounded-full bg-[#f3cf1a]/20 text-[#f3cf1a] flex-shrink-0">Pending</span>

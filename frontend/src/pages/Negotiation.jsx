@@ -164,13 +164,13 @@ const Negotiation = () => {
     switch (activeTab) {
       case 'counter':
         return (
-          <div className="bg-[#222222] rounded-2xl p-6 border border-[#343535] shadow-lg transition-all duration-300 hover:shadow-[#f3cf1a]/10">
+          <div className="bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-2xl p-6 ring-1 ring-white/5 shadow-lg transition-all duration-300 hover:shadow-[#f3cf1a]/10">
             <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-[#f3cf1a] flex items-center">
               <span className="mr-2 text-2xl">🤖</span> Automated Counter-Proposal
             </h2>
             <p className="text-[#a0a0a0] mb-4">Paste a contract clause to generate AI-powered counter-proposals</p>
             <textarea
-              className="w-full p-3 rounded-xl bg-[#2a2a2a] border border-[#343535] text-white focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] mb-4 transition-all duration-300"
+              className="w-full p-3 rounded-xl bg-[#232323] ring-1 ring-white/5 text-white focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] mb-4 transition-all duration-300"
               rows={5}
               placeholder="Paste contract clause or negotiation point..."
               value={inputClause}
@@ -191,7 +191,7 @@ const Negotiation = () => {
               )}
             </button>
             {aiResponse && (
-              <div className="mt-4 p-4 bg-[#2a2a2a] border border-[#f3cf1a]/20 rounded-xl text-white animate-fadeIn">
+              <div className="mt-4 p-4 bg-[#232323] border border-[#f3cf1a]/20 rounded-xl text-white animate-fadeIn">
                 <h3 className="font-semibold text-[#f3cf1a] mb-2">AI Suggestions:</h3>
                 <div className="prose prose-invert max-w-none">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>{aiResponse}</ReactMarkdown>
@@ -202,14 +202,14 @@ const Negotiation = () => {
         );
       case 'playbook':
         return (
-          <div className="bg-[#222222] rounded-2xl p-6 border border-[#343535] shadow-lg transition-all duration-300 hover:shadow-[#f3cf1a]/10">
+          <div className="bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-2xl p-6 ring-1 ring-white/5 shadow-lg transition-all duration-300 hover:shadow-[#f3cf1a]/10">
             <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-[#f3cf1a] flex items-center">
               <span className="mr-2 text-2xl">📚</span> Negotiation Playbook
             </h2>
             <p className="text-[#a0a0a0] mb-4">Template responses and talking points for common negotiation scenarios</p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              <div className="bg-[#2a2a2a] p-4 rounded-xl border border-[#343535] transition-all duration-300 hover:border-[#f3cf1a]/30">
+              <div className="bg-[#232323] p-4 rounded-xl ring-1 ring-white/5 transition-all duration-300 hover:ring-[#f3cf1a]/20">
                 <h3 className="font-semibold text-[#f3cf1a] mb-2">Price Negotiation</h3>
                 <ul className="list-disc pl-5 text-white space-y-1 text-sm">
                   <li>"We appreciate your proposal, but market rates suggest..."</li>
@@ -218,7 +218,7 @@ const Negotiation = () => {
                 </ul>
               </div>
               
-              <div className="bg-[#2a2a2a] p-4 rounded-xl border border-[#343535] transition-all duration-300 hover:border-[#f3cf1a]/30">
+              <div className="bg-[#232323] p-4 rounded-xl ring-1 ring-white/5 transition-all duration-300 hover:ring-[#f3cf1a]/20">
                 <h3 className="font-semibold text-[#f3cf1a] mb-2">Contract Terms</h3>
                 <ul className="list-disc pl-5 text-white space-y-1 text-sm">
                   <li>"Our standard agreement includes..."</li>
@@ -227,7 +227,7 @@ const Negotiation = () => {
                 </ul>
               </div>
               
-              <div className="bg-[#2a2a2a] p-4 rounded-xl border border-[#343535] transition-all duration-300 hover:border-[#f3cf1a]/30">
+              <div className="bg-[#232323] p-4 rounded-xl ring-1 ring-white/5 transition-all duration-300 hover:ring-[#f3cf1a]/20">
                 <h3 className="font-semibold text-[#f3cf1a] mb-2">Timeline Pressures</h3>
                 <ul className="list-disc pl-5 text-white space-y-1 text-sm">
                   <li>"We understand the urgency but can't compromise on..."</li>
@@ -236,7 +236,7 @@ const Negotiation = () => {
                 </ul>
               </div>
               
-              <div className="bg-[#2a2a2a] p-4 rounded-xl border border-[#343535] transition-all duration-300 hover:border-[#f3cf1a]/30">
+              <div className="bg-[#232323] p-4 rounded-xl ring-1 ring-white/5 transition-all duration-300 hover:ring-[#f3cf1a]/20">
                 <h3 className="font-semibold text-[#f3cf1a] mb-2">Relationship Building</h3>
                 <ul className="list-disc pl-5 text-white space-y-1 text-sm">
                   <li>"We value our partnership and want to find a solution that..."</li>
@@ -249,7 +249,7 @@ const Negotiation = () => {
             <div className="bg-[#f3cf1a]/10 p-4 rounded-xl border border-[#f3cf1a]/20">
               <h3 className="font-semibold text-[#f3cf1a] mb-2">Need a custom response?</h3>
               <textarea
-                className="w-full p-3 rounded-xl bg-[#2a2a2a] border border-[#343535] text-white mb-3 focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] transition-all duration-300"
+                className="w-full p-3 rounded-xl bg-[#232323] ring-1 ring-white/5 text-white mb-3 focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] transition-all duration-300"
                 rows={3}
                 placeholder="Describe your negotiation scenario..."
                 value={playbookInput}
@@ -268,7 +268,7 @@ const Negotiation = () => {
             </div>
 
             {aiResponse && (
-              <div className="mt-4 p-4 bg-[#2a2a2a] border border-[#f3cf1a]/20 rounded-xl text-white animate-fadeIn">
+              <div className="mt-4 p-4 bg-[#232323] border border-[#f3cf1a]/20 rounded-xl text-white animate-fadeIn">
                 <h3 className="font-semibold text-[#f3cf1a] mb-2">Playbook Suggestions:</h3>
                 <div className="prose prose-invert max-w-none">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>{aiResponse}</ReactMarkdown>
@@ -279,7 +279,7 @@ const Negotiation = () => {
         );
       case 'email':
         return (
-          <div className="bg-[#222222] rounded-2xl p-6 border border-[#343535] shadow-lg transition-all duration-300 hover:shadow-[#f3cf1a]/10">
+          <div className="bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-2xl p-5 sm:p-6 ring-1 ring-white/5 shadow-lg">
             <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-[#f3cf1a] flex items-center">
               <span className="mr-2 text-2xl">✉️</span> Email Draft Assistance
             </h2>
@@ -288,7 +288,7 @@ const Negotiation = () => {
             <div className="mb-4 bg-[#f3cf1a]/5 p-4 rounded-xl">
               <h3 className="font-medium text-[#f3cf1a] mb-2">Email Context</h3>
               <select 
-                className="w-full p-3 rounded-xl bg-[#2a2a2a] border border-[#343535] text-white mb-3 focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] transition-all duration-300"
+                className="w-full p-3 rounded-xl bg-[#232323] ring-1 ring-white/5 text-white mb-3 focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] transition-all duration-300"
                 value={emailContext}
                 onChange={e => setEmailContext(e.target.value)}
               >
@@ -301,7 +301,7 @@ const Negotiation = () => {
             </div>
             
             <textarea
-              className="w-full p-3 rounded-xl bg-[#2a2a2a] border border-[#343535] text-white mb-4 focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] transition-all duration-300"
+              className="w-full p-3 rounded-xl bg-[#232323] ring-1 ring-white/5 text-white mb-4 focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] transition-all duration-300"
               rows={5}
               placeholder="Describe the negotiation context, your goals, and any specific points to include..."
               value={emailInput}
@@ -321,7 +321,7 @@ const Negotiation = () => {
               </button>
               
               <button
-                className="bg-[#2a2a2a] text-[#f3cf1a] border border-[#f3cf1a] px-6 py-3 rounded-xl font-semibold hover:bg-[#f3cf1a]/10 transition-all duration-300 transform hover:-translate-y-0.5"
+                className="bg-[#232323] text-[#f3cf1a] border border-[#f3cf1a] px-6 py-3 rounded-xl font-semibold hover:bg-[#f3cf1a]/10 transition-all duration-300 transform hover:-translate-y-0.5"
                 onClick={() => { setEmailInput(''); setEmailContext('Initial Proposal'); }}
               >
                 Clear
@@ -329,7 +329,7 @@ const Negotiation = () => {
             </div>
             
             {aiResponse && (
-              <div className="mt-6 p-4 bg-[#2a2a2a] border border-[#f3cf1a]/20 rounded-xl animate-fadeIn">
+              <div className="mt-6 p-4 bg-[#232323] border border-[#f3cf1a]/20 rounded-xl animate-fadeIn">
                 <h3 className="font-semibold text-[#f3cf1a] mb-3">Email Draft:</h3>
                 <div className="bg-[#1a1a1a] p-4 rounded text-white prose prose-invert max-w-none">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>{aiResponse}</ReactMarkdown>
@@ -348,14 +348,14 @@ const Negotiation = () => {
         );
       case 'power':
         return (
-          <div className="bg-[#222222] rounded-2xl p-6 border border-[#343535] shadow-lg transition-all duration-300 hover:shadow-[#f3cf1a]/10">
+          <div className="bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-2xl p-6 ring-1 ring-white/5 shadow-lg transition-all duration-300 hover:shadow-[#f3cf1a]/10">
             <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-[#f3cf1a] flex items-center">
               <span className="mr-2 text-2xl">⚖️</span> Power Dynamic Analysis
             </h2>
             <p className="text-[#a0a0a0] mb-4">Analyze the balance of power in your negotiation</p>
             
             <textarea
-              className="w-full p-3 rounded-xl bg-[#2a2a2a] border border-[#343535] text-white mb-4 focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] transition-all duration-300"
+              className="w-full p-3 rounded-xl bg-[#232323] ring-1 ring-white/5 text-white mb-4 focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] transition-all duration-300"
               rows={5}
               placeholder="Describe the negotiation parties, context, and any relevant factors like alternatives, timing, relationship history, etc."
               value={powerAnalysisInput}
@@ -375,7 +375,7 @@ const Negotiation = () => {
                 <h3 className="font-semibold text-[#f3cf1a] mb-4 text-lg">Analysis Results</h3>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                  <div className="bg-[#2a2a2a] p-4 rounded-xl border border-[#343535] transition-all duration-300 hover:border-[#f3cf1a]/30">
+                  <div className="bg-[#232323] p-4 rounded-xl ring-1 ring-white/5 transition-all duration-300 hover:ring-[#f3cf1a]/20">
                     <h4 className="font-medium text-[#f3cf1a] mb-3">Our Position</h4>
                     <div className="mb-3">
                       <div className="flex justify-between mb-1">
@@ -392,7 +392,7 @@ const Negotiation = () => {
                     <p className="text-sm text-[#a0a0a0]">{powerAnalysisResult.ourPosition.reasoning}</p>
                   </div>
                   
-                  <div className="bg-[#2a2a2a] p-4 rounded-xl border border-[#343535] transition-all duration-300 hover:border-[#f3cf1a]/30">
+                  <div className="bg-[#232323] p-4 rounded-xl ring-1 ring-white/5 transition-all duration-300 hover:ring-[#f3cf1a]/20">
                     <h4 className="font-medium text-[#f3cf1a] mb-3">Their Position</h4>
                     <div className="mb-3">
                       <div className="flex justify-between mb-1">
@@ -410,7 +410,7 @@ const Negotiation = () => {
                   </div>
                 </div>
                 
-                <div className="bg-[#2a2a2a] p-4 rounded-xl border border-[#343535] transition-all duration-300 hover:border-[#f3cf1a]/30">
+                <div className="bg-[#232323] p-4 rounded-xl ring-1 ring-white/5 transition-all duration-300 hover:ring-[#f3cf1a]/20">
                   <h4 className="font-medium text-[#f3cf1a] mb-3">Recommendations</h4>
                   <ul className="list-disc pl-5 space-y-2">
                     {powerAnalysisResult.recommendations.map((rec, index) => (
@@ -420,7 +420,7 @@ const Negotiation = () => {
                 </div>
               </div>
             ) : (
-              <div className="bg-[#2a2a2a] p-6 rounded-xl border border-dashed border-[#343535] text-center">
+              <div className="bg-[#232323] p-6 rounded-xl ring-1 ring-white/10 ring-dashed text-center">
                 <p className="text-[#a0a0a0]">Enter negotiation details to analyze power dynamics</p>
               </div>
             )}
@@ -428,17 +428,17 @@ const Negotiation = () => {
         );
       case 'winwin':
         return (
-          <div className="bg-[#222222] rounded-2xl p-6 border border-[#343535] shadow-lg transition-all duration-300 hover:shadow-[#f3cf1a]/10">
+          <div className="bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-2xl p-6 ring-1 ring-white/5 shadow-lg transition-all duration-300 hover:shadow-[#f3cf1a]/10">
             <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-[#f3cf1a] flex items-center">
               <span className="mr-2 text-2xl">🤝</span> Win-Win Optimization
             </h2>
             <p className="text-[#a0a0a0] mb-4">Find solutions that benefit both parties</p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              <div className="bg-[#2a2a2a] p-4 rounded-xl border border-[#343535] transition-all duration-300 hover:border-[#f3cf1a]/30">
+              <div className="bg-[#232323] p-4 rounded-xl ring-1 ring-white/5 transition-all duration-300 hover:ring-[#f3cf1a]/20">
                 <h3 className="font-medium text-[#f3cf1a] mb-2">Our Goals</h3>
                 <textarea
-                  className="w-full p-2 rounded bg-[#1a1a1a] border border-[#343535] text-white text-sm transition-all duration-300"
+                  className="w-full p-2 rounded bg-[#1a1a1a] ring-1 ring-white/5 text-white text-sm transition-all duration-300"
                   rows={3}
                   placeholder="What we need to achieve..."
                   value={winwinOurGoals}
@@ -446,10 +446,10 @@ const Negotiation = () => {
                 />
               </div>
               
-              <div className="bg-[#2a2a2a] p-4 rounded-xl border border-[#343535] transition-all duration-300 hover:border-[#f3cf1a]/30">
+              <div className="bg-[#232323] p-4 rounded-xl ring-1 ring-white/5 transition-all duration-300 hover:ring-[#f3cf1a]/20">
                 <h3 className="font-medium text-[#f3cf1a] mb-2">Their Goals</h3>
                 <textarea
-                  className="w-full p-2 rounded bg-[#1a1a1a] border border-[#343535] text-white text-sm transition-all duration-300"
+                  className="w-full p-2 rounded bg-[#1a1a1a] ring-1 ring-white/5 text-white text-sm transition-all duration-300"
                   rows={3}
                   placeholder="What they likely want..."
                   value={winwinTheirGoals}
@@ -459,7 +459,7 @@ const Negotiation = () => {
             </div>
             
             <textarea
-              className="w-full p-3 rounded-xl bg-[#2a2a2a] border border-[#343535] text-white mb-4 focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] transition-all duration-300"
+              className="w-full p-3 rounded-xl bg-[#232323] ring-1 ring-white/5 text-white mb-4 focus:outline-none focus:ring-2 focus:ring-[#f3cf1a] transition-all duration-300"
               rows={4}
               placeholder="Additional context about the negotiation..."
               value={winwinInput}
@@ -478,7 +478,7 @@ const Negotiation = () => {
             </button>
             
             {aiResponse && (
-              <div className="mt-4 p-4 bg-[#2a2a2a] border border-[#f3cf1a]/20 rounded-xl text-white animate-fadeIn">
+              <div className="mt-4 p-4 bg-[#232323] border border-[#f3cf1a]/20 rounded-xl text-white animate-fadeIn">
                 <h3 className="font-semibold text-[#f3cf1a] mb-2">Win-Win Suggestions:</h3>
                 <div className="prose prose-invert max-w-none">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>{aiResponse}</ReactMarkdown>
@@ -489,7 +489,7 @@ const Negotiation = () => {
         );
       case 'history':
         return (
-          <div className="bg-[#222222] rounded-2xl p-6 border border-[#343535] shadow-lg transition-all duration-300 hover:shadow-[#f3cf1a]/10">
+          <div className="bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-2xl p-5 sm:p-6 ring-1 ring-white/5 hover:ring-[#f3cf1a]/20 shadow-lg hover:shadow-xl transition-all duration-500 group h-full flex flex-col">
             <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-[#f3cf1a] flex items-center">
               <span className="mr-2 text-2xl">🕑</span> Negotiation History
             </h2>
@@ -498,7 +498,7 @@ const Negotiation = () => {
             {negotiationHistory.length > 0 ? (
               <div className="space-y-4">
                 {negotiationHistory.map(item => (
-                  <div key={item.id} className="bg-[#2a2a2a] p-4 rounded-xl border border-[#343535] hover:border-[#f3cf1a]/30 transition-all duration-300 transform hover:-translate-y-1">
+                  <div key={item.id} className="bg-[#232323] p-4 rounded-xl ring-1 ring-white/5 hover:ring-[#f3cf1a]/20 transition-all duration-300 transform hover:-translate-y-1">
                     <div className="flex justify-between items-start">
                       <div>
                         <h3 className="font-medium text-[#f3cf1a]">{item.details}</h3>
@@ -519,24 +519,24 @@ const Negotiation = () => {
                 ))}
               </div>
             ) : (
-              <div className="bg-[#2a2a2a] p-8 rounded-xl border border-dashed border-[#343535] text-center">
+              <div className="bg-[#232323] p-8 rounded-xl ring-1 ring-white/10 ring-dashed text-center">
                 <p className="text-[#a0a0a0]">No negotiation history yet</p>
                 <p className="text-[#a0a0a0] text-sm mt-2">Your negotiation analyses will appear here</p>
               </div>
             )}
             
-            <div className="mt-6 pt-4 border-t border-[#343535]">
+            <div className="mt-6 pt-4 border-t border-white/5">
               <h3 className="font-medium text-[#f3cf1a] mb-3">Key Insights</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-[#2a2a2a] p-3 rounded-xl text-center transition-all duration-300 hover:border-[#f3cf1a]/30 border border-[#343535]">
+                <div className="bg-[#232323] p-3 rounded-xl text-center transition-all duration-300 hover:ring-[#f3cf1a]/20 ring-1 ring-white/5">
                   <p className="text-2xl font-bold text-[#f3cf1a]">67%</p>
                   <p className="text-sm text-[#a0a0a0]">Success Rate</p>
                 </div>
-                <div className="bg-[#2a2a2a] p-3 rounded-xl text-center transition-all duration-300 hover:border-[#f3cf1a]/30 border border-[#343535]">
+                <div className="bg-[#232323] p-3 rounded-xl text-center transition-all duration-300 hover:ring-[#f3cf1a]/20 ring-1 ring-white/5">
                   <p className="text-2xl font-bold text-[#f3cf1a]">2.4</p>
                   <p className="text-sm text-[#a0a0a0]">Avg. Rounds</p>
                 </div>
-                <div className="bg-[#2a2a2a] p-3 rounded-xl text-center transition-all duration-300 hover:border-[#f3cf1a]/30 border border-[#343535]">
+                <div className="bg-[#232323] p-3 rounded-xl text-center transition-all duration-300 hover:ring-[#f3cf1a]/20 ring-1 ring-white/5">
                   <p className="text-2xl font-bold text-[#f3cf1a]">18%</p>
                   <p className="text-sm text-[#a0a0a0]">Avg. Improvement</p>
                 </div>
@@ -576,8 +576,8 @@ const Negotiation = () => {
               key={tab.key}
               className={`px-4 py-2 rounded-xl font-medium transition-all duration-300 flex items-center ${
                 activeTab === tab.key 
-                  ? 'bg-[#222222] text-[#f3cf1a] border-2 border-[#f3cf1a] shadow-lg shadow-[#f3cf1a]/20' 
-                  : 'bg-[#1a1a1a] text-[#a0a0a0] border-2 border-[#343535] hover:text-[#f3cf1a] hover:border-[#f3cf1a]/30'
+                  ? 'bg-gradient-to-b from-[#1f1f1f] to-[#151515] text-[#f3cf1a] border-2 border-[#f3cf1a] shadow-lg shadow-[#f3cf1a]/20' 
+                  : 'bg-[#1a1a1a] text-[#a0a0a0] ring-2 ring-white/10 hover:text-[#f3cf1a] hover:ring-[#f3cf1a]/20'
               } transform hover:-translate-y-0.5`}
               onClick={() => { 
                 setActiveTab(tab.key); 
@@ -596,7 +596,7 @@ const Negotiation = () => {
         {renderTab()}
         
         {/* Footer */}
-        <div className="mt-12 pt-6 border-t border-[#343535] text-center text-[#a0a0a0] text-sm">
+        <div className="mt-12 pt-6 border-t border-white/5 text-center text-[#a0a0a0] text-sm">
           <p>AI-powered by Gemini • For professional guidance only</p>
         </div>
       </div>

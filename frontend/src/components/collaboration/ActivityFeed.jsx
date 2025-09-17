@@ -69,7 +69,7 @@ const ActivityFeed = ({ activities = [] }) => {
   };
 
   return (
-    <div className="bg-[#222222] rounded-2xl p-5 sm:p-6 border border-[#343535] shadow-lg">
+    <div className="bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-2xl p-5 sm:p-6 ring-1 ring-white/5 shadow-lg">
       <h3 className="text-xl sm:text-2xl font-semibold text-white mb-5 sm:mb-6 flex items-center">
         <svg className="w-5 h-5 mr-2 text-[#f3cf1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
@@ -82,7 +82,7 @@ const ActivityFeed = ({ activities = [] }) => {
           {activities.map((activity, index) => (
             <div 
               key={activity.id} 
-              className="flex items-start p-4 sm:p-5 rounded-xl bg-[#2a2a2a] border border-[#343535] hover:border-[#f3cf1a]/30 transition-all duration-300 group"
+              className="flex items-start p-4 sm:p-5 rounded-xl bg-[#2a2a2a] ring-1 ring-white/5 hover:ring-[#f3cf1a]/20 transition-all duration-300 group"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="mr-4 flex-shrink-0">
@@ -95,7 +95,7 @@ const ActivityFeed = ({ activities = [] }) => {
                       <span className="font-semibold text-[#f3cf1a]">{activity.user}</span> {activity.action}
                     </p>
                     {activity.details && (
-                      <p className="text-sm text-[#e0e0e0] mt-3 bg-[#343535] rounded-lg p-3 border border-[#343535] group-hover:border-[#f3cf1a]/20 transition-all duration-300">
+                      <p className="text-sm text-[#e0e0e0] mt-3 bg-[#343535] rounded-lg p-3 ring-1 ring-white/5 group-hover:ring-[#f3cf1a]/20 transition-all duration-300">
                         {activity.details}
                       </p>
                     )}
@@ -117,7 +117,7 @@ const ActivityFeed = ({ activities = [] }) => {
           ))}
         </div>
       ) : (
-        <div className="text-center py-12 bg-[#2a2a2a] rounded-xl border-2 border-dashed border-[#343535]">
+        <div className="text-center py-12 bg-[#2a2a2a] rounded-xl ring-1 ring-dashed ring-white/10">
           <div className="w-16 h-16 mx-auto mb-4 bg-[#343535] rounded-full flex items-center justify-center">
             <svg className="w-8 h-8 text-[#a0a0a0]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>

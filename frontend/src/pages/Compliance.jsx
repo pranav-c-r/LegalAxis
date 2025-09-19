@@ -271,6 +271,110 @@ ${text}
       <h1 className="text-4xl font-bold text-center text-[#f3cf1a] mb-8">
         Compliance Guardian
       </h1>
+      <div className="flex justify-center md:justify-end mt-8 mb-10">
+        <button
+          onClick={() => setModalOpen(true)}
+          className="px-6 py-3 bg-[#f3cf1a] text-black font-semibold rounded-lg hover:bg-yellow-400 transition-colors"
+        >
+          Scan New Contract
+        </button>
+      </div>
+
+      {loading && (
+        <div className="text-center text-blue-400 mt-4 mb-10 flex items-center justify-center">
+          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-400 mr-2"></div>
+          Analyzing document...
+        </div>
+      )}
+
+
+      <div className="grid md:grid-cols-2 gap-6 ">
+        {/* Alerts Card */}
+        <div className="bg-gray-900 rounded-2xl shadow-lg p-6">
+          <h2 className="text-xl font-semibold text-[#f3cf1a] mb-4">
+            Compliance Alerts
+            {selectedFile && (
+              <span className="text-sm text-gray-400 ml-2">({selectedFile.name})</span>
+            )}
+          </h2>
+          {!analysis ? (
+            <p className="text-gray-400">No document analyzed yet.</p>
+          ) : analysis.alerts.length === 0 ? (
+            <div className="text-center p-8">
+              <div className="text-6xl mb-4">✅</div>
+              <p className="text-green-400 font-semibold">No compliance issues found!</p>
+              <p className="text-gray-400 text-sm mt-2">This document appears to be compliant.</p>
+            </div>
+          ) : (
+            <div className="space-y-3 max-h-80 overflow-y-auto">
+              {analysis.alerts.map((alert, idx) => (
+                <div
+                  key={idx}
+                  className={`border rounded-lg p-4 bg-gray-800 ${
+                    alert.priority === "High"
+                      ? "border-red-500 bg-red-900/20"
+                      : "border-yellow-500 bg-yellow-900/20"
+                  }`}
+                >
+                  <div className="flex items-center mb-2">
+                    <span
+                      className={`inline-block w-3 h-3 rounded-full mr-2 ${
+                        alert.priority === "High" ? "bg-red-500" : "bg-yellow-500"
+                      }`}
+                    ></span>
+                    <span className="font-semibold text-white">{alert.priority} Priority</span>
+                  </div>
+                  <p className="mb-2">
+                    <span className="font-semibold text-white">Issue:</span>{" "}
+                    <span className="text-gray-200">{alert.issue}</span>
+                  </p>
+                  <p className="mb-2">
+                    <span className="font-semibold text-white">Location:</span>{" "}
+                    <span className="text-gray-200">{alert.location}</span>
+                  </p>
+                  <p>
+                    <span className="font-semibold text-green-400">Suggested Fix:</span>{" "}
+                    <span className="text-gray-200">{alert.suggestedFix}</span>
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Score Card */}
+        <div className="bg-gray-900 rounded-2xl shadow-lg p-6 mb-10 flex flex-col items-center text-center">
+          <h2 className="text-xl font-semibold text-[#f3cf1a] mb-6">Compliance Score</h2>
+          <div className="relative w-48 h-48 mb-4">
+            <svg className="absolute top-0 left-0 w-full h-full transform -rotate-90" viewBox="0 0 192 192">
+              <circle cx="96" cy="96" r={RADIUS} stroke="#1f2937" strokeWidth="16" fill="none" />
+              <circle
+                cx="96"
+                cy="96"
+                r={RADIUS}
+                stroke={
+                  score >= 80 ? "#10b981" : score >= 60 ? "#f59e0b" : "#ef4444"
+                }
+                strokeWidth="16"
+                fill="none"
+                strokeDasharray={circumference}
+                strokeDashoffset={progressOffset}
+                strokeLinecap="round"
+                className="transition-all duration-1000 ease-out"
+              />
+            </svg>
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <div className="text-4xl font-bold text-[#f3cf1a]">{analysis ? analysis.complianceScore : 0}%</div>
+              <div className="text-sm text-gray-400 mt-1">
+                {score >= 80 ? "Excellent" : score >= 60 ? "Good" : "Needs Work"}
+              </div>
+            </div>
+          </div>
+          {selectedFile && (
+            <p className="text-sm text-gray-400 text-center truncate max-w-full">{selectedFile.name}</p>
+          )}
+        </div>
+      </div>
 
       {/* Upload Modal */}
       {modalOpen && (
@@ -297,7 +401,7 @@ ${text}
 
       {/* File History Section */}
       {(loadingFiles || analyzedFiles.length > 0) && (
-        <div className="mb-6 bg-gray-900 rounded-2xl shadow-lg p-6">
+        <div className="mb-6 mt-6 bg-gray-900 rounded-2xl shadow-lg p-6">
           <h2 className="text-xl font-semibold text-[#f3cf1a] mb-4">
             Previously Analyzed Documents
           </h2>
@@ -379,93 +483,7 @@ ${text}
       </div>
 
       {/* Dashboard */}
-      <div className="grid md:grid-cols-2 gap-6">
-        {/* Alerts Card */}
-        <div className="bg-gray-900 rounded-2xl shadow-lg p-6">
-          <h2 className="text-xl font-semibold text-[#f3cf1a] mb-4">
-            Compliance Alerts
-            {selectedFile && (
-              <span className="text-sm text-gray-400 ml-2">({selectedFile.name})</span>
-            )}
-          </h2>
-          {!analysis ? (
-            <p className="text-gray-400">No document analyzed yet.</p>
-          ) : analysis.alerts.length === 0 ? (
-            <div className="text-center p-8">
-              <div className="text-6xl mb-4">✅</div>
-              <p className="text-green-400 font-semibold">No compliance issues found!</p>
-              <p className="text-gray-400 text-sm mt-2">This document appears to be compliant.</p>
-            </div>
-          ) : (
-            <div className="space-y-3 max-h-80 overflow-y-auto">
-              {analysis.alerts.map((alert, idx) => (
-                <div
-                  key={idx}
-                  className={`border rounded-lg p-4 bg-gray-800 ${
-                    alert.priority === "High"
-                      ? "border-red-500 bg-red-900/20"
-                      : "border-yellow-500 bg-yellow-900/20"
-                  }`}
-                >
-                  <div className="flex items-center mb-2">
-                    <span
-                      className={`inline-block w-3 h-3 rounded-full mr-2 ${
-                        alert.priority === "High" ? "bg-red-500" : "bg-yellow-500"
-                      }`}
-                    ></span>
-                    <span className="font-semibold text-white">{alert.priority} Priority</span>
-                  </div>
-                  <p className="mb-2">
-                    <span className="font-semibold text-white">Issue:</span>{" "}
-                    <span className="text-gray-200">{alert.issue}</span>
-                  </p>
-                  <p className="mb-2">
-                    <span className="font-semibold text-white">Location:</span>{" "}
-                    <span className="text-gray-200">{alert.location}</span>
-                  </p>
-                  <p>
-                    <span className="font-semibold text-green-400">Suggested Fix:</span>{" "}
-                    <span className="text-gray-200">{alert.suggestedFix}</span>
-                  </p>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Score Card */}
-        <div className="bg-gray-900 rounded-2xl shadow-lg p-6 flex flex-col items-center text-center">
-          <h2 className="text-xl font-semibold text-[#f3cf1a] mb-6">Compliance Score</h2>
-          <div className="relative w-48 h-48 mb-4">
-            <svg className="absolute top-0 left-0 w-full h-full transform -rotate-90" viewBox="0 0 192 192">
-              <circle cx="96" cy="96" r={RADIUS} stroke="#1f2937" strokeWidth="16" fill="none" />
-              <circle
-                cx="96"
-                cy="96"
-                r={RADIUS}
-                stroke={
-                  score >= 80 ? "#10b981" : score >= 60 ? "#f59e0b" : "#ef4444"
-                }
-                strokeWidth="16"
-                fill="none"
-                strokeDasharray={circumference}
-                strokeDashoffset={progressOffset}
-                strokeLinecap="round"
-                className="transition-all duration-1000 ease-out"
-              />
-            </svg>
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <div className="text-4xl font-bold text-[#f3cf1a]">{analysis ? analysis.complianceScore : 0}%</div>
-              <div className="text-sm text-gray-400 mt-1">
-                {score >= 80 ? "Excellent" : score >= 60 ? "Good" : "Needs Work"}
-              </div>
-            </div>
-          </div>
-          {selectedFile && (
-            <p className="text-sm text-gray-400 text-center truncate max-w-full">{selectedFile.name}</p>
-          )}
-        </div>
-      </div>
+      
 
       {/* Updates Card */}
       <div className="mt-6 bg-gray-900 rounded-2xl shadow-lg p-6">
@@ -509,21 +527,7 @@ ${text}
       </div>
 
       {/* Analyze Button */}
-      <div className="flex justify-center mt-8">
-        <button
-          onClick={() => setModalOpen(true)}
-          className="px-6 py-3 bg-[#f3cf1a] text-black font-semibold rounded-lg hover:bg-yellow-400 transition-colors"
-        >
-          Scan New Contract
-        </button>
-      </div>
-
-      {loading && (
-        <div className="text-center text-blue-400 mt-4 flex items-center justify-center">
-          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-400 mr-2"></div>
-          Analyzing document...
-        </div>
-      )}
+      
     </div>
   );
 }

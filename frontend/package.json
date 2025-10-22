@@ -13,7 +13,7 @@
     "@google/generative-ai": "^0.24.1",
     "bootstrap": "^5.3.8",
     "firebase": "^12.2.1",
-    "mammoth": "^1.10.0",
+    "mammoth": "^1.11.0",
     "pdfjs-dist": "^5.4.149",
     "prop-types": "^15.8.1",
     "react": "^19.1.1",

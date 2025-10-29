@@ -16,7 +16,7 @@
     "mammoth": "^1.10.0",
     "pdfjs-dist": "^5.4.149",
     "prop-types": "^15.8.1",
-    "react": "^19.1.1",
+    "react": "^19.2.0",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.1.1",
     "react-google-button": "^0.8.0",

@@ -245,7 +245,7 @@ Return ONLY the JSON array, no other text.`
               )}
             </button>
             <button 
-              className="px-6 py-3 bg-transparent border border-[#f3cf1a] text-[#f3cf1a] font-medium rounded-lg transition-all duration-300 hover:bg-[#f3cf1a] hover:text-[#1a1a1a] flex items-center justify-center"
+              className="px-6 py-3 bg-transparent border border-[#f3cf1a] text-[#f3cf1a] font-medium rounded-lg transition-all duration-300 hover:bg-[#f3cf1a] hover:text-[#ffffff] flex items-center justify-center"
               onClick={connectCalendar}
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

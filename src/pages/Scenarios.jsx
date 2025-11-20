@@ -84,9 +84,10 @@ const Scenarios = () => {
     setLoading(true);
     setAiResponse('');
     try {
-      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+      // In a real app, manage your API key securely.
+      const apiKey = import.meta.env.VITE_GEMINI_API_KEY; 
       if (!apiKey) {
-        throw new Error('API key not found');
+        throw new Error('API key not found. Please add VITE_GEMINI_API_KEY to your .env file.');
       }
       
       const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + apiKey, {
@@ -115,8 +116,9 @@ const Scenarios = () => {
       console.error('API call error:', e);
       setAiResponse('Error: ' + e.message);
       return null;
+    } finally {
+        setLoading(false);
     }
-    setLoading(false);
   };
 
   // Drag and drop handlers
@@ -177,6 +179,7 @@ const Scenarios = () => {
         }
       } catch (e) {
         console.error('Error parsing timeline:', e);
+        setAiResponse('Could not parse the timeline from the AI response. Please try again.');
       }
     }
     setLoading(false);
@@ -239,7 +242,7 @@ const Scenarios = () => {
                     Scenario Canvas
                   </h3>
                   {scenarioElements.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center h-64 text-gray-500">
+                    <div className="flex flex-col items-center justify-center h-64 text-gray-500 text-center px-4">
                       <svg className="w-16 h-16 mb-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                       </svg>
@@ -255,6 +258,7 @@ const Scenarios = () => {
                             <button 
                               className="text-red-400 hover:text-red-300 hover:bg-red-400/10 p-2 rounded-lg transition-all duration-300"
                               onClick={() => setScenarioElements(scenarioElements.filter((_, i) => i !== index))}
+                              aria-label="Remove element"
                             >
                               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -331,7 +335,7 @@ const Scenarios = () => {
                   <span className="text-2xl">💰</span> 
                   Financial Impact Calculator
                 </h2>
-                <p className="text-gray-400 mt-2">Calculate cost projections and risk-adjusted financial impacts for different scenarios</p>
+                <p className="text-gray-400 mt-2">Calculate cost projections and risk-adjusted financial impacts</p>
               </div>
             </div>
             
@@ -346,8 +350,9 @@ const Scenarios = () => {
                 
                 <div className="space-y-5">
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Initial Cost ($)</label>
+                    <label htmlFor="initialCost" className="block text-sm font-medium text-gray-300 mb-2">Initial Cost ($)</label>
                     <input
+                      id="initialCost"
                       type="number"
                       className="w-full p-4 rounded-xl bg-gradient-to-b from-[#1f1f1f] to-[#151515] ring-1 ring-white/5 shadow-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f3cf1a]/50 focus:border-[#f3cf1a]/50 transition-all duration-300"
                       value={financialInputs.initialCost}
@@ -357,8 +362,9 @@ const Scenarios = () => {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Monthly Cost ($)</label>
+                    <label htmlFor="monthlyCost" className="block text-sm font-medium text-gray-300 mb-2">Monthly Cost ($)</label>
                     <input
+                      id="monthlyCost"
                       type="number"
                       className="w-full p-4 rounded-xl bg-gradient-to-b from-[#1f1f1f] to-[#151515] ring-1 ring-white/5 shadow-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f3cf1a]/50 focus:border-[#f3cf1a]/50 transition-all duration-300"
                       value={financialInputs.monthlyCost}
@@ -368,8 +374,9 @@ const Scenarios = () => {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Duration (months)</label>
+                    <label htmlFor="duration" className="block text-sm font-medium text-gray-300 mb-2">Duration (months)</label>
                     <input
+                      id="duration"
                       type="number"
                       className="w-full p-4 rounded-xl bg-gradient-to-b from-[#1f1f1f] to-[#151515] ring-1 ring-white/5 shadow-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f3cf1a]/50 focus:border-[#f3cf1a]/50 transition-all duration-300"
                       value={financialInputs.duration}
@@ -379,8 +386,9 @@ const Scenarios = () => {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Risk Factor (%)</label>
+                    <label htmlFor="riskFactor" className="block text-sm font-medium text-gray-300 mb-2">Risk Factor (%)</label>
                     <input
+                      id="riskFactor"
                       type="number"
                       className="w-full p-4 rounded-xl bg-gradient-to-b from-[#1f1f1f] to-[#151515] ring-1 ring-white/5 shadow-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f3cf1a]/50 focus:border-[#f3cf1a]/50 transition-all duration-300"
                       value={financialInputs.riskFactor}
@@ -444,7 +452,7 @@ const Scenarios = () => {
                       <div className="w-full bg-[#343535] rounded-full h-3">
                         <div 
                           className="bg-gradient-to-r from-[#f3cf1a] to-yellow-500 h-3 rounded-full transition-all duration-500" 
-                          style={{width: `${Math.min(100, financialResult.riskPercentage)}%`}}
+                          style={{width: `${Math.min(100, parseFloat(financialResult.riskPercentage))}%`}}
                         ></div>
                       </div>
                       <div className="flex justify-between text-xs text-gray-500 mt-2">
@@ -462,14 +470,14 @@ const Scenarios = () => {
                       </h4>
                       <p className="text-gray-300 text-sm leading-relaxed">
                         Additional cost due to risk factors: <span className="text-[#f3cf1a] font-semibold">
-                          ${(parseFloat(financialResult.riskAdjustedCost) - parseFloat(financialResult.totalCost)).toLocaleString()}
+                          ${(parseFloat(financialResult.riskAdjustedCost) - parseFloat(financialResult.totalCost)).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                         </span>
                         {' '}({((parseFloat(financialResult.riskAdjustedCost) - parseFloat(financialResult.totalCost)) / parseFloat(financialResult.totalCost) * 100).toFixed(1)}% increase)
                       </p>
                     </div>
                   </div>
                 ) : (
-                  <div className="flex flex-col items-center justify-center h-64 text-gray-500">
+                  <div className="flex flex-col items-center justify-center h-64 text-gray-500 text-center px-4">
                     <svg className="w-16 h-16 mb-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                     </svg>
@@ -491,7 +499,7 @@ const Scenarios = () => {
                   <span className="text-2xl">🧑‍🤝‍🧑</span> 
                   Multi-Party Role Playing
                 </h2>
-                <p className="text-gray-400 mt-2">Simulate perspectives of all stakeholders in contract scenarios</p>
+                <p className="text-gray-400 mt-2">Simulate stakeholder perspectives in contract scenarios</p>
               </div>
             </div>
             
@@ -607,21 +615,21 @@ const Scenarios = () => {
                   <span className="text-2xl">⚖️</span> 
                   Dispute Resolution Pathways
                 </h2>
-                <p className="text-gray-400 mt-2">Map potential legal remedies and escalation strategies for different dispute types</p>
+                <p className="text-gray-400 mt-2">Map potential legal remedies and escalation strategies</p>
               </div>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
               <button 
-                className={`p-6 rounded-xl border transition-all duration-300 ${
+                className={`p-6 rounded-xl border-2 transition-all duration-300 text-center ${
                   disputeType === 'contractual' 
                     ? 'bg-[#f3cf1a] text-[#010101] border-[#f3cf1a] shadow-lg shadow-[#f3cf1a]/20' 
-                    : 'bg-[#1a1a1a] text-gray-300 ring-white/10 hover:ring-[#f3cf1a]/20 hover:bg-[#f3cf1a]/5'
+                    : 'bg-[#1a1a1a] text-gray-300 border-transparent ring-1 ring-white/10 hover:ring-[#f3cf1a]/20 hover:bg-[#f3cf1a]/5'
                 }`}
                 onClick={() => setDisputeType('contractual')}
               >
                 <div className="flex items-center justify-center mb-3">
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                   </svg>
                 </div>
@@ -630,15 +638,15 @@ const Scenarios = () => {
               </button>
               
               <button 
-                className={`p-6 rounded-xl border transition-all duration-300 ${
+                className={`p-6 rounded-xl border-2 transition-all duration-300 text-center ${
                   disputeType === 'payment' 
                     ? 'bg-[#f3cf1a] text-[#010101] border-[#f3cf1a] shadow-lg shadow-[#f3cf1a]/20' 
-                    : 'bg-[#1a1a1a] text-gray-300 ring-white/10 hover:ring-[#f3cf1a]/20 hover:bg-[#f3cf1a]/5'
+                    : 'bg-[#1a1a1a] text-gray-300 border-transparent ring-1 ring-white/10 hover:ring-[#f3cf1a]/20 hover:bg-[#f3cf1a]/5'
                 }`}
                 onClick={() => setDisputeType('payment')}
               >
                 <div className="flex items-center justify-center mb-3">
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
                   </svg>
                 </div>
@@ -647,15 +655,15 @@ const Scenarios = () => {
               </button>
               
               <button 
-                className={`p-6 rounded-xl border transition-all duration-300 ${
+                className={`p-6 rounded-xl border-2 transition-all duration-300 text-center ${
                   disputeType === 'performance' 
                     ? 'bg-[#f3cf1a] text-[#010101] border-[#f3cf1a] shadow-lg shadow-[#f3cf1a]/20' 
-                    : 'bg-[#1a1a1a] text-gray-300 ring-white/10 hover:ring-[#f3cf1a]/20 hover:bg-[#f3cf1a]/5'
+                    : 'bg-[#1a1a1a] text-gray-300 border-transparent ring-1 ring-white/10 hover:ring-[#f3cf1a]/20 hover:bg-[#f3cf1a]/5'
                 }`}
                 onClick={() => setDisputeType('performance')}
               >
                 <div className="flex items-center justify-center mb-3">
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                   </svg>
                 </div>
@@ -728,7 +736,7 @@ const Scenarios = () => {
                   <span className="text-2xl">📅</span> 
                   Timeline Visualization
                 </h2>
-                <p className="text-gray-400 mt-2">Visualize how scenarios unfold over time with interactive timeline mapping</p>
+                <p className="text-gray-400 mt-2">Visualize how scenarios unfold over time</p>
               </div>
             </div>
             
@@ -813,17 +821,17 @@ const Scenarios = () => {
                       </h4>
                       <p className="text-gray-300 text-sm leading-relaxed">
                         The scenario spans <span className="text-[#f3cf1a] font-semibold">{Math.max(...timelineData.map(item => item.day))} days</span> with{' '}
-                        <span className="text-[#f3cf1a] font-semibold">{timelineData.length} key events</span> mapped out for comprehensive planning.
+                        <span className="text-[#f3cf1a] font-semibold">{timelineData.length} key events</span> mapped out.
                       </p>
                     </div>
                   </div>
                 ) : (
-                  <div className="flex flex-col items-center justify-center h-48 text-gray-500">
+                  <div className="flex flex-col items-center justify-center h-48 text-gray-500 text-center px-4">
                     <svg className="w-16 h-16 mb-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                     </svg>
                     <p className="text-lg font-medium">Timeline Ready</p>
-                    <p className="text-sm mt-1">Enter a scenario to generate timeline</p>
+                    <p className="text-sm mt-1">Enter a scenario to generate a timeline</p>
                   </div>
                 )}
               </div>
@@ -838,7 +846,6 @@ const Scenarios = () => {
                   Interactive Timeline Visualization
                 </h3>
                 <div className="relative">
-                  {/* Timeline visualization */}
                   <div className="border-l-2 border-[#f3cf1a]/30 pl-8 ml-4 py-4 space-y-6">
                     {timelineData.map((item, index) => (
                       <div key={index} className="relative group">
@@ -846,9 +853,9 @@ const Scenarios = () => {
                           <span className="text-[#010101] text-sm font-bold">{item.day}</span>
                         </div>
                         <div className="bg-gradient-to-b from-[#1f1f1f] to-[#151515] p-5 rounded-xl ring-1 ring-white/5 shadow-sm hover:ring-[#f3cf1a]/20 hover:shadow-lg hover:shadow-[#f3cf1a]/10 transition-all duration-300">
-                          <div className="flex items-center justify-between mb-2">
+                          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
                             <h4 className="font-semibold text-[#f3cf1a] text-lg">Day {item.day}</h4>
-                            <div className="flex items-center gap-2 text-xs text-gray-400">
+                            <div className="flex items-center gap-2 text-xs text-gray-400 mt-1 sm:mt-0">
                               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                               </svg>
@@ -872,8 +879,8 @@ const Scenarios = () => {
                 <svg className="w-16 h-16 mx-auto mb-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                 </svg>
-                <p className="text-gray-400 text-lg font-medium mb-2">Enter a scenario to generate a timeline visualization</p>
-                <p className="text-gray-500 text-sm">AI will create a detailed timeline with key events and milestones</p>
+                <p className="text-gray-400 text-lg font-medium mb-2">Enter a scenario to generate a timeline</p>
+                <p className="text-gray-500 text-sm">AI will create a detailed timeline with key milestones</p>
               </div>
             )}
             
@@ -902,7 +909,7 @@ const Scenarios = () => {
                   <span className="text-2xl">📊</span> 
                   Probability-Weighted Outcomes
                 </h2>
-                <p className="text-gray-400 mt-2">Estimate statistical likelihood of different scenarios with advanced probability analysis</p>
+                <p className="text-gray-400 mt-2">Estimate the likelihood of different scenarios</p>
               </div>
             </div>
             
@@ -917,14 +924,14 @@ const Scenarios = () => {
                 <textarea
                   className="w-full p-4 rounded-xl bg-gradient-to-b from-[#1f1f1f] to-[#151515] ring-1 ring-white/5 shadow-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f3cf1a]/50 focus:border-[#f3cf1a]/50 transition-all duration-300 resize-none"
                   rows={6}
-                  placeholder="Describe the scenario for probability analysis. Include possible outcomes and any known factors that might influence probabilities..."
+                  placeholder="Describe the scenario for probability analysis..."
                   value={inputScenario}
                   onChange={e => setInputScenario(e.target.value)}
                 />
                 
                 <button
                   className="mt-4 w-full bg-[#f3cf1a] hover:bg-[#f3cf1a]/90 text-[#010101] px-6 py-4 rounded-xl font-bold transition-all duration-300 hover:shadow-lg hover:shadow-[#f3cf1a]/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                  onClick={() => callGemini(`Estimate probability-weighted outcomes for this scenario: ${inputScenario}. Provide a statistical analysis of likely outcomes with percentages and confidence intervals.`)}
+                  onClick={() => callGemini(`Estimate probability-weighted outcomes for this scenario: ${inputScenario}. Provide a statistical analysis of likely outcomes with percentages.`)}
                   disabled={!inputScenario || loading}
                 >
                   {loading ? (
@@ -965,7 +972,7 @@ const Scenarios = () => {
                     <div className="bg-gradient-to-r from-[#f3cf1a]/10 to-[#f3cf1a]/5 p-4 rounded-xl border border-[#f3cf1a]/20">
                       <h4 className="font-semibold text-[#f3cf1a] mb-3 flex items-center">
                         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
                         </svg>
                         Risk Assessment
                       </h4>
@@ -978,7 +985,7 @@ const Scenarios = () => {
                     </div>
                   </div>
                 ) : (
-                  <div className="flex flex-col items-center justify-center h-48 text-gray-500">
+                  <div className="flex flex-col items-center justify-center h-48 text-gray-500 text-center px-4">
                     <svg className="w-16 h-16 mb-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                     </svg>
@@ -1001,7 +1008,7 @@ const Scenarios = () => {
               <div className="flex flex-col sm:flex-row gap-4">
                 <button
                   className="flex-1 bg-gradient-to-r from-[#f3cf1a]/20 to-[#f3cf1a]/10 hover:from-[#f3cf1a]/30 hover:to-[#f3cf1a]/20 text-[#f3cf1a] px-6 py-3 rounded-xl font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                  onClick={() => callGemini(`Create a Monte Carlo simulation plan for this scenario: ${inputScenario}. Outline the variables, distributions, and number of iterations needed.`)}
+                  onClick={() => callGemini(`Create a Monte Carlo simulation plan for this scenario: ${inputScenario}. Outline the variables, distributions, and number of iterations.`)}
                   disabled={!inputScenario || loading}
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1037,15 +1044,12 @@ const Scenarios = () => {
           <div className="absolute -top-4 -left-4 w-24 h-24 bg-[#f3cf1a]/10 rounded-full blur-xl"></div>
           <div className="absolute -bottom-4 -right-4 w-16 h-16 bg-[#f3cf1a]/5 rounded-full blur-lg"></div>
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 relative">
-            <div className="flex items-center">
-              
-              <div>
-                <h1 className="text-3xl sm:text-4xl font-bold text-white relative leading-tight">
-                  Scenario Simulation Agent
-                  <div className="w-20 h-1 bg-[#f3cf1a] mt-3 rounded-full"></div>
-                </h1>
-                <p className="text-gray-400 mt-3 text-base sm:text-lg">AI-powered scenario modeling for contract negotiations and risk analysis</p>
-              </div>
+            <div>
+              <h1 className="text-3xl sm:text-4xl font-bold text-white relative leading-tight">
+                Scenario Simulation Agent
+                <div className="w-20 h-1 bg-[#f3cf1a] mt-3 rounded-full"></div>
+              </h1>
+              <p className="text-gray-400 mt-3 text-base sm:text-lg">AI-powered scenario modeling for contract analysis</p>
             </div>
             <div className="flex items-center gap-3">
               <div className="text-right hidden sm:block">
@@ -1060,24 +1064,26 @@ const Scenarios = () => {
               </button>
             </div>
           </div>
-        </div>        {/* Enhanced Tabs with Animation */}
-        <div className="flex flex-wrap gap-3 mb-8 p-2 bg-[#1a1a1a] rounded-2xl ring-1 ring-white/5 shadow-xl">
+        </div>
+        
+        {/* Enhanced Tabs with Animation */}
+        {/* This container scrolls on mobile and wraps on larger screens to prevent breaking the layout */}
+        <div className="flex overflow-x-auto sm:flex-wrap gap-3 mb-8 p-2 bg-[#1a1a1a] rounded-2xl ring-1 ring-white/5 shadow-xl">
           {TABS.map(tab => (
             <button
               key={tab.key}
               className={`
                 px-4 sm:px-6 py-3 sm:py-4 rounded-xl font-semibold transition-all duration-500 ease-out
-                flex items-center gap-3 flex-1 sm:flex-none justify-center group relative overflow-hidden
+                flex items-center gap-3 flex-shrink-0 justify-center group relative overflow-hidden
                 ${activeTab === tab.key 
-                  ? 'bg-[#f3cf1a] text-[#010101] shadow-lg shadow-[#f3cf1a]/25 scale-105 transform' 
-                  : 'bg-transparent text-gray-400 hover:text-white hover:bg-gradient-to-b from-[#1f1f1f] to-[#151515] hover:border-[#f3cf1a]/20 hover:scale-102'
+                  ? 'bg-[#f3cf1a] text-[#010101] shadow-lg shadow-[#f3cf1a]/25' 
+                  : 'bg-transparent text-gray-400 hover:text-white hover:bg-gradient-to-b from-[#1f1f1f] to-[#151515] hover:border-[#f3cf1a]/20'
                 }
               `}
               onClick={() => { 
                 setActiveTab(tab.key); 
                 setAiResponse(''); 
                 setInputScenario('');
-                // Smooth scroll to top with animation
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
             >
@@ -1147,7 +1153,7 @@ const Scenarios = () => {
             <div className="flex items-center gap-6 text-sm text-gray-500">
               <span className="flex items-center gap-1">
                 <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                Simulation results are estimates only
+                Simulation results are estimates
               </span>
               <span className="hidden sm:block">•</span>
               <span className="flex items-center gap-1">

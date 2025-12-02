@@ -10,9 +10,8 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
-import app from "../firebase/firebase"; // Import your existing Firebase app
+import app from "../firebase/firebase";
 
-// Initialize Firestore using your existing Firebase app
 const db = getFirestore(app);
 
 export default function ComplianceGuardian() {
@@ -25,16 +24,25 @@ export default function ComplianceGuardian() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [loadingFiles, setLoadingFiles] = useState(true);
 
-  // constants for progress circle
   const RADIUS = 80;
   const circumference = 2 * Math.PI * RADIUS;
 
-  // ✅ Load files from Firebase on component mount
+  // Initialize PDF.js worker from CDN
   useEffect(() => {
+    if (typeof window !== "undefined" && !window.pdfjsLib) {
+      const script = document.createElement("script");
+      script.src = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+      script.async = true;
+      script.onload = () => {
+        if (window.pdfjsLib) {
+          window.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+        }
+      };
+      document.head.appendChild(script);
+    }
     loadFilesFromFirebase();
   }, []);
 
-  // ✅ Load files from Firebase
   async function loadFilesFromFirebase() {
     setLoadingFiles(true);
     try {
@@ -55,7 +63,6 @@ export default function ComplianceGuardian() {
     }
   }
 
-  // ✅ Save file to Firebase
   async function saveFileToFirebase(fileData) {
     try {
       const docRef = await addDoc(collection(db, "analyzedFiles"), {
@@ -71,7 +78,6 @@ export default function ComplianceGuardian() {
     }
   }
 
-  // ✅ Delete file from Firebase
   async function deleteFileFromFirebase(fileId) {
     try {
       await deleteDoc(doc(db, "analyzedFiles", fileId));
@@ -82,14 +88,50 @@ export default function ComplianceGuardian() {
     }
   }
 
-  // ✅ Robust Compliance Analysis Function with retries
+  // Extract text from PDF
+  async function extractTextFromPDF(arrayBuffer) {
+    try {
+      const pdfjsLib = window.pdfjsLib;
+      if (!pdfjsLib) {
+        throw new Error("PDF.js library not loaded");
+      }
+
+      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      let fullText = "";
+
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const textContent = await page.getTextContent();
+        const pageText = textContent.items.map((item) => item.str).join(" ");
+        fullText += pageText + "\n";
+      }
+
+      return fullText;
+    } catch (err) {
+      console.error("Error extracting PDF text:", err);
+      throw err;
+    }
+  }
+
+  // Extract text from DOCX
+  async function extractTextFromDOCX(arrayBuffer) {
+    try {
+      const mammoth = await import("mammoth");
+      const result = await mammoth.extractRawText({ arrayBuffer });
+      return result.value;
+    } catch (err) {
+      console.error("Error extracting DOCX text:", err);
+      throw err;
+    }
+  }
+
   async function analyzeCompliance(text) {
     const maxRetries = 3;
     let attempt = 0;
 
     while (attempt < maxRetries) {
       try {
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
         const result = await model.generateContent({
           contents: [
@@ -109,7 +151,7 @@ Instructions:
   "complianceScore": <number 0-100>, 
   "alerts": [
     {
-      "priority": "High" | "Low", 
+      "priority": "High" | "Medium" | "Low", 
       "issue": "Description of the compliance problem, legal risk, or missing/ambiguous clause",
       "location": "Specific section, clause, or page where the issue occurs",
       "suggestedFix": "Clear, legally sound recommendation to resolve the issue"
@@ -118,29 +160,40 @@ Instructions:
 }
 3. Evaluate the document strictly from a legal perspective.
 4. Assign 'High' priority to any issue that could lead to legal liability, fines, regulatory penalties, or contractual disputes.
-5. Assign 'Low' priority to minor issues, wording inconsistencies, or recommendations that improve clarity but are not legally critical.
-6. If no issues are found, return an empty alerts array and a complianceScore of 100.
+5. Assign 'Medium' priority to issues that are significant but not immediately critical (e.g., may cause operational or reputational risk).
+6. Assign 'Low' priority to minor issues, wording inconsistencies, or recommendations that improve clarity but are not legally critical.
+7. If no issues are found, return an empty alerts array and a complianceScore of 100.
 
-Document:
-${text}
-`,
-                },
+Document:\n${text}
+
+`                },
               ],
             },
           ],
           generationConfig: { responseMimeType: "application/json" },
         });
 
-        // Parse and validate the response
         let parsed;
         try {
-          // Some SDKs provide `result.response.text()`; if not adapt accordingly.
-          // We guard this in a try/catch so component won't crash on unexpected shapes.
           const raw = result?.response ? await result.response.text() : JSON.stringify(result);
           parsed = JSON.parse(raw);
         } catch (parseErr) {
           console.error("Failed to parse model output. Returning default:", parseErr);
           return { complianceScore: 0, alerts: [] };
+        }
+
+        // Recalculate complianceScore based on alert priorities
+        if (Array.isArray(parsed.alerts)) {
+          let high = 0, medium = 0, low = 0;
+          parsed.alerts.forEach(a => {
+            if (a.priority === "High") high++;
+            else if (a.priority === "Medium") medium++;
+            else if (a.priority === "Low") low++;
+          });
+          const penaltyPerIssue = 5; // You can adjust this value
+          let deduction = high * 3 + medium * 2 + low * 1;
+          let score = Math.max(0, 100 - deduction * penaltyPerIssue);
+          parsed.complianceScore = score;
         }
 
         if (typeof parsed.complianceScore !== "number" || !Array.isArray(parsed.alerts)) {
@@ -150,7 +203,6 @@ ${text}
 
         return parsed;
       } catch (err) {
-        // Retry on 503 transient errors
         if (err && err.message && err.message.includes("503") && attempt < maxRetries - 1) {
           console.warn(`Retrying due to 503 error... attempt ${attempt + 1}`);
           await new Promise((r) => setTimeout(r, 2000 * (attempt + 1)));
@@ -161,11 +213,9 @@ ${text}
         }
       }
     }
-    // Fallback if loop finishes without returning
     return { complianceScore: 0, alerts: [] };
   }
 
-  // ✅ Handle File Upload
   async function handleFileUpload(e) {
     const file = e.target.files[0];
     if (!file) return;
@@ -174,46 +224,59 @@ ${text}
     setLoading(true);
 
     try {
-      // Attempt to extract textual content. This works for .txt and many simple text files.
-      // For PDFs and DOCX you should add a proper parser (pdfjs, mammoth, etc.) server-side or client-side.
       let text = "";
+      const fileType = file.type;
+
       try {
-        text = await file.text();
+        // Try PDF extraction if it's a PDF
+        if (fileType === "application/pdf" || file.name.endsWith(".pdf")) {
+          const buffer = await file.arrayBuffer();
+          text = await extractTextFromPDF(buffer);
+        }
+        // Try DOCX extraction if it's a DOCX
+        else if (
+          fileType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
+          file.name.endsWith(".docx")
+        ) {
+          const buffer = await file.arrayBuffer();
+          text = await extractTextFromDOCX(buffer);
+        }
+        // Fall back to text extraction for TXT files
+        else {
+          text = await file.text();
+        }
       } catch (readErr) {
-        console.warn("file.text() failed — attempting ArrayBuffer fallback", readErr);
+        console.warn("Primary extraction method failed, attempting ArrayBuffer fallback", readErr);
         try {
           const buffer = await file.arrayBuffer();
-          // best-effort conversion; may be gibberish for binary formats
           const decoder = new TextDecoder("utf-8");
           text = decoder.decode(buffer);
         } catch (bufErr) {
           console.error("Failed to extract text from file:", bufErr);
-          text = ""; // continue with empty text so analysis returns something predictable
+          text = "";
         }
+      }
+
+      if (!text.trim()) {
+        throw new Error("No text could be extracted from the file");
       }
 
       const result = await analyzeCompliance(text);
 
-      // Create file object with analysis
       const fileData = {
         name: file.name,
         analysis: result,
         text: text,
       };
 
-      // Save to Firebase
       const firebaseId = await saveFileToFirebase(fileData);
 
       if (firebaseId) {
-        // Add Firebase ID and reload files
         fileData.id = firebaseId;
         await loadFilesFromFirebase();
-
-        // Set as current analysis
         setAnalysis(result);
         setSelectedFile(fileData);
       } else {
-        // Fallback to local storage if Firebase fails
         const localFileData = {
           ...fileData,
           id: Date.now(),
@@ -227,19 +290,18 @@ ${text}
       console.log("Extracted text (truncated):", text.slice(0, 500));
     } catch (err) {
       console.error("Error analyzing file:", err);
+      alert(`Error: ${err.message}`);
       setAnalysis({ complianceScore: 0, alerts: [] });
     } finally {
       setLoading(false);
     }
   }
 
-  // ✅ Handle clicking on a previously analyzed file
   function handleFileClick(fileData) {
     setAnalysis(fileData.analysis);
     setSelectedFile(fileData);
   }
 
-  // ✅ Delete a file from history
   async function deleteFile(fileId) {
     const success = await deleteFileFromFirebase(fileId);
     if (success) {
@@ -251,7 +313,6 @@ ${text}
     }
   }
 
-  // ✅ Format date for display
   function formatDate(date) {
     if (!date) return "";
     if (date && typeof date.toDate === "function") {
@@ -287,9 +348,7 @@ ${text}
         </div>
       )}
 
-
       <div className="grid md:grid-cols-2 gap-6 ">
-        {/* Alerts Card */}
         <div className="bg-gray-900 rounded-2xl shadow-lg p-6">
           <h2 className="text-xl font-semibold text-[#f3cf1a] mb-4">
             Compliance Alerts
@@ -342,7 +401,6 @@ ${text}
           )}
         </div>
 
-        {/* Score Card */}
         <div className="bg-gray-900 rounded-2xl shadow-lg p-6 mb-10 flex flex-col items-center text-center">
           <h2 className="text-xl font-semibold text-[#f3cf1a] mb-6">Compliance Score</h2>
           <div className="relative w-48 h-48 mb-4">
@@ -376,7 +434,6 @@ ${text}
         </div>
       </div>
 
-      {/* Upload Modal */}
       {modalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
           <div className="bg-gray-900 p-6 rounded-xl shadow-xl w-96">
@@ -399,7 +456,6 @@ ${text}
         </div>
       )}
 
-      {/* File History Section */}
       {(loadingFiles || analyzedFiles.length > 0) && (
         <div className="mb-6 mt-6 bg-gray-900 rounded-2xl shadow-lg p-6">
           <h2 className="text-xl font-semibold text-[#f3cf1a] mb-4">
@@ -456,36 +512,6 @@ ${text}
         </div>
       )}
 
-      {/* Dashboard */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 sm:gap-8">
-        <div className="xl:col-span-2">
-          <div className="bg-gradient-to-b from-[#1f1f1f] to-[#151515] rounded-2xl p-5 sm:p-6 ring-1 ring-white/5 shadow-lg">
-            <h2 className="text-xl sm:text-2xl font-semibold mb-5 sm:mb-6 text-white flex items-center">
-              <svg className="w-5 h-5 mr-2 text-[#f3cf1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-              </svg>
-              Compliance Alerts
-            </h2>
-            <div className="space-y-4 sm:space-y-5">
-              {[1, 2, 3].map((item) => (
-                <div key={item} className="p-4 sm:p-5 rounded-xl bg-[#232323] ring-1 ring-white/5 hover:ring-[#f3cf1a]/30 transition-all duration-300 group">
-                  <div className="flex flex-col sm:flex-row sm:justify-between gap-2 sm:gap-4">
-                    <h3 className="font-medium text-white text-base sm:text-lg group-hover:text-[#f3cf1a] transition-colors duration-300">GDPR Non-Compliance Risk</h3>
-                    <span className="text-xs sm:text-sm px-3 py-1 rounded-full bg-red-500/20 text-red-300 self-start">
-                      High Priority
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Dashboard */}
-      
-
-      {/* Updates Card */}
       <div className="mt-6 bg-gray-900 rounded-2xl shadow-lg p-6">
         <h2 className="text-xl font-semibold text-[#f3cf1a] mb-4">Legal & Regulatory Updates</h2>
         <ul className="space-y-3 text-gray-300">
@@ -525,9 +551,6 @@ ${text}
           </p>
         </div>
       </div>
-
-      {/* Analyze Button */}
-      
     </div>
   );
 }

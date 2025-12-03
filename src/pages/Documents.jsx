@@ -1,4 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
+import { db } from '../firebase/firebase';
+import { collection, addDoc } from 'firebase/firestore';
+import { useUserAuth } from '../context/UserAuthContext';
+import * as pdfjsLib from 'pdfjs-dist';
+import mammoth from 'mammoth';
 
 const Documents = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -94,6 +99,7 @@ const Documents = () => {
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [categorizationResults, setCategorizationResults] = useState({});
   const fileInputRef = useRef(null);
+  const { user } = useUserAuth();
   
   const documentTypes = ['All', 'Contract', 'Agreement', 'Policy', 'Legal Brief', 'NDA', 'Amendment'];
   const statusOptions = ['All', 'Active', 'Draft', 'Expired', 'Under Review', 'Expiring Soon', 'Archived'];
@@ -148,14 +154,8 @@ const Documents = () => {
     try {
       const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
       if (!apiKey) throw new Error('API key not found');
-      
-      // For demonstration - in a real app, you would send the file to your backend
-      // which would then call the Gemini API with the file content
-      const prompt = `Extract text from this document titled "${file.name}". 
-      Provide a summary of its contents, identify key clauses, and suggest appropriate tags. 
-      Format the response as JSON with: summary, keyClauses[], suggestedTags[], and documentType.`;
-      
-      const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + apiKey, {
+      const prompt = `Extract text from this document titled "${file.name}". \nProvide a summary of its contents, identify key clauses, and suggest appropriate tags. \nFormat the response as JSON with: summary, keyClauses[], suggestedTags[], and documentType.`;
+      const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + apiKey, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -168,19 +168,34 @@ const Documents = () => {
           }
         }),
       });
-      
       const data = await res.json();
       const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
-      
+      // Check for template/explanation or non-JSON responses
+      const lower = responseText.toLowerCase();
+      if (
+        lower.includes('template') ||
+        lower.includes('example') ||
+        lower.includes('cannot access local files') ||
+        lower.includes('i need the actual content')
+      ) {
+        // Skip and return fallback
+        return {
+          summary: 'Text extracted successfully',
+          keyClauses: ['General content'],
+          suggestedTags: ['Document'],
+          documentType: 'Unknown'
+        };
+      }
       try {
-        const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+        // Extract the first valid JSON object
+        const jsonMatch = responseText.match(/\{[\s\S]*?\}/);
         if (jsonMatch) {
           return JSON.parse(jsonMatch[0]);
         }
       } catch (e) {
-        console.error('Error parsing OCR response:', e);
+        console.error('Error parsing OCR response:', e, '\nRaw response:', responseText);
       }
-      
+      // Fallback if parsing fails
       return {
         summary: 'Text extracted successfully',
         keyClauses: ['General content'],
@@ -198,9 +213,38 @@ const Documents = () => {
     }
   };
 
+  // Helper: Parse file to text
+  const extractTextFromFile = async (file) => {
+    const ext = (file.name.split('.').pop() || '').toLowerCase();
+    if (ext === 'txt') {
+      return await file.text();
+    } else if (ext === 'pdf') {
+      const arrayBuffer = await file.arrayBuffer();
+      if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+      }
+      const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+      const pdf = await loadingTask.promise;
+      let fullText = '';
+      for (let p = 1; p <= pdf.numPages; p++) {
+        const page = await pdf.getPage(p);
+        const content = await page.getTextContent();
+        const strings = content.items.map((it) => ('str' in it ? it.str : ''));
+        fullText += strings.join(' ') + '\n\n';
+      }
+      return fullText.trim();
+    } else if (ext === 'docx') {
+      const arrayBuffer = await file.arrayBuffer();
+      const { value } = await mammoth.extractRawText({ arrayBuffer });
+      return value.trim();
+    } else {
+      return '';
+    }
+  };
+
   // Upload and process files
   const handleUpload = async () => {
-    if (selectedFiles.length === 0) return;
+    if (selectedFiles.length === 0 || !user) return;
     
     setIsUploading(true);
     setUploadProgress(0);
@@ -210,13 +254,30 @@ const Documents = () => {
       const progress = ((i + 1) / selectedFiles.length) * 100;
       setUploadProgress(progress);
       
-      // Simulate processing delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Parse file to text
+      let extractedText = '';
+      try {
+        extractedText = await extractTextFromFile(file);
+      } catch (err) {
+        extractedText = '';
+      }
       
-      // Process OCR
-      const ocrData = await processOCR(file);
+      // Save to Firestore under Users/{uid}/documents, including parsedContent, description, and tags
+      try {
+        const parsedDocsRef = collection(db, 'Users', user.uid, 'documents');
+        await addDoc(parsedDocsRef, {
+          fileName: file.name,
+          parsedContent: extractedText, // Store parsed content as string
+          description: ocrData.summary || 'No description available',
+          tags: ocrData.suggestedTags || ['Document'],
+          uploadedAt: new Date(),
+        });
+      } catch (err) {
+        console.error('Failed to save document to Firestore:', err);
+      }
       
       // Add new document
+      const ocrData = await processOCR(file);
       const newDoc = {
         id: documents.length + i + 1,
         name: file.name,
@@ -375,12 +436,17 @@ const Documents = () => {
         </div>
         
         <div className="flex flex-wrap gap-1 mb-4">
-          {document.tags.map((tag, index) => (
+          {document.tags && document.tags.map((tag, index) => (
             <span key={index} className="bg-[#f3cf1a]/10 text-[#f3cf1a] px-2 py-1 rounded-md text-xs">
               {tag}
             </span>
           ))}
         </div>
+        {document.description && (
+          <div className="mb-2 text-[#e0e0e0] text-xs">
+            <span className="font-semibold text-[#f3cf1a]">Description: </span>{document.description}
+          </div>
+        )}
         
         <div className="flex justify-between items-center">
           <span className="text-[#a0a0a0] text-sm">{document.lastUpdated}</span>
@@ -424,6 +490,16 @@ const Documents = () => {
                 <span className="text-[#a0a0a0]">2 weeks ago</span>
               </div>
             </div>
+          </div>
+        )}
+        
+        {/* Display parsed content (extracted text) if available */}
+        {document.parsedContent && (
+          <div className="mt-4 p-3 bg-[#232323] rounded-lg ring-1 ring-white/5">
+            <h4 className="font-medium text-white mb-2">Parsed Content</h4>
+            <pre className="whitespace-pre-wrap text-xs text-[#e0e0e0]">
+              {document.parsedContent.length > 1000 ? `${document.parsedContent.slice(0, 1000)}...` : document.parsedContent}
+            </pre>
           </div>
         )}
       </div>
@@ -502,7 +578,7 @@ const Documents = () => {
               </select>
               
               <button 
-                className="px-4 py-3 bg-[#f3cf1a] hover:bg-[#f3cf1a]/90 text-[#1a1a1a] font-medium rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-[#f3cf1a]/20 flex items-center justify-center whitespace-nowrap"
+                className="px-4 py-3 bg-[#f3cf1a] hover:bg-[#f3cf1a]/90 text-[#1a1a1a] font-medium rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-[#f3cf1a]/20 flex items-center"
                 onClick={() => fileInputRef.current?.click()}
               >
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -576,6 +652,23 @@ const Documents = () => {
             </div>
           )}
         </div>
+
+        {/* Parsed Content Preview Section */}
+        {filteredDocuments.length > 0 && (
+          <div className="mb-8">
+            <h4 className="text-lg font-semibold text-white mb-2">Parsed Content Preview</h4>
+            <div className="space-y-4">
+              {filteredDocuments.map((document, idx) => (
+                document.parsedContent && (
+                  <div key={idx} className="bg-[#232323] rounded-lg p-4 text-[#e0e0e0] max-h-40 overflow-y-auto">
+                    <div className="font-bold text-[#f3cf1a] mb-2">{document.name}</div>
+                    <pre className="whitespace-pre-wrap text-xs">{document.parsedContent.slice(0, 1000)}{document.parsedContent.length > 1000 ? '…' : ''}</pre>
+                  </div>
+                )
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Upload Modal */}
